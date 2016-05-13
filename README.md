@@ -1,6 +1,14 @@
 # universal-setup
 I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
 
+## NodeJS
+
+Managed via [NVM](https://github.com/creationix/nvm).
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
+```
+
 ## Sublime Text 3
 
 ### Standard Configuration
