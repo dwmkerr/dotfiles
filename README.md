@@ -41,6 +41,10 @@ Sublime Text > Preferences > General > User
 
 ```
 
+## iTerm2
+
+- [Splits in current working directory](https://coderwall.com/p/9xo7aq/open-up-iterm2-splits-in-current-working-directory)
+
 ## Project Setup
 
 ### NodeJS
