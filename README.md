@@ -40,3 +40,11 @@ Sublime Text > Preferences > General > User
 }
 
 ```
+
+## Project Setup
+
+### NodeJS
+
+- Superagent: for HTTP requests
+- Supertest: for testing HTTP requests
+- Supertest As Promised: adds promises to Supertest
