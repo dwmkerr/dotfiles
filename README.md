@@ -1,6 +1,21 @@
 # universal-setup
 I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
 
+## Terminal
+
+- TMux
+- Vundle
+
+
+```bash
+# Install TMux
+brew install tmux
+# sudo apt-get install tmux
+
+# Install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
 ## NodeJS
 
 Managed via [NVM](https://github.com/creationix/nvm).
