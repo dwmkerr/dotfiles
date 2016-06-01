@@ -16,6 +16,11 @@ brew install tmux
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
+## Vim
+
+1. Clone the `.vimrc`
+2. Install Golang binaries: `GoInstallBinaries`.
+
 ## NodeJS
 
 Managed via [NVM](https://github.com/creationix/nvm).
