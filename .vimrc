@@ -12,6 +12,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
 Plugin 'mhartington/oceanic-next'      " Beautiful colours, indicates editor setup.
+Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
+Plugin 'helino/vim-json'     " As above.
+Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -37,8 +40,13 @@ set background=dark
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
 
-" Treat json just as javascript.
-autocmd BufNewFile,BufRead *.json set ft=javascript
+" Ignore some common files for ctrlp
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
-" Language specific options`
-autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+" Language Settings
+
+" All languages - no autocommenting on newlines
+au FileType * set fo-=c fo-=r fo-=o
+
+" Language specific indentation.
+au FileType javascript setl sw=2 sts=2 et
