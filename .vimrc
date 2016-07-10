@@ -11,10 +11,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'mhartington/oceanic-next'      " Beautiful colours, indicates editor setup.
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
+Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -44,8 +45,8 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|sv
 
 " Language Settings
 
-" All languages - no autocommenting on newlines
-au FileType * set fo-=c fo-=r fo-=o
+" All languages - no autocommenting on newlines, 4 spaces soft tabs + expand
+au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
 " Language specific indentation.
 au FileType javascript setl sw=2 sts=2 et
