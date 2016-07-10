@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'mhartington/oceanic-next'      " Beautiful colours, indicates editor setup.
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
@@ -33,9 +33,8 @@ set hlsearch            " highlight matches
 
 " Theme settings (requires oceanic, installed earlier by Vundle)
 syntax enable
-set t_Co=256
-colorscheme OceanicNext
 set background=dark
+colorscheme solarized
 
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
@@ -50,3 +49,4 @@ au FileType * set fo-=c fo-=r fo-=o
 
 " Language specific indentation.
 au FileType javascript setl sw=2 sts=2 et
+au FileType yaml setl sw=2 sts=2 et
