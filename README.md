@@ -10,6 +10,8 @@ You can tell if the terminal has been set up, or at least partially set up if th
 
 
 ```bash
+# Install Vim for Mac.
+brew install macvim --override-system-vim
 # Install TMux
 brew install tmux
 # sudo apt-get install tmux
