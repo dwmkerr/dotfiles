@@ -3,6 +3,8 @@ I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's t
 
 ## Terminal
 
+You can tell if the terminal has been set up, or at least partially set up if the [solarized](http://ethanschoonover.com/solarized) theme is used. Some good [instructions on setting up a Terminal, tmux and vim for solarized](http://www.terminally-incoherent.com/blog/2012/10/17/vim-solarized-and-tmux/) are available.
+
 - TMux
 - Vundle
 
