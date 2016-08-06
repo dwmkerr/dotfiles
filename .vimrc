@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'mhartington/oceanic-next'      " Beautiful colours, indicates editor setup.
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
@@ -28,6 +28,7 @@ set expandtab       " tabs are spaces
 set number              " show line numbers
 set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
+set colorcolumn=80      " highlight column 80
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
@@ -36,6 +37,8 @@ set hlsearch            " highlight matches
 syntax enable
 set background=dark
 colorscheme solarized
+set t_Co=256                        " force vim to use 256 colors
+let g:solarized_termcolors=256      " use solarized 256 fallback
 
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
@@ -50,4 +53,6 @@ au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
 " Language specific indentation.
 au FileType javascript setl sw=2 sts=2 et
+au FileType json  setl sw=2 sts=2 et
 au FileType yaml setl sw=2 sts=2 et
+au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
