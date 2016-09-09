@@ -16,6 +16,9 @@ Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
+Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
+Plugin 'scrooloose/syntastic'         " Linting.
+" Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -33,18 +36,43 @@ set colorcolumn=80      " highlight column 80
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
 
-" Theme settings (requires oceanic, installed earlier by Vundle)
-syntax enable
+" More natural (to me) splitting.
+set splitbelow
+set splitright
+
+" Theme settings
+syntax on
+"let g:solarized_termtrans=1
+"let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-set t_Co=256                        " force vim to use 256 colors
-let g:solarized_termcolors=256      " use solarized 256 fallback
+
+" Enable the mouse.
+set mouse=a
+
+" Use the system clipboard.
+set clipboard=unnamed
+
+" Enable saving backups (swapfiles) and store vim backups in a temp dir
+" rather than the local dir.
+set swapfile
+set dir=~/tmp
 
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
 
 " Ignore some common files for ctrlp
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+
+" Plugin: Syntastic Settings
+let g:syntastic_javascript_checkers = ['eslint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Language Settings
 

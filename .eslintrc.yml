@@ -1,0 +1,25 @@
+env:
+  browser: true
+  commonjs: true
+  node: true
+  es6: true
+extends: 'eslint:recommended'
+installedESLint: true
+parserOptions:
+  ecmaVersion: 6
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+    jsx: true
+rules:
+  indent:
+    - error
+    - 2
+  linebreak-style:
+    - error
+    - unix
+#  quotes:
+#    - error
+#    - double
+  semi:
+    - error
+    - always
