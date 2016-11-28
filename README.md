@@ -8,12 +8,13 @@ Config: No permenently docked items. Small dock bar. Tap to click.
 
 1. [Google Chrome](https://chrome.com)
 2. [1Password](https://agilebits.com/downloads)
-3. App Store: xCode
+3. [Parallels](http://www.parallels.com/products/desktop/download/)
+3. App Store: xCode, Slack, Evernote
 4. HomeBrew `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 `
 5. Key tools: `brew install npm git`
 6. [Docker](https://docs.docker.com/docker-for-mac/)
-X. Dropbox, Box, Office
+X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/)
 
 
 ## Terminal
