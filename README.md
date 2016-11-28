@@ -12,7 +12,7 @@ Config: No permenently docked items. Small dock bar. Tap to click.
 4. HomeBrew `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 `
 5. Key tools: `brew install npm git`
-
+6. [Docker](https://docs.docker.com/docker-for-mac/)
 X. Dropbox, Box, Office
 
 
