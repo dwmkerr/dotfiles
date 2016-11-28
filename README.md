@@ -1,5 +1,20 @@
 # dotfiles
+
 I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
+
+## Clean Mac
+
+Config: No permenently docked items. Small dock bar. Tap to click.
+
+1. [Google Chrome](https://chrome.com)
+2. [1Password](https://agilebits.com/downloads)
+3. App Store: xCode
+4. HomeBrew `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+`
+5. Key tools: `brew install npm git`
+
+X. Dropbox, Box, Office
+
 
 ## Terminal
 
