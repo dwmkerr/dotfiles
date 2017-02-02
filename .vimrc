@@ -74,6 +74,14 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Plugin: NerdTree settings
+
+" Toggle NerdTree with Ctrl+N
+map <C-n> :NERDTreeToggle<CR>
+
+" Open NerdTree automatically on startup.
+autocmd vimenter * NERDTree
+
 " Language Settings
 
 " All languages - no autocommenting on newlines, 4 spaces soft tabs + expand
