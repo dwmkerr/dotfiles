@@ -51,6 +51,12 @@ Managed via [NVM](https://github.com/creationix/nvm).
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
 ```
 
+## Atom
+
+- language-javascript-jsx
+- linter
+- linter-eslint
+
 ## Sublime Text 3
 
 ### Standard Configuration
