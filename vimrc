@@ -17,8 +17,9 @@ Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
-Plugin 'scrooloose/syntastic'         " Linting.
-" Plugin 'vim-airline/vim-airline'    " A useful statusbar.
+Plugin 'scrooloose/syntastic' " Syntax checking lah
+Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better support for eslint.
+Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -35,6 +36,9 @@ set colorcolumn=80      " highlight column 80
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
+
+" Make backspace work in a sane fashion.
+set backspace=indent,eol,start
 
 " More natural (to me) splitting.
 set splitbelow
@@ -66,9 +70,9 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|sv
 
 " Plugin: Syntastic Settings
 let g:syntastic_javascript_checkers = ['eslint']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
@@ -80,7 +84,14 @@ let g:syntastic_check_on_wq = 0
 map <C-n> :NERDTreeToggle<CR>
 
 " Open NerdTree automatically on startup.
-autocmd vimenter * NERDTree
+" Also focus the *previous* window, i.e. the main window!
+autocmd vimenter * NERDTree | wincmd p
+
+" Plugin: Airline Settings
+
+" Show the buffers in the tabline.
+let g:airline#extensions#tabline#enabled = 1
+
 
 " Language Settings
 
