@@ -60,8 +60,9 @@ syntax on
 set background=dark
 colorscheme solarized
 
-" Enable the mouse.
+" Enable the mouse. Also enable when in tmux.
 set mouse=a
+set ttymouse=xterm2
 
 " Use the system clipboard.
 set clipboard=unnamed
