@@ -41,9 +41,17 @@ set hlsearch            " highlight matches
 " Make backspace work in a sane fashion.
 set backspace=indent,eol,start
 
-" More natural (to me) splitting.
-set splitbelow
-set splitright
+" Pane configuration.
+
+    " Move panes with ctrl+direction
+    nnoremap <C-J> <C-W><C-J>
+    nnoremap <C-K> <C-W><C-K>
+    nnoremap <C-L> <C-W><C-L>
+    nnoremap <C-H> <C-W><C-H>
+
+    " More natural (to me) splitting.
+    set splitbelow
+    set splitright
 
 " Theme settings
 syntax on
