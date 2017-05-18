@@ -76,8 +76,13 @@ set dir=~/tmp
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
 
-" Ignore some common files for ctrlp
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+" Plugin: ctrlp configuration.
+
+    " Ignore some common files for ctrlp
+    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+
+    " Now that we have common files ignored, enable searching dotfiles.
+    let g:ctrlp_show_hidden = 1
 
 " Plugin: Syntastic Settings
 let g:syntastic_javascript_checkers = ['eslint']
