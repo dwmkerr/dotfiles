@@ -21,6 +21,7 @@ Plugin 'scrooloose/syntastic' " Syntax checking lah
 Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better support for eslint.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
+Plugin 'tpope/vim-surround'  " Surround motions.
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
