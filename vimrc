@@ -9,9 +9,12 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Plugins for colour schemes.
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'joshdick/onedark.vim'
+
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
@@ -59,7 +62,8 @@ syntax on
 "let g:solarized_termtrans=1
 "let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized
+" colorscheme solarized
+colorscheme onedark
 
 " Enable the mouse. Also enable when in tmux.
 set mouse=a
@@ -102,6 +106,12 @@ map <C-n> :NERDTreeToggle<CR>
 " Open NerdTree automatically on startup.
 " Also focus the *previous* window, i.e. the main window!
 autocmd vimenter * NERDTree | wincmd p
+
+" Show hidden files.
+let NERDTreeShowHidden=1
+
+" But still ignore some normally not needed files.
+let NERDTreeIgnore = ['/.git$[[dir]]', '/node_modules$[[dir]]']
 
 " Plugin: Airline Settings
 
