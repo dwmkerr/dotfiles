@@ -25,6 +25,7 @@ Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better supp
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
+Plugin 'mileszs/ack.vim'     " Ack support.
 
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -111,7 +112,7 @@ autocmd vimenter * NERDTree | wincmd p
 let NERDTreeShowHidden=1
 
 " But still ignore some normally not needed files.
-let NERDTreeIgnore = ['/.git$[[dir]]', '/node_modules$[[dir]]']
+let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
 
 " Plugin: Airline Settings
 
