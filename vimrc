@@ -129,4 +129,11 @@ au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 au FileType javascript setl sw=2 sts=2 et
 au FileType json  setl sw=2 sts=2 et
 au FileType yaml setl sw=2 sts=2 et
+au FileType terraform setl sw=2 sts=2 et
 au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+
+" Custom Commands
+
+" Refresh nerdtree and ctrlp.
+nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
+
