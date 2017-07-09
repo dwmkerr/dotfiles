@@ -17,6 +17,7 @@ Plugin 'joshdick/onedark.vim'
 Plugin 'fatih/vim-go'        " Brutal Golang features
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
+Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
@@ -25,6 +26,7 @@ Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better supp
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
+Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
 
 " all of your Plugins must be added before the following line
@@ -106,7 +108,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 " Open NerdTree automatically on startup.
 " Also focus the *previous* window, i.e. the main window!
-autocmd vimenter * NERDTree | wincmd p
+" autocmd vimenter * NERDTree | wincmd p
 
 " Show hidden files.
 let NERDTreeShowHidden=1
