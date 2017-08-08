@@ -29,6 +29,12 @@ Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
 
+" Support focus events, even when running in tmux.
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+
+" Lots of mappings such as [<Space> ]<Space>.
+Plugin 'tpope/vim-unimpaired'
+
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
