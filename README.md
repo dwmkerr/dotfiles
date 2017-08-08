@@ -2,6 +2,16 @@
 
 I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
 
+## Cheat Sheet - TMux
+
+- Ctrl+B / Ctrl+S - Save Tmux Session
+- Ctrl+B / Ctrl+R - Restore Tmux Session
+
+## Cheat Sheet - Vim
+
+- [<Space> - blank line above
+- ]<Space> - blank line below
+
 ## Clean Mac
 
 Config: No permenently docked items. Small dock bar. Tap to click.
