@@ -6,6 +6,8 @@ I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's t
 
 - Ctrl+B / Ctrl+S - Save Tmux Session
 - Ctrl+B / Ctrl+R - Restore Tmux Session
+- Ctrl+h/j/k/l - Navigate splits (vim aware)
+- Ctrl+/ - Last split
 
 ## Cheat Sheet - Vim
 

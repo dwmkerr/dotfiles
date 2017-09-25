@@ -28,6 +28,10 @@ Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
+Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
+
+" Plugins for languages
+Plugin 'jparise/vim-graphql' " GraphQL
 
 " Support focus events, even when running in tmux.
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -145,3 +149,22 @@ au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use
 " Refresh nerdtree and ctrlp.
 nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
 
+" Ctrl+c exits in the same way as Esc (including sending InsertLeave)
+:imap jj <Esc>
+:ino <C-c> <Esc>
+
+" Line number stuff.
+set number
+set relativenumber
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+:au FocusLost * :set norelativenumber
+:au FocusGained * :set relativenumber
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeavE * :set relativenumber
+nnoremap <Leader>n :call NumberToggle()<cr>
