@@ -54,6 +54,11 @@ brew install tmux
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
 
+# Keyboard Productivity
+
+1. Vimium Chrome Extension
+2. Karabiner keyboard modifier, with fn+hjkl mapped to the arrow keys.
+
 ## Vim
 
 1. Clone the `.vimrc`

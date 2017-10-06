@@ -1,5 +1,7 @@
 # Creates symbolic links.
 link:
-	ln -s `pwd`/vimrc ~/.vimrc
-	ln -s `pwd`/tmux.conf ~/.tmux.conf
-	ln -s `pwd`/environment.sh ~/.environment.sh
+	ln -sf `pwd`/vimrc ~/.vimrc
+	ln -sf `pwd`/tmux/tmux.conf ~/.tmux.conf
+	ln -sf `pwd`/environment.sh ~/.environment.sh
+	ln -sf `pwd`/ackrc ~/.ackrc
+	ln -sf `pwd`/zsh/zshrc ~/.zshrc
