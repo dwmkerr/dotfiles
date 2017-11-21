@@ -5,3 +5,4 @@ link:
 	ln -sf `pwd`/environment.sh ~/.environment.sh
 	ln -sf `pwd`/ackrc ~/.ackrc
 	ln -sf `pwd`/zsh/zshrc ~/.zshrc
+	ln -sf `pwd`/aliases.sh ~/.aliases.sh
