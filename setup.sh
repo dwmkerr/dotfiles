@@ -47,3 +47,8 @@ then
     brew install tmux
     ln -s .tmux.conf ~/.tmux.conf
 fi
+
+
+# Re-attach to user namespace is needed to get the system clipboard setup.
+brew install reattach-to-user-namespace
+
