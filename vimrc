@@ -29,7 +29,6 @@ Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
 Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
-
 " Plugins for languages
 Plugin 'jparise/vim-graphql' " GraphQL
 
@@ -42,6 +41,7 @@ Plugin 'tpope/vim-unimpaired'
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+filetype plugin on
 
 " --- Simple Vim config.
 set tabstop=4       " number of visual spaces per TAB
@@ -58,13 +58,13 @@ set hlsearch            " highlight matches
 " Make backspace work in a sane fashion.
 set backspace=indent,eol,start
 
-" Pane configuration.
+" Break bad habits - no arrow keys!
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
-    " Move panes with ctrl+direction
-    nnoremap <C-J> <C-W><C-J>
-    nnoremap <C-K> <C-W><C-K>
-    nnoremap <C-L> <C-W><C-L>
-    nnoremap <C-H> <C-W><C-H>
+" Pane configuration.
 
     " More natural (to me) splitting.
     set splitbelow
@@ -120,7 +120,7 @@ map <C-n> :NERDTreeToggle<CR>
 " Also focus the *previous* window, i.e. the main window!
 " autocmd vimenter * NERDTree | wincmd p
 
-" Show hidden files.
+" Show or hide hidden files.
 let NERDTreeShowHidden=1
 
 " But still ignore some normally not needed files.
