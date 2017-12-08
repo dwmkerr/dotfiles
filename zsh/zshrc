@@ -1,8 +1,5 @@
-# Import environment variables.
-source ~/.environment.sh
-
-# Import aliases.
-source ~/.aliases.sh
+# Bring in the master profile file.
+source ~/.profile
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
