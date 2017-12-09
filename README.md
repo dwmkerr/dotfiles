@@ -13,8 +13,12 @@ I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's t
 
 ## Cheat Sheet - Vim
 
-- [<Space> - blank line above
-- ]<Space> - blank line below
+- `[<Space>` - blank line above
+- `]<Space>` - blank line below
+- `<leader>r` - Open current file in NERDTree.
+- `<leader>w` - Write buffer.
+- `<leader>\` - Open buffer in new tab.
+
 
 ## Clean Mac
 
