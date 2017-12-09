@@ -171,3 +171,22 @@ endfunc
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeavE * :set relativenumber
 nnoremap <Leader>n :call NumberToggle()<cr>
+
+" Map leader s to save.
+nnoremap <leader>s :w<cr>
+inoremap <leader>s <C-c>:w<cr>
+
+" NERD Commenter plugin.
+Plugin 'scrooloose/nerdcommenter'
+
+" Add a space after each comment delimiter.
+let g:NERDSpaceDelims = 1
+
+noremap <leader><leader> :tabnew %<cr>
+
+" When in insert mode, highlight the current line.
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul
+
+" Leader a to quickly get ready to ack.
+:noremap <Leader>a :Ack 
