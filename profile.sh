@@ -5,6 +5,7 @@ source ~/.environment.sh
 
 # Import everything from the .profile folder.
 source ~/.profile/aliases.sh
+source ~/.profile/git.sh
 source ~/.profile/openshift.sh
 
 # If we have a .private folder, source everything in it. This is useful for
