@@ -4,21 +4,25 @@ source ./tools/ask.sh
 ask "This script will attempt to setup your machine, continue?" Y || exit 0
 
 # If HomeBrew is not installed, install it.
-which -s brew
-if [[ $? != 0 ]] ; then
-    if ask "HomeBrew is not installed. Install it?" Y; then
-        echo "Installing HomeBrew..."
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    fi    
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "MacOS: Checking for brew..."
+    which -s brew
+    if [[ $? != 0 ]] ; then
+        if ask "HomeBrew is not installed. Install it?" Y; then
+            echo "Installing HomeBrew..."
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        fi    
+    else
+        echo "HomeBrew is installed, updating..."
+        brew update
+    fi
 else
-    echo "HomeBrew is installed, updating..."
-    brew update
+    echo "Linux: Skipping brew setup..."
 fi
-
-# TODO: ugh, still lots to do
 
 # If NVM is not installed, install it.
 command -v nvm
+echo "Checking for NVM..."
 if [[ $? != 0 ]] ; then
     if ask "NVM is not installed. Install it?" Y; then
         echo "Installing NVM..."
