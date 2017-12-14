@@ -12,6 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugins for colour schemes.
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'joshdick/onedark.vim'
+Plugin 'rakr/vim-one'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
@@ -29,6 +30,8 @@ Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
 Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
+Plugin 'rizzatti/dash.vim'   " Dash support.
+
 " Plugins for languages
 Plugin 'jparise/vim-graphql' " GraphQL
 
@@ -77,6 +80,7 @@ syntax on
 set background=dark
 " colorscheme solarized
 colorscheme onedark
+" colorscheme one
 
 " Enable the mouse. Also enable when in tmux.
 set mouse=a
@@ -190,3 +194,6 @@ noremap <leader><leader> :tabnew %<cr>
 
 " Leader a to quickly get ready to ack.
 :noremap <Leader>a :Ack 
+
+" Leader d to open in Dash.
+:nmap <silent> <leader>d <Plug>DashSearch
