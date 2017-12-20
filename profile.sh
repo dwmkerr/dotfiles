@@ -4,9 +4,10 @@
 source ~/.environment.sh
 
 # Import everything from the .profile folder.
-source ~/.profile/aliases.sh
-source ~/.profile/git.sh
-source ~/.profile/openshift.sh
+for file in ~/.profile/*; do
+    [ -e "$file" ] || continue
+    source $file
+done
 
 # If we have a .private folder, source everything in it. This is useful for
 # automatically loading things like project specific secrets.
@@ -16,3 +17,8 @@ if [[ -d ~/.private ]]; then
         source $private
     done
 fi
+
+# Add support to the terminal for colours.
+#   See: https://github.com/nathanbuchar/atom-one-dark-terminal
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
