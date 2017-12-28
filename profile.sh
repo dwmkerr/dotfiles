@@ -18,7 +18,15 @@ if [[ -d ~/.private ]]; then
     done
 fi
 
+# If kubectl is installed, enable auto completion.
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+
 # Add support to the terminal for colours.
 #   See: https://github.com/nathanbuchar/atom-one-dark-terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# For any programs which need an editor, we use vim.
+export EDITOR=vim
