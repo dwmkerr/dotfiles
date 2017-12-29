@@ -19,7 +19,7 @@ if [[ -d ~/.private ]]; then
 fi
 
 # If kubectl is installed, enable auto completion.
-if [ $commands[kubectl] ]; then
+if [ -x "$(command -v kubectl)" ]; then
   source <(kubectl completion zsh)
 fi
 
