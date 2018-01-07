@@ -16,14 +16,14 @@ Plugin 'rakr/vim-one'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
+Plugin 'mxw/vim-jsx'         " JSX support.
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
 Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
-Plugin 'scrooloose/syntastic' " Syntax checking lah
-Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better support for eslint.
+Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
@@ -73,6 +73,24 @@ noremap <Right> <NOP>
     set splitbelow
     set splitright
 
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+
 " Theme settings
 syntax on
 "let g:solarized_termtrans=1
@@ -105,33 +123,23 @@ set wildmenu
     " Now that we have common files ignored, enable searching dotfiles.
     let g:ctrlp_show_hidden = 1
 
-" Plugin: Syntastic Settings
-let g:syntastic_javascript_checkers = ['eslint']
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " Plugin: NerdTree settings
 
-" Toggle NerdTree with Ctrl+N
-map <C-n> :NERDTreeToggle<CR>
+    " Toggle NerdTree with Ctrl+N
+    map <C-n> :NERDTreeToggle<CR>
 
-" Open NerdTree automatically on startup.
-" Also focus the *previous* window, i.e. the main window!
-" autocmd vimenter * NERDTree | wincmd p
+    " Open NerdTree automatically on startup.
+    " Also focus the *previous* window, i.e. the main window!
+    " autocmd vimenter * NERDTree | wincmd p
 
-" Show or hide hidden files.
-let NERDTreeShowHidden=1
+    " Show or hide hidden files.
+    let NERDTreeShowHidden=1
 
-" But still ignore some normally not needed files.
-let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
+    " But still ignore some normally not needed files.
+    let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
 
-" Show the current file in NERDTree.
-map <leader>t :NERDTreeFind<cr>
+    " Show the current file in NERDTree.
+    map <leader>t :NERDTreeFind<cr>
 
 " Plugin: Airline Settings
 
@@ -146,10 +154,16 @@ au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
 " Language specific indentation.
 au FileType javascript setl sw=2 sts=2 et
+au FileType javascript.jsx setl sw=2 sts=2 et
 au FileType json  setl sw=2 sts=2 et
 au FileType yaml setl sw=2 sts=2 et
 au FileType terraform setl sw=2 sts=2 et
 au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+
+" JavaScript Language Settings
+
+    " Support JSX syntax highlighting in *.js, not just *.jsx.
+    let g:jsx_ext_required = 0
 
 " Custom Commands
 
@@ -192,8 +206,13 @@ noremap <leader><leader> :tabnew %<cr>
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 
-" Leader a to quickly get ready to ack.
-:noremap <Leader>a :Ack 
+" Ack Plugin Configuration
+
+    " Use ag, rather than ack (sorry, I need my .gitignore to be used...).
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+
+    " Leader a to quickly get ready to ack.
+    :noremap <Leader>a :Ack 
 
 " Leader d to open in Dash.
 :nmap <silent> <leader>d <Plug>DashSearch
