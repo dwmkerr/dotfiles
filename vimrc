@@ -23,8 +23,7 @@ Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
-Plugin 'scrooloose/syntastic' " Syntax checking lah
-Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better support for eslint.
+Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
@@ -123,16 +122,6 @@ set wildmenu
 
     " Now that we have common files ignored, enable searching dotfiles.
     let g:ctrlp_show_hidden = 1
-
-" Plugin: Syntastic Settings
-let g:syntastic_javascript_checkers = ['eslint']
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " Plugin: NerdTree settings
 
