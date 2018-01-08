@@ -18,10 +18,13 @@ if [[ -d ~/.private ]]; then
     done
 fi
 
+# Bit of an issue with this - if we are in zsh we need zsh auto-completion, but
+# we're using a bash shebang...
+
 # If kubectl is installed, enable auto completion.
-if [ -x "$(command -v kubectl)" ]; then
-  source <(kubectl completion zsh)
-fi
+# if [ -x "$(command -v kubectl)" ]; then
+  # source <(kubectl completion zsh)
+# fi
 
 # Add support to the terminal for colours.
 #   See: https://github.com/nathanbuchar/atom-one-dark-terminal
