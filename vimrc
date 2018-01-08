@@ -22,8 +22,7 @@ Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
-Plugin 'mtscout6/syntastic-local-eslint.vim'         " Linting, with better support for eslint.
-" Plugin 'scrooloose/syntastic' " Syntax checking lah
+Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
 Plugin 'tpope/vim-surround'  " Surround motions.
