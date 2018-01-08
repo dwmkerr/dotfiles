@@ -105,34 +105,23 @@ set wildmenu
     " Now that we have common files ignored, enable searching dotfiles.
     let g:ctrlp_show_hidden = 1
 
-" Plugin: Syntastic Settings
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 0
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " Plugin: NerdTree settings
 
-" Toggle NerdTree with Ctrl+N
-map <C-n> :NERDTreeToggle<CR>
+    " Toggle NerdTree with Ctrl+N
+    map <C-n> :NERDTreeToggle<CR>
 
-" Open NerdTree automatically on startup.
-" Also focus the *previous* window, i.e. the main window!
-" autocmd vimenter * NERDTree | wincmd p
+    " Open NerdTree automatically on startup.
+    " Also focus the *previous* window, i.e. the main window!
+    " autocmd vimenter * NERDTree | wincmd p
 
-" Show or hide hidden files.
-let NERDTreeShowHidden=1
+    " Show or hide hidden files.
+    let NERDTreeShowHidden=1
 
-" But still ignore some normally not needed files.
-let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
+    " But still ignore some normally not needed files.
+    let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
 
-" Show the current file in NERDTree.
-map <leader>t :NERDTreeFind<cr>
+    " Show the current file in NERDTree.
+    map <leader>t :NERDTreeFind<cr>
 
 " Plugin: Airline Settings
 
