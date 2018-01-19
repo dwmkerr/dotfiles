@@ -166,6 +166,17 @@ au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use
     " Support JSX syntax highlighting in *.js, not just *.jsx.
     let g:jsx_ext_required = 0
 
+" Ruby Language Settings
+
+    " 'Fastlane' file types are ruby files.
+    au BufNewFile,BufRead Appfile set ft=ruby
+    au BufNewFile,BufRead Deliverfile set ft=ruby
+    au BufNewFile,BufRead Fastfile set ft=ruby
+    au BufNewFile,BufRead Gymfile set ft=ruby
+    au BufNewFile,BufRead Matchfile set ft=ruby
+    au BufNewFile,BufRead Snapfile set ft=ruby
+    au BufNewFile,BufRead Scanfile set ft=ruby
+
 " Custom Commands
 
 " Refresh nerdtree and ctrlp.
