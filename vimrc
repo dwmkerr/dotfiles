@@ -16,12 +16,8 @@ Plugin 'rakr/vim-one'
 
 " Install Plugins
 Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'mxw/vim-jsx'         " JSX support.
-Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
-Plugin 'helino/vim-json'     " As above.
 Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
-Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
@@ -34,6 +30,11 @@ Plugin 'rizzatti/dash.vim'   " Dash support.
 
 " Plugins for languages
 Plugin 'jparise/vim-graphql' " GraphQL
+Plugin 'PProvost/vim-ps1'    " PowerShell
+Plugin 'mxw/vim-jsx'         " JSX support.
+Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
+Plugin 'helino/vim-json'     " As above.
+Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 
 " Support focus events, even when running in tmux.
 Plugin 'tmux-plugins/vim-tmux-focus-events'
