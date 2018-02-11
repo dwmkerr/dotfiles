@@ -42,6 +42,9 @@ Plugin 'tmux-plugins/vim-tmux-focus-events'
 " Lots of mappings such as [<Space> ]<Space>.
 Plugin 'tpope/vim-unimpaired'
 
+" Nice splitting / joining.
+Plugin 'AndrewRadev/splitjoin.vim'
+
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -209,6 +212,11 @@ inoremap <leader>s <C-c>:w<cr>
 
 " NERD Commenter plugin.
 Plugin 'scrooloose/nerdcommenter'
+
+" Splitjoin Plugin
+" Remember it like this: 's' for 'split', j splits down, k up.
+nmap sj :SplitjoinSplit<cr>
+nmap sk :SplitjoinJoin<cr>
 
 " Add a space after each comment delimiter.
 let g:NERDSpaceDelims = 1
