@@ -15,10 +15,12 @@ I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's t
 
 - `[<Space>` - blank line above
 - `]<Space>` - blank line below
+- `sj` - Splitjoin down (i.e. split a line downwards).
+- `sk` - Splitjoin up (i.e. join a line upwards).
 - `<leader>r` - Open current file in NERDTree.
 - `<leader>w` - Write buffer.
 - `<leader>\` - Open buffer in new tab.
-- `<leader>d` - Open word under cursor in Dash
+- `<leader>d` - Open word under cursor in Dash.
 - `<leader>t` - Show current buffer in NERDTree.
 
 
