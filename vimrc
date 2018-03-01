@@ -237,3 +237,10 @@ noremap <leader><leader> :tabnew %<cr>
 
 " Leader d to open in Dash.
 :nmap <silent> <leader>d <Plug>DashSearch
+
+" Use persistent undo.
+if !isdirectory($HOME."/.vim/undo")
+    call mkdir($HOME."/.vim/undo", "", 0700)
+endif
+set undodir=~/.vim/undo
+set undofile
