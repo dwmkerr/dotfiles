@@ -45,6 +45,12 @@ Plugin 'tpope/vim-unimpaired'
 " Nice splitting / joining.
 Plugin 'AndrewRadev/splitjoin.vim'
 
+" Highlight the yanked text briefly.
+Plugin 'machakann/vim-highlightedyank'
+
+" NERD Commenter plugin.
+Plugin 'scrooloose/nerdcommenter'
+
 " all of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -210,9 +216,6 @@ nnoremap <Leader>n :call NumberToggle()<cr>
 nnoremap <leader>s :w<cr>
 inoremap <leader>s <C-c>:w<cr>
 
-" NERD Commenter plugin.
-Plugin 'scrooloose/nerdcommenter'
-
 " Splitjoin Plugin
 " Remember it like this: 's' for 'split', j splits down, k up.
 nmap sj :SplitjoinSplit<cr>
@@ -244,3 +247,8 @@ if !isdirectory($HOME."/.vim/undo")
 endif
 set undodir=~/.vim/undo
 set undofile
+
+" Enable highlighted yank on earlier versions of vim.
+if !exists('##TextYankPost')
+  map y <Plug>(highlightedyank)
+endif
