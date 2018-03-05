@@ -1,0 +1,14 @@
+{
+	"color_scheme": "Packages/User/Monokai (SL).tmTheme",
+	"font_size": 12,
+	"folder_exclude_patterns": [".git", "node_modules", "bower_components"],
+	"ignored_packages":
+	[
+		"Markdown",
+		"Vintage"
+	],
+	"rulers":
+	[
+		80
+	]
+}
