@@ -16,4 +16,6 @@ alias gbranchr='for k in `git branch -r | \
     perl -pe '\''s/^..(.*?)( ->.*)?$/\1/'\''`; \
     do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | \
     head -n 1`\\t$k; done | sort -r'
-alias gco='git push --set-upstream origin $(git_current_branch)'
+
+# Push to origin. Use it all the time innit?
+alias gpo='git push --set-upstream origin $(git_current_branch)'
