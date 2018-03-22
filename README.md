@@ -39,6 +39,7 @@ Config: No permenently docked items. Small dock bar. Tap to click.
 6. [Docker](https://docs.docker.com/docker-for-mac/)
 X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
 X. Virtualbox, Vagrant, Vagrant Manager: `brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox`
+X. [Spectacle](https://www.spectacleapp.com/) for window management.
 
 ## Fonts
 
