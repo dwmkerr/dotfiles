@@ -13,3 +13,8 @@ eachdir() {
      echo "\033[0;32m➜\033[0m  \033[1m$baseDirName/\033[0m\033[1;36m$(basename `pwd`)\033[0m $currentBranch"; eval $command)
   done
 }
+
+# get the ISO8601 time
+t() {
+  date +"%Y-%m-%dT%H:%M"
+}
