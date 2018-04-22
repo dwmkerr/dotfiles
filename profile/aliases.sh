@@ -21,3 +21,6 @@ alias clipclean="pbpaste | pbcopy"
 
 # I have to do this way too often
 alias killpod="oc delete pod --grace-period=0 "
+
+# Start a web server
+alias serve="python -m SimpleHTTPServer 3000"

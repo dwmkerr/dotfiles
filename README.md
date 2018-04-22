@@ -2,6 +2,10 @@
 
 I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
 
+## Cheat Sheet - Terminal
+
+- `serve` server the folder over HTTP on port 3000.
+
 ## Cheat Sheet - TMux
 
 - Ctrl+B / Ctrl+S - Save Tmux Session
