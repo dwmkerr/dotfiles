@@ -127,8 +127,10 @@ set wildmenu
 
 " Plugin: ctrlp configuration.
 
-    " Ignore some common files for ctrlp
+    " Ignore some common files for ctrlp, also ignore gitignore.
     let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+
+    let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
     " Now that we have common files ignored, enable searching dotfiles.
     let g:ctrlp_show_hidden = 1
