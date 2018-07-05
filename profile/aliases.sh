@@ -13,14 +13,5 @@
 # Remove formatting from text in the clipboard.
 alias clipclean="pbpaste | pbcopy"
 
-# ---
-#
-# OpenShift Aliases
-#
-# ---
-
-# I have to do this way too often
-alias killpod="oc delete pod --grace-period=0 "
-
 # Start a web server
 alias serve="python -m SimpleHTTPServer 3000"
