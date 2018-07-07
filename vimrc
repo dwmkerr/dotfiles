@@ -34,6 +34,7 @@ Plugin 'PProvost/vim-ps1'    " PowerShell
 Plugin 'mxw/vim-jsx'         " JSX support.
 Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
 Plugin 'helino/vim-json'     " As above.
+Plugin 'othree/html5.vim'    " HTML + SVG
 Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
 
 " Support focus events, even when running in tmux.
@@ -165,6 +166,7 @@ let g:airline#extensions#tabline#enabled = 1
 au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
 " Language specific indentation.
+au FileType html setl sw=2 sts=2 et
 au FileType javascript setl sw=2 sts=2 et
 au FileType javascript.jsx setl sw=2 sts=2 et
 au FileType json  setl sw=2 sts=2 et
