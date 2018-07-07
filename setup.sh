@@ -63,6 +63,11 @@ curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli
 curl -L https://raw.githubusercontent.com/docker/machine/v0.13.0/contrib/completion/zsh/_docker-machine > ~/.zsh/completion/_docker-machine
 curl -L https://raw.githubusercontent.com/docker/compose/1.17.0/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
 
+# Install linters and related tools. These are used by ALE in Vim.
+
 # Install Terraform Lint.
 brew tap wata727/tflint
 brew install tflint
+
+# HTML linting.
+brew install tidy-html5
