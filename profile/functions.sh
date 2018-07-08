@@ -18,3 +18,8 @@ eachdir() {
 t() {
   date +"%Y-%m-%dT%H:%M"
 }
+
+# Restart the shell.
+restart-shell() {
+  exec -l $SHELL
+}
