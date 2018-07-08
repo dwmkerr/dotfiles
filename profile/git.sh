@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Wrap 'git' with 'hub'.
+eval "$(hub alias -s)"
+
 # ---
 #
 # Git Commands

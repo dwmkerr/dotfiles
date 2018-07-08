@@ -71,3 +71,6 @@ brew install tflint
 
 # HTML linting.
 brew install tidy-html5
+
+# Setup hub.
+brew install hub
