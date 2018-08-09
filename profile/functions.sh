@@ -19,6 +19,11 @@ t() {
   date +"%Y-%m-%dT%H:%M"
 }
 
+# get the ISO8601 date
+D() {
+  date +"%Y-%m-%d"
+}
+
 # Restart the shell.
 restart-shell() {
   exec -l $SHELL
