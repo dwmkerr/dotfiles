@@ -1,24 +1,46 @@
 #!/bin/bash
 source ./tools/ask.sh
 
+# Identify the operating system.
+un=$(uname -a)
+os="unknown"
+if [[ "$un" =~ [Dd]arwin ]]; then
+    echo "Operating System: OSX"
+    os="osx"
+elif [[ "$un" =~ [Uu]buntu ]]; then
+    echo "Operating System: Ubuntu"
+    os="ubuntu"
+else
+    echo "Operating System: Unknown"
+    exit 1
+fi
+
 ask "This script will attempt to setup your machine, continue?" Y || exit 0
 
-# If HomeBrew is not installed, install it.
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "MacOS: Checking for brew..."
+# Setup any package manager required.
+if [[ "$os" == "oxs" ]]; then
+    echo "$os: Checking for brew..."
     which -s brew
     if [[ $? != 0 ]] ; then
-        if ask "HomeBrew is not installed. Install it?" Y; then
-            echo "Installing HomeBrew..."
+        if ask "$os: HomeBrew is not installed. Install it?" Y; then
+            echo "$os: Installing HomeBrew..."
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi    
     else
-        echo "HomeBrew is installed, updating..."
+        echo "$os: HomeBrew is installed, updating..."
         brew update
     fi
-else
-    echo "Linux: Skipping brew setup..."
+elif [[ "$os" == "ubuntu" ]]; then
+    echo "$os: Updating apt..."
+    sudo apt-get update -y
 fi
+
+# Move to zsh.
+if [[ ! "$SHELL" == "/bin/zsh" ]]; then
+    y=$(ask "$os: Shell is '$SHELL', change to zsh?" Y)
+fi
+
+exit
 
 # If NVM is not installed, install it.
 command -v nvm
