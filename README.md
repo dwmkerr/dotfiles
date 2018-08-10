@@ -1,6 +1,24 @@
 # dotfiles
 
-I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's the definitive list.
+My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programming environments etc.
+
+**Screenshot on MacOSX**
+
+![Screensho: MacOSX](./docs/screenshot_macosx.png)
+
+**Screenshot on Ubuntu**
+
+![Screenshot: Ubuntu](./docs/screenshot_ubuntu.png)
+
+## Overview
+
+Clone, then run `./setup.sh`. Your environment will be setup with:
+
+1. `zsh` as the default shell
+2. `tmux` for terminal multiplexing
+3. `vim` with my preferred config
+
+A variety of tools required to support common coding requirements (Node Version Manager, Golang, Docker etc) are installed.
 
 ## Cheat Sheet - Terminal
 
