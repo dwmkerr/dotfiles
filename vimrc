@@ -29,13 +29,16 @@ Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim s
 Plugin 'rizzatti/dash.vim'   " Dash support.
 
 " Plugins for languages
-Plugin 'jparise/vim-graphql' " GraphQL
-Plugin 'PProvost/vim-ps1'    " PowerShell
-Plugin 'mxw/vim-jsx'         " JSX support.
-Plugin 'pangloss/vim-javascript' "Better syntax and indenting for js.
-Plugin 'helino/vim-json'     " As above.
-Plugin 'othree/html5.vim'    " HTML + SVG
-Plugin 'hashivim/vim-terraform' " Adds suppport for terraform files (in fact HCP etc)
+Plugin 'jparise/vim-graphql'      " GraphQL
+Plugin 'PProvost/vim-ps1'         " PowerShell
+Plugin 'mxw/vim-jsx'              " JSX support.
+Plugin 'pangloss/vim-javascript'  " Better syntax and indenting for js.
+Plugin 'elzr/vim-json'            " As above.
+Plugin 'othree/html5.vim'         " HTML + SVG
+Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
+Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
+Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
+" Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
 
 " Support focus events, even when running in tmux.
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -166,19 +169,22 @@ let g:airline#extensions#tabline#enabled = 1
 au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
 " Language specific indentation.
-au FileType html setl sw=2 sts=2 et
-au FileType javascript setl sw=2 sts=2 et
+au FileType html           setl sw=2 sts=2 et
+au FileType javascript     setl sw=2 sts=2 et
 au FileType javascript.jsx setl sw=2 sts=2 et
-au FileType json  setl sw=2 sts=2 et
-au FileType ruby setl sw=2 sts=2 et
-au FileType yaml setl sw=2 sts=2 et
-au FileType terraform setl sw=2 sts=2 et
-au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+au FileType json           setl sw=2 sts=2 et
+au FileType ruby           setl sw=2 sts=2 et
+au FileType yaml           setl sw=2 sts=2 et
+au FileType terraform      setl sw=2 sts=2 et
+au FileType make           set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
 
 " JavaScript Language Settings
 
     " Support JSX syntax highlighting in *.js, not just *.jsx.
     let g:jsx_ext_required = 0
+
+    " Disable syntax concealing for json files.
+    let g:vim_json_syntax_conceal = 0
 
 " Ruby Language Settings
 
@@ -205,6 +211,11 @@ au FileType make set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use
 
     " Highlight the variable under the cursor.
     let g:go_auto_sameids = 1
+
+" Markdown language settings
+
+    " I don't find the folding particularly useful, turn it off.
+    " let g:vim_markdown_folding_disabled = 1
 
 " Custom Commands
 

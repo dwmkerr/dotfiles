@@ -28,6 +28,7 @@ I keep forgetting how I set up clean machines, IDEs, editors and tools. Here's t
 - `<leader>\\` - Open buffer in new tab.
 - `<leader>d` - Open word under cursor in Dash.
 - `<leader>t` - Show current buffer in NERDTree.
+- `:Tabularize /=` - Line up selection, using '='
 
 
 ## Clean Mac
