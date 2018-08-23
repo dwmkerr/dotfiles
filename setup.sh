@@ -15,8 +15,6 @@ else
     exit 1
 fi
 
-ask "This script will attempt to setup your machine, continue?" Y || exit 0
-
 # Setup any package manager required.
 if [[ "$os" == "oxs" ]]; then
     echo "$os: Checking for brew..."
@@ -36,26 +34,42 @@ elif [[ "$os" == "ubuntu" ]]; then
 fi
 
 # Move to zsh.
-if [[ ! "$SHELL" == "/bin/zsh" ]]; then
-    y=$(ask "$os: Shell is '$SHELL', change to zsh?" Y)
+echo "$os: checking shell..."
+if [[ "$SHELL" != "/bin/zsh" ]]; then
+    if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
+        echo "Installing zsh..."
+    fi
+else
+    echo "$os: Shell is '$SHELL'"
 fi
 
-exit
+# Check the shell, and make sure that we are sourcing the .profile file.
+echo "$os: checking for .profile setup..."
+if [[ "$SHELL" =~ bash ]]; then
+    # TODO: we should only do this if the line is not already in our rc.
+    if ask "$os: Add 'source .profile' to bashrc?" Y; then
+        ln -sf "$(pwd)/profile.sh" "~/.profile.sh"
+        echo "" >> ~/.bashrc
+        echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
+        echo "source ~/.profile.sh" >> ~/.bashrc
+        source ~/.bashrc
+    fi
+fi
 
 # If NVM is not installed, install it.
 command -v nvm
-echo "Checking for NVM..."
+echo "$os: Checking for NVM..."
 if [[ $? != 0 ]] ; then
-    if ask "NVM is not installed. Install it?" Y; then
-        echo "Installing NVM..."
+    if ask "$os: NVM is not installed. Install it?" Y; then
+        echo "$os: Installing NVM..."
         touch ~/.bash_profile
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
     fi    
 else
-    echo "NVM is installed..."
+    echo "$os: NVM is installed..."
 fi
 
-ask "Should I go on?"
+exit
 
 # Install vundle.
 read -p "Install Vundle? (y/n)" -n 1 -r

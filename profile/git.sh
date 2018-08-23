@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-# Wrap 'git' with 'hub'.
-eval "$(hub alias -s)"
+# Wrap 'git' with 'hub' - if we have hub installed.
+if [ -x "$(command -v hub)" ]; then
+    eval "$(hub alias -s)"
+fi
 
 # ---
 #
