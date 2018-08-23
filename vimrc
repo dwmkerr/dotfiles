@@ -104,7 +104,6 @@ if (empty($TMUX))
   endif
 endif
 
-
 " Theme settings
 syntax on
 "let g:solarized_termtrans=1
