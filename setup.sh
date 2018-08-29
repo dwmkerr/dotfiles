@@ -99,6 +99,10 @@ if [[ ${tmux_installed} != 0 ]]; then
             # rm -rf ~/temp/tmux-src
             tmux -V
         fi
+
+        # Now install the tmux plugin manager, then install the plugins.
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        ~/.tmux/plugins/tpm/bin/install_plugins
     fi
 fi
 
