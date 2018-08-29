@@ -96,7 +96,7 @@ if [[ ${tmux_installed} != 0 ]]; then
             pushd "${TMUX_DIR}"/tmux-*
             ./configure && make -j"$(nproc)" && sudo make install
             popd
-            # rm -rf ~/temp/tmux-src
+            rm -rf ~/temp/tmux-src
             tmux -V
         fi
 
