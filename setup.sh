@@ -16,7 +16,7 @@ else
 fi
 
 # Setup any package manager required.
-if [[ "$os" == "oxs" ]]; then
+if [[ "$os" == "osx" ]]; then
     echo "$os: Checking for brew..."
     which -s brew
     if [[ $? != 0 ]] ; then
@@ -29,8 +29,10 @@ if [[ "$os" == "oxs" ]]; then
         brew update
     fi
 elif [[ "$os" == "ubuntu" ]]; then
-    echo "$os: Updating apt..."
-    sudo apt-get update -y
+    if ask "$os: update apt?" Y; then
+        echo "$os: Updating apt..."
+        sudo apt-get update -y
+    fi
 fi
 
 # Move to zsh.
@@ -48,7 +50,7 @@ echo "$os: checking for .profile setup..."
 if [[ "$SHELL" =~ bash ]]; then
     # TODO: we should only do this if the line is not already in our rc.
     if ask "$os: Add 'source .profile' to bashrc?" Y; then
-        ln -sf "$(pwd)/profile.sh" "~/.profile.sh"
+        ln -sf "~/.profile.sh" "$(pwd)/profile.sh"
         echo "" >> ~/.bashrc
         echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
         echo "source ~/.profile.sh" >> ~/.bashrc
@@ -57,9 +59,9 @@ if [[ "$SHELL" =~ bash ]]; then
 fi
 
 # If NVM is not installed, install it.
-command -v nvm
 echo "$os: Checking for NVM..."
-if [[ $? != 0 ]] ; then
+nvm_installed=$(command -v nvm)
+if [[ ${nvm_installed} != 0 ]] ; then
     if ask "$os: NVM is not installed. Install it?" Y; then
         echo "$os: Installing NVM..."
         touch ~/.bash_profile
@@ -67,6 +69,37 @@ if [[ $? != 0 ]] ; then
     fi    
 else
     echo "$os: NVM is installed..."
+fi
+
+# NOTE: We need to support upgrading tmux too...
+# sudo apt-get -y remove tmux
+
+# Install tmux.
+TMUX_VERSION=2.6
+echo "$os: Checking for tmux..."
+tmux_installed=$(command -v tmux)
+tmux_version=$(tmux -V > /dev/null 2>&1)
+if [[ ${tmux_installed} != 0 ]]; then
+    if ask "$os: tmux ${TMUX_VERSION} is not installed. Install it?" Y; then
+        if [[ "$os" == "osx" ]]; then
+            echo "$os: Installing tmux ${TMUX_VERSION}..."
+            brew install tmux
+            ln -s .tmux.conf ~/.tmux.conf
+        elif [[ "$os" == "ubuntu" ]]; then
+            echo "$os: Installing tmux ${TMUX_VERSION}..."
+            # Get the build dependencies.
+            sudo apt-get install -y wget tar libevent-dev libncurses-dev
+            TMUX_DIR="${HOME}/temp/tmux-src"
+            mkdir -p "${TMUX_DIR}"
+            wget -P "${TMUX_DIR}" -q https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
+            tar xzf "${TMUX_DIR}/tmux-${TMUX_VERSION}.tar.gz" -C "${TMUX_DIR}"
+            pushd "${TMUX_DIR}"/tmux-*
+            ./configure && make -j"$(nproc)" && sudo make install
+            popd
+            # rm -rf ~/temp/tmux-src
+            tmux -V
+        fi
+    fi
 fi
 
 exit
@@ -78,16 +111,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
-
-# Install tmux.
-read -p "Install and configure tmux? (y/n)" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    brew install tmux
-    ln -s .tmux.conf ~/.tmux.conf
-fi
-
 
 # Re-attach to user namespace is needed to get the system clipboard setup.
 brew install reattach-to-user-namespace
