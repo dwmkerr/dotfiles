@@ -31,8 +31,8 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 # For any programs which need an editor, we use vim.
 export EDITOR=vim
 
-# Ensure that terminals and tmux use 256 colour mode.
-export TERM="screen-256color"
+# We're an xterm 256bit colour terminal, just in case anyone asks...
+export TERM="xterm-256color"
 alias tmux="tmux -2"
 
 # Current preferred prompt.
