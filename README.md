@@ -48,7 +48,6 @@ A variety of tools required to support common coding requirements (Node Version 
 - `<leader>t` - Show current buffer in NERDTree.
 - `:Tabularize /=` - Line up selection, using '='
 
-
 ## Clean Mac
 
 Config: No permenently docked items. Small dock bar. Tap to click.
