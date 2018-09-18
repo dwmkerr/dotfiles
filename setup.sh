@@ -110,7 +110,7 @@ fi
 echo "$os: Configuring Git for dwmkerr and GPG signing..."
 git config --global user.name "Dave Kerr"
 git config --global user.email "dwmkerr@gmail.com"
-git config --global user.signingKey "W35D965FB60ACC2E94E605038F780C45862199FEC"
+git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
 git config --global commit.gpgSign true
 git config --global tag.forceSignAnnotated true
 git config --global gpg.program "gpg2"
