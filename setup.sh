@@ -24,8 +24,9 @@ if [[ "$os" == "osx" ]]; then
             echo "$os: Installing HomeBrew..."
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         fi    
-    else
-        echo "$os: HomeBrew is installed, updating..."
+    fi
+    if ask "$os: Update HomeBrew?" Y; then
+        echo "$os: Updating brew..."
         brew update
     fi
 elif [[ "$os" == "ubuntu" ]]; then
