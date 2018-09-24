@@ -37,3 +37,7 @@ alias tmux="tmux -2"
 
 # Current preferred prompt.
 export PS1="\[\033[38;5;10m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;28m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;2m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\n\\$ \[$(tput sgr0)\]"
+
+# Set the language. This is required for some Python tools.
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
