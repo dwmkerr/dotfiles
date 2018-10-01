@@ -116,6 +116,24 @@ git config --global commit.gpgSign true
 git config --global tag.forceSignAnnotated true
 git config --global gpg.program "gpg2"
 
+# Configure vim.
+
+# If there is not a spellfile, or it does not point to our spellfile, update it.
+spellfile="$HOME/.vim-spell-en.utf-8.add"
+spelltarget="$(pwd)/vim/vim-spell-en.utf-8.add"
+if [ ! "$(readlink spellfile)" = "$spelltarget" ]; then
+    echo "$os: spelltarget is not linked (target is $(readlink $spellfile)), linking now"
+    rm $spellfile
+    ln -s $spelltarget $spellfile
+fi
+
+# If there is not a vimrc, or it does not point to our vimrc, update it.
+if [ ! "$(readlink $HOME/.vimrc)" = "$(pwd)/vim/vimrc" ]; then
+    echo "$os: vimrc is not linked (target is $(readlink $HOME/.vimrc)), linking now"
+    rm $HOME/.vimrc
+    ln -s $(pwd)/vim/vimrc $HOME/.vimrc
+fi
+
 exit
 
 # Install vundle.

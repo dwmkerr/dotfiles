@@ -147,24 +147,37 @@ set wildmenu
 
 " Plugin: Airline Settings
 
-" Show the buffers in the tabline.
-let g:airline#extensions#tabline#enabled = 1
-
+    " Show the buffers in the tabline.
+    let g:airline#extensions#tabline#enabled = 1
 
 " Language Settings
 
-" All languages - no autocommenting on newlines, 4 spaces soft tabs + expand
-au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
+    " All languages - no autocommenting on newlines, 4 spaces soft tabs + expand
+    au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
-" Language specific indentation.
-au FileType html           setl sw=2 sts=2 et
-au FileType javascript     setl sw=2 sts=2 et
-au FileType javascript.jsx setl sw=2 sts=2 et
-au FileType json           setl sw=2 sts=2 et
-au FileType ruby           setl sw=2 sts=2 et
-au FileType yaml           setl sw=2 sts=2 et
-au FileType terraform      setl sw=2 sts=2 et
-au FileType make           set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+    " Language specific indentation.
+    au FileType html           setl sw=2 sts=2 et
+    au FileType javascript     setl sw=2 sts=2 et
+    au FileType javascript.jsx setl sw=2 sts=2 et
+    au FileType json           setl sw=2 sts=2 et
+    au FileType ruby           setl sw=2 sts=2 et
+    au FileType yaml           setl sw=2 sts=2 et
+    au FileType terraform      setl sw=2 sts=2 et
+    au FileType make           set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+
+" Spell-checking settings
+
+    " Keep the spellfile in the homedir. This will be a symlink to the dotfiles
+    " version of the spellfile.
+    set spellfile=$HOME/.vim-spell-en.utf-8.add
+    
+    " Spell check markdown and git commit messages.
+    autocmd FileType markdown setlocal spell
+    autocmd FileType gitcommit setlocal spel
+
+    " For filetypes with spellcheck available, we'll also support auto-complete.
+    set complete+=kspell
+
 
 " JavaScript Language Settings
 
