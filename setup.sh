@@ -1,5 +1,6 @@
 #!/bin/bash
 source ./tools/ask.sh
+source ./tools/ensure_symlink.sh
 
 # Identify the operating system.
 un=$(uname -a)
@@ -118,21 +119,9 @@ git config --global gpg.program "gpg2"
 
 # Configure vim.
 
-# If there is not a spellfile, or it does not point to our spellfile, update it.
-spellfile="$HOME/.vim-spell-en.utf-8.add"
-spelltarget="$(pwd)/vim/vim-spell-en.utf-8.add"
-if [ ! "$(readlink spellfile)" = "$spelltarget" ]; then
-    echo "$os: spelltarget is not linked (target is $(readlink $spellfile)), linking now"
-    rm $spellfile
-    ln -s $spelltarget $spellfile
-fi
-
-# If there is not a vimrc, or it does not point to our vimrc, update it.
-if [ ! "$(readlink $HOME/.vimrc)" = "$(pwd)/vim/vimrc" ]; then
-    echo "$os: vimrc is not linked (target is $(readlink $HOME/.vimrc)), linking now"
-    rm $HOME/.vimrc
-    ln -s $(pwd)/vim/vimrc $HOME/.vimrc
-fi
+# Use our dotfiles for vimrc and vim spell.
+ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
+ensure_symlink "$(pwd)/vimrc" "$HOME/.vimrc"
 
 exit
 

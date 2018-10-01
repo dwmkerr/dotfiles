@@ -173,7 +173,7 @@ set wildmenu
     
     " Spell check markdown and git commit messages.
     autocmd FileType markdown setlocal spell
-    autocmd FileType gitcommit setlocal spel
+    autocmd FileType gitcommit setlocal spell
 
     " For filetypes with spellcheck available, we'll also support auto-complete.
     set complete+=kspell
