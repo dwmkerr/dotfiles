@@ -39,12 +39,28 @@ fi
 
 # Move to zsh.
 echo "$os: checking shell..."
-if [[ "$SHELL" != "/bin/zsh" ]]; then
-    if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
-        echo "Installing zsh..."
+if [[ "$os" == "osx" ]]; then
+    if [[ ! "$SHELL" =~ "zsh" ]]; then
+        if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
+            echo "Installing zsh..."
+            brew install zsh
+        fi
+    else
+        echo "$os: Shell is '$SHELL'"
     fi
-else
-    echo "$os: Shell is '$SHELL'"
+elif [[ "$os" == "ubuntu" ]]; then
+    if [[ ! "$SHELL" =~ "zsh" ]]; then
+        if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
+            echo "$os: Installing zsh..."
+            # Install zsh, then install oh-my-zsh, setup config and theme.
+            sudo apt-get install -y zsh
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+            ln -sf $(pwd)/zsh/zshrc ~/.zshrc
+            ln -sf $(pwd)/zsh/dwmkerr.zsh-theme ~/.oh-my-zsh/themes/dwmkerr.zsh-theme
+        fi
+    else
+        echo "$os: Shell is '$SHELL'"
+    fi
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.
