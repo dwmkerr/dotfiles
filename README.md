@@ -10,19 +10,52 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 ![Screenshot: Ubuntu](./docs/screenshot_ubuntu.png)
 
-## Overview
+<!-- vim-markdown-toc GFM -->
 
-Clone, then run `./setup.sh`. Your environment will be setup with:
+* [Introduction](#introduction)
+* [Installing or Updating](#installing-or-updating)
+* [Shell Commands](#shell-commands)
+* [Cheat Sheet - TMux](#cheat-sheet---tmux)
+* [Cheat Sheet - Vim](#cheat-sheet---vim)
 
-1. `zsh` as the default shell
-2. `tmux` for terminal multiplexing
-3. `vim` with my preferred config
+<!-- vim-markdown-toc -->
+
+## Introduction
+
+The goal of this project is to provide a single command which will setup key features of the system. Each feature should be _orthogonal_ and not depend on other features. Each feature should be _optional_ and installed only if the user specifies.
+
+The following is set up:
+
+- `zsh` as the default shell
+- `tmux` for terminal multiplexing, with my preferred theme and settings
+- `vim` as the default editor, with my preferred theme and settings
+- `~/.private` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
+- `~/.profile` as a version controlled folder, the contents of which are always loaded on shell startup
+
+## Installing or Updating
+
+First clone the repo:
+
+```sh
+git clone git@github.com:dwmkerr/dotfiles
+```
+
+Then run setup:
+
+```sh
+./setup.sh
+```
 
 A variety of tools required to support common coding requirements (Node Version Manager, Golang, Docker etc) are installed.
 
-## Cheat Sheet - Terminal
+## Shell Commands
 
-- `serve` server the folder over HTTP on port 3000.
+The following shell commands are setup:
+
+| Command | Usage |
+|---------|-------|
+| `serve` | Serve the current folder over HTTP on port 3000. |
+| `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc.
 
 ## Cheat Sheet - TMux
 
@@ -47,115 +80,4 @@ A variety of tools required to support common coding requirements (Node Version 
 - `<leader>d` - Open word under cursor in Dash.
 - `<leader>t` - Show current buffer in NERDTree.
 - `:Tabularize /=` - Line up selection, using '='
-
-## Clean Mac
-
-Config: No permenently docked items. Small dock bar. Tap to click.
-
-1. [Google Chrome](https://chrome.com)
-2. [1Password](https://agilebits.com/downloads)
-3. [Parallels](http://www.parallels.com/products/desktop/download/)
-3. App Store: xCode, Slack, Evernote
-4. HomeBrew `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-`
-5. Key tools: `brew install npm git`
-5. zsh: `brew install zsh zsh-completions`
-6. [Docker](https://docs.docker.com/docker-for-mac/)
-X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
-X. Virtualbox, Vagrant, Vagrant Manager: `brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox`
-X. [Spectacle](https://www.spectacleapp.com/) for window management.
-
-## Fonts
-
-[Hack](http://sourcefoundry.org/hack/) font for terminals and editors.
-
-
-## Terminal
-
-1. Every file in `.private` is sourced. Use this folder for project specific environment variables which you don't want to version control.
-
-You can tell if the terminal has been set up, or at least partially set up if the [solarized](http://ethanschoonover.com/solarized) theme is used. Some good [instructions on setting up a Terminal, tmux and vim for solarized](http://www.terminally-incoherent.com/blog/2012/10/17/vim-solarized-and-tmux/) are available.
-
-- TMux
-- Vundle
-
-
-```bash
-# Install Vim for Mac.
-brew install macvim --override-system-vim
-# Install TMux
-brew install tmux
-# sudo apt-get install tmux
-
-# Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
-
-# Keyboard Productivity
-
-1. Vimium Chrome Extension
-2. Karabiner keyboard modifier, with fn+hjkl mapped to the arrow keys.
-
-## Vim
-
-1. Clone the `.vimrc`
-2. Install Golang binaries: `GoInstallBinaries`.
-
-## NodeJS
-
-Managed via [NVM](https://github.com/creationix/nvm).
-
-```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
-```
-
-## Atom
-
-- language-javascript-jsx
-- linter
-- linter-eslint
-
-## Sublime Text 3
-
-### Standard Configuration
-
-- Oceanic Theme (if you see oceanic, you know it's setup. If not, setup!)
-- Exclude node_modules, bower_components and binaries from search index, but still show in the sidebar.
-- Ruler at col 80
-- Default everything to 4 spaces, no tabs
-
-"binary_file_patterns": [
-  "*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip",
-  "node_modules/**",
-  "bower_components/**"
-]
-
-Sublime Text > Preferences > General > User
-
-```json
-{
-	"color_scheme": "Packages/User/SublimeLinter/Oceanic Next (SL).tmTheme",
-	"tab_size": 4,
-	"translate_tabs_to_spaces": true,
-    "rulers": [80],
-    "binary_file_patterns": [
-      "*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip",
-      "node_modules/**",
-      "bower_components/**"
-    ]
-}
-
-```
-
-## iTerm2
-
-- [Splits in current working directory](https://coderwall.com/p/9xo7aq/open-up-iterm2-splits-in-current-working-directory)
-- https://github.com/mhartington/oceanic-next-iterm
-
-## Project Setup
-
-### NodeJS
-
-- Superagent: for HTTP requests
-- Supertest: for testing HTTP requests
-- Supertest As Promised: adds promises to Supertest
+- `gd` - where possible, will go to a local definition.
