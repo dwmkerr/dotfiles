@@ -121,7 +121,7 @@ git config --global gpg.program "gpg2"
 
 # Use our dotfiles for vimrc and vim spell.
 ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
-ensure_symlink "$(pwd)/vimrc" "$HOME/.vimrc"
+ensure_symlink "$(pwd)/vim/vimrc" "$HOME/.vimrc"
 
 exit
 

@@ -17,6 +17,8 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
+    * [Cheat Sheet](#cheat-sheet)
+    * [Plugins](#plugins)
 
 <!-- vim-markdown-toc -->
 
@@ -52,9 +54,9 @@ A variety of tools required to support common coding requirements (Node Version 
 
 The following shell commands are setup:
 
-| Command | Usage |
-|---------|-------|
-| `serve` | Serve the current folder over HTTP on port 3000. |
+| Command         | Usage                                                                |
+|-----------------+----------------------------------------------------------------------|
+| `serve`         | Serve the current folder over HTTP on port 3000.                     |
 | `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc.
 
 ## Cheat Sheet - TMux
@@ -81,3 +83,19 @@ The following shell commands are setup:
 - `<leader>t` - Show current buffer in NERDTree.
 - `:Tabularize /=` - Line up selection, using '='
 - `gd` - where possible, will go to a local definition.
+
+### Cheat Sheet
+
+Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x` rather than `<Leader>x` for brevity. I still need to port the above to the structure below.
+
+| Shortcut | Usage                                                                   |
+|----------+-------------------------------------------------------------------------|
+| **Markdown Tables** | |
+| `\tm`    | Enter/Exit 'table mode', which will dynamically format markdown tables. |
+| `ci| `   | Example of the ` | ` motion for cells - i.e. 'change-in-cell'.          |
+
+### Plugins
+
+This is a new list, it'll take some time to bring others up to date.
+
+ - [vim-table-mode](https://github.com/dhruvasagar/vim-table-mode) to aid with dynamic formatting of markdown tables
