@@ -1,5 +1,7 @@
 # dotfiles
 
+[![GuardRails badge](https://badges.production.guardrails.io/dwmkerr/dotfiles.svg)](https://www.guardrails.io)
+
 My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programming environments etc.
 
 **Screenshot on MacOSX**
