@@ -92,7 +92,9 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 |---------------------|-------------------------------------------------------------------------|
 | **Markdown Tables** |                                                                         |
 | `\tm`               | Enter/Exit 'table mode', which will dynamically format markdown tables. |
-| `ci|`               | Example of the `|` motion for cells - i.e. 'change-in-cell'.            |
+| `ci｜`              | Example of the `｜` motion for cells - i.e. 'change-in-cell'.           |
+
+Note: including the vertical pipe `|` in the table above would cause rendering issues. So instead, the unicode character `｜` is used to illustrate the commands. Do not use the unicode character, use the normal ASCII 0x7C character.
 
 ### Plugins
 
