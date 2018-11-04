@@ -55,9 +55,9 @@ A variety of tools required to support common coding requirements (Node Version 
 The following shell commands are setup:
 
 | Command         | Usage                                                                |
-|-----------------+----------------------------------------------------------------------|
+|-----------------|----------------------------------------------------------------------|
 | `serve`         | Serve the current folder over HTTP on port 3000.                     |
-| `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc.
+| `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc. |
 
 ## Cheat Sheet - TMux
 
@@ -88,11 +88,11 @@ The following shell commands are setup:
 
 Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x` rather than `<Leader>x` for brevity. I still need to port the above to the structure below.
 
-| Shortcut | Usage                                                                   |
-|----------+-------------------------------------------------------------------------|
-| **Markdown Tables** | |
-| `\tm`    | Enter/Exit 'table mode', which will dynamically format markdown tables. |
-| `ci| `   | Example of the ` | ` motion for cells - i.e. 'change-in-cell'.          |
+| Shortcut            | Usage                                                                   |
+|---------------------|-------------------------------------------------------------------------|
+| **Markdown Tables** |                                                                         |
+| `\tm`               | Enter/Exit 'table mode', which will dynamically format markdown tables. |
+| `ci|`               | Example of the `|` motion for cells - i.e. 'change-in-cell'.            |
 
 ### Plugins
 
