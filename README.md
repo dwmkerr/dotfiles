@@ -72,17 +72,19 @@ The following shell commands are setup:
 
 ## Cheat Sheet - Vim
 
-- `[<Space>` - blank line above
-- `]<Space>` - blank line below
-- `sj` - Splitjoin down (i.e. split a line downwards).
-- `sk` - Splitjoin up (i.e. join a line upwards).
-- `<leader>r` - Open current file in NERDTree.
-- `<leader>w` - Write buffer.
-- `<leader>\\` - Open buffer in new tab.
-- `<leader>d` - Open word under cursor in Dash.
-- `<leader>t` - Show current buffer in NERDTree.
-- `:Tabularize /=` - Line up selection, using '='
-- `gd` - where possible, will go to a local definition.
+| Command          | Usage                                          |
+|------------------|------------------------------------------------|
+| `\[<Space>`      | blank line above                               |
+| `]<Space>`       | blank line below                               |
+| `sj`             | Splitjoin down (i.e. split a line downwards).  |
+| `sk`             | Splitjoin up (i.e. join a line upwards).       |
+| `<leader>r`      | Open current file in NERDTree.                 |
+| `<leader>w`      | Write buffer.                                  |
+| `<leader>\\`     | Open buffer in new tab.                        |
+| `<leader>d`      | Open word under cursor in Dash.                |
+| `<leader>t`      | Show current buffer in NERDTree.               |
+| `:Tabularize /=` | Line up selection, using '='                   |
+| `gd`             | where possible, will go to a local definition. |
 
 ### Cheat Sheet
 
