@@ -7,3 +7,5 @@ link:
 	ln -sf `pwd`/environment.sh ~/.environment.sh
 	ln -sf `pwd`/ack/ackrc ~/.ackrc
 	ln -sf `pwd`/zsh/zshrc ~/.zshrc
+	ln -sf `pwd`/zsh/zshrc ~/.zshrc
+	ln -sf `pwd`/ag/agignore ~/.agignore
