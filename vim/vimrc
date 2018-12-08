@@ -39,6 +39,7 @@ Plugin 'othree/html5.vim'         " HTML + SVG
 Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
+Plugin 'leafgarland/typescript-vim' "TypeScript
 " Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
 " Bundle 'gabrielelana/vim-markdown'
 
@@ -161,6 +162,7 @@ set wildmenu
     au FileType html           setl sw=2 sts=2 et
     au FileType javascript     setl sw=2 sts=2 et
     au FileType javascript.jsx setl sw=2 sts=2 et
+    au FileType typescript     setl sw=2 sts=2 et
     au FileType json           setl sw=2 sts=2 et
     au FileType ruby           setl sw=2 sts=2 et
     au FileType yaml           setl sw=2 sts=2 et
@@ -172,7 +174,7 @@ set wildmenu
     " Keep the spellfile in the homedir. This will be a symlink to the dotfiles
     " version of the spellfile.
     set spellfile=$HOME/.vim-spell-en.utf-8.add
-    
+
     " Spell check markdown and git commit messages.
     autocmd FileType markdown setlocal spell
     autocmd FileType gitcommit setlocal spell
@@ -227,6 +229,9 @@ set wildmenu
     " I don't find the folding particularly useful, turn it off.
     let g:vim_markdown_folding_disabled = 1
 
+    " vim-table-mode - use Markdown table.
+    let g:table_mode_corner='|'
+
 " Custom Commands
 
 " Refresh nerdtree and ctrlp.
@@ -271,7 +276,7 @@ noremap <leader><leader> :tabnew %<cr>
 :autocmd InsertLeave * set nocul
 
 " The Silver Searcher (ag) Configuration.
-    
+
     " Is 'ag' available?
     if executable('ag')
         " For grep, use ag.
