@@ -85,6 +85,9 @@ The following shell commands are setup:
 | `<leader>t`      | Show current buffer in NERDTree.               |
 | `:Tabularize /=` | Line up selection, using '='                   |
 | `gd`             | where possible, will go to a local definition. |
+| **Spelling**     |                                                |
+| `]s` and `[s`    | Next/Previous spelling error.                  |
+| `z=` and `zg`    | Check dictionary / add to dictionary.          |
 
 ### Cheat Sheet
 
