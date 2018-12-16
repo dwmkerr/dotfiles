@@ -81,3 +81,4 @@ JWT
 config
 nginx
 ECS
+EC2
