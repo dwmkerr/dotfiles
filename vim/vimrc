@@ -308,6 +308,7 @@ set undofile
 
 " Enable highlighted yank on earlier versions of vim.
 " if !exists('##TextYankPost')
-  " map y <Plug>(highlightedyank)
+"   map y <Plug>(highlightedyank)
 " endif
+" let g:highlightedyank_highlight_duration = 100
 " let g:highlightedyank_highlight_duration = 100
