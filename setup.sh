@@ -65,9 +65,7 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
             echo "$os: Installing zsh..."
             apt-get install -y zsh zsh-completions
             chsh -s $(which zsh)
-    elif [[ "$os" == "ubuntu" ]]; then
-        echo "$os: Updating vim..."
-        apt-get update && apt-get install vim
+        fi
     fi
 fi
 
@@ -81,8 +79,6 @@ if ask "$os: Install/Update tmux?" Y; then
         apt-get update && apt-get install tmux
     fi
 fi
-
-exit;
 
 # Check the shell, and make sure that we are sourcing the .profile file.
 if ask "$os: Add .profile to bash/zsh?" Y; then
