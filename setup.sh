@@ -60,23 +60,11 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing zsh..."
             brew install zsh zsh-completions
-            exec -l $SHELL
+            chsh -s $(which zsh)
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing zsh..."
             apt-get install -y zsh zsh-completions
-            exec -l $SHELL
-        fi
-    fi
-else
-    echo "$os: Shell is '$SHELL'"
-fi
-
-# Ensure vim is up to date.
-if ask "$os: Install/Update vim?" Y; then
-    if [[ "$os" == "osx" ]]; then
-        echo "$os: Updating vim..."
-        brew install vim
-        exec -l $SHELL
+            chsh -s $(which zsh)
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: Updating vim..."
         apt-get update && apt-get install vim
@@ -97,15 +85,18 @@ fi
 exit;
 
 # Check the shell, and make sure that we are sourcing the .profile file.
-echo "$os: checking for .profile setup..."
-if [[ "$SHELL" =~ bash ]]; then
-    # TODO: we should only do this if the line is not already in our rc.
-    if ask "$os: Add 'source .profile' to bashrc?" Y; then
-        ln -sf "~/.profile.sh" "$(pwd)/profile.sh"
-        echo "" >> ~/.bashrc
-        echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
-        echo "source ~/.profile.sh" >> ~/.bashrc
+if ask "$os: Add .profile to bash/zsh?" Y; then
+    ln -sf "~/.profile.sh" "$(pwd)/profile.sh"
+    echo "" >> ~/.bashrc
+    echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
+    echo "source ~/.profile.sh" >> ~/.bashrc
+    echo "" >> ~/.zshrc
+    echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.zshrc
+    echo "source ~/.profile.sh" >> ~/.zshrc
+    if [[ "$SHELL" =~ bash ]]; then
         source ~/.bashrc
+    elif [[ "$SHELL" =~ zsh ]]; then 
+        source ~/.zshrc
     fi
 fi
 
