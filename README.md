@@ -13,6 +13,7 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
+* [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
 * [Installing or Updating](#installing-or-updating)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
@@ -34,20 +35,25 @@ The following is set up:
 - `~/.private` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
 - `~/.profile` as a version controlled folder, the contents of which are always loaded on shell startup
 
-## Installing or Updating
+## Quick Start - Clean MacOSX Machine
 
 On a _completely clean_ Mac:
 
 ```sh
 # Install commandline tools (so that we have git).
-cd ~
-mkdir tmp
-cd tmp
 xcode-select --install
+
+# Create a working environment.
+cd ~
+mkdir -p repos/github/dwmkerr
+cd repos/github/dwmkerr
 git clone git@github.com:dwmkerr/dotfiles
 cd dotfiles
 ./setup.sh
 ```
+
+## Installing or Updating
+
 
 
 First clone the repo:
