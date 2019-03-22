@@ -60,9 +60,11 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing zsh..."
             brew install zsh zsh-completions
+            exec -l $SHELL
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing zsh..."
             apt-get install -y zsh zsh-completions
+            exec -l $SHELL
         fi
     fi
 else
@@ -70,23 +72,26 @@ else
 fi
 
 # Ensure vim is up to date.
-echo "$os: checking vim..."
-if [[ "$os" == "osx" ]]; then
-    echo "$os: Updating vim..."
-    brew install macvim --override-system-vim
-elif [[ "$os" == "ubuntu" ]]; then
-    echo "$os: Updating vim..."
-    apt-get update && apt-get install vim
+if ask "$os: Install/Update vim?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Updating vim..."
+        brew install vim
+        exec -l $SHELL
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Updating vim..."
+        apt-get update && apt-get install vim
+    fi
 fi
 
 # Ensure tmux is up to date.
-echo "$os: checking tmux..."
-if [[ "$os" == "osx" ]]; then
-    echo "$os: Updating tmux..."
-i   brew install tmux
-elif [[ "$os" == "ubuntu" ]]; then
-    echo "$os: Updating tmux..."
-    apt-get update && apt-get install tmux
+if ask "$os: Install/Update tmux?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Updating tmux..."
+        brew install tmux
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Updating tmux..."
+        apt-get update && apt-get install tmux
+    fi
 fi
 
 exit;
