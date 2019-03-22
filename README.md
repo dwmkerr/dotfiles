@@ -37,17 +37,20 @@ The following is set up:
 
 ## Quick Start - Clean MacOSX Machine
 
-On a _completely clean_ Mac:
+On a _completely clean_ Mac, run the following commands in a terminal.
 
 ```sh
 # Install commandline tools (so that we have git).
 xcode-select --install
 
-# Create a working environment.
+# Create a working environment, in my standard format.
 cd ~
 mkdir -p repos/github/dwmkerr
 cd repos/github/dwmkerr
-git clone git@github.com:dwmkerr/dotfiles
+
+# Clone the dotfiles - note that a new machine will not have my SSH key
+# so this is over https.
+git clone https://github.com/dwmkerr/dotfiles.git
 cd dotfiles
 ./setup.sh
 ```

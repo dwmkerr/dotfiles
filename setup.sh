@@ -57,12 +57,11 @@ fi
 echo "$os: checking shell..."
 if [[ "$SHELL" != "/bin/zsh" ]]; then
     if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
-        echo "Installing zsh..."
         if [[ "$os" == "osx" ]]; then
-            echo "$os: Installiing zsh..."
+            echo "$os: Installing zsh..."
             brew install zsh zsh-completions
         elif [[ "$os" == "ubuntu" ]]; then
-            echo "$os: Installiing zsh..."
+            echo "$os: Installing zsh..."
             apt-get install -y zsh zsh-completions
         fi
     fi
@@ -74,7 +73,7 @@ fi
 echo "$os: checking vim..."
 if [[ "$os" == "osx" ]]; then
     echo "$os: Updating vim..."
-i   brew install macvim --override-system-vim
+    brew install macvim --override-system-vim
 elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Updating vim..."
     apt-get update && apt-get install vim
@@ -89,6 +88,8 @@ elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Updating tmux..."
     apt-get update && apt-get install tmux
 fi
+
+exit;
 
 # Check the shell, and make sure that we are sourcing the .profile file.
 echo "$os: checking for .profile setup..."
