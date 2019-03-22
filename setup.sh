@@ -16,6 +16,22 @@ else
     exit 1
 fi
 
+# Perform MacOSX Dock Configuration.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Standardise Dock Configuration?" Y; then
+        # Set my preferred dock size.
+        defaults write com.apple.dock tilesize -int 32; killall Dock
+        defaults write com.apple.dock largesize -int 64; killall Dock
+    fi    
+    if ask "$os: Enable 'tap-to-click'?" Y; then
+        # Reference: http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
+        defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+        sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+        sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+        sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    fi    
+fi
+
 # Setup any package manager required.
 if [[ "$os" == "osx" ]]; then
     echo "$os: Checking for brew..."
@@ -42,9 +58,36 @@ echo "$os: checking shell..."
 if [[ "$SHELL" != "/bin/zsh" ]]; then
     if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
         echo "Installing zsh..."
+        if [[ "$os" == "osx" ]]; then
+            echo "$os: Installiing zsh..."
+            brew install zsh zsh-completions
+        elif [[ "$os" == "ubuntu" ]]; then
+            echo "$os: Installiing zsh..."
+            apt-get install -y zsh zsh-completions
+        fi
     fi
 else
     echo "$os: Shell is '$SHELL'"
+fi
+
+# Ensure vim is up to date.
+echo "$os: checking vim..."
+if [[ "$os" == "osx" ]]; then
+    echo "$os: Updating vim..."
+i   brew install macvim --override-system-vim
+elif [[ "$os" == "ubuntu" ]]; then
+    echo "$os: Updating vim..."
+    apt-get update && apt-get install vim
+fi
+
+# Ensure tmux is up to date.
+echo "$os: checking tmux..."
+if [[ "$os" == "osx" ]]; then
+    echo "$os: Updating tmux..."
+i   brew install tmux
+elif [[ "$os" == "ubuntu" ]]; then
+    echo "$os: Updating tmux..."
+    apt-get update && apt-get install tmux
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.

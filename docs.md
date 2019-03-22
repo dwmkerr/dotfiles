@@ -10,10 +10,6 @@ Config: No permanently docked items. Small dock bar. Tap to click.
 2. [1Password](https://agilebits.com/downloads)
 3. [Parallels](http://www.parallels.com/products/desktop/download/)
 3. App Store: xCode, Slack, Evernote
-4. HomeBrew `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-`
-5. Key tools: `brew install npm git`
-5. zsh: `brew install zsh zsh-completions`
 6. [Docker](https://docs.docker.com/docker-for-mac/)
 X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
 X. Virtualbox, Vagrant, Vagrant Manager: `brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox`
@@ -23,42 +19,10 @@ X. [Spectacle](https://www.spectacleapp.com/) for window management.
 
 [Hack](http://sourcefoundry.org/hack/) font for terminals and editors.
 
-## Terminal
-
-You can tell if the terminal has been set up, or at least partially set up if the [solarized](http://ethanschoonover.com/solarized) theme is used. Some good [instructions on setting up a Terminal, tmux and vim for solarized](http://www.terminally-incoherent.com/blog/2012/10/17/vim-solarized-and-tmux/) are available.
-
-- TMux
-- Vundle
-
-
-```bash
-# Install Vim for Mac.
-brew install macvim --override-system-vim
-# Install TMux
-brew install tmux
-# sudo apt-get install tmux
-
-# Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
-
 ## Keyboard Productivity
 
 1. Vimium Chrome Extension
 2. Karabiner keyboard modifier, with fn+hjkl mapped to the arrow keys.
-
-## Vim
-
-1. Clone the `.vimrc`
-2. Install Golang binaries: `GoInstallBinaries`.
-
-## NodeJS
-
-Managed via [NVM](https://github.com/creationix/nvm).
-
-```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
-```
 
 ## Atom
 

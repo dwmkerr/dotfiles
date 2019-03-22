@@ -36,6 +36,20 @@ The following is set up:
 
 ## Installing or Updating
 
+On a _completely clean_ Mac:
+
+```sh
+# Install commandline tools (so that we have git).
+cd ~
+mkdir tmp
+cd tmp
+xcode-select --install
+git clone git@github.com:dwmkerr/dotfiles
+cd dotfiles
+./setup.sh
+```
+
+
 First clone the repo:
 
 ```sh
