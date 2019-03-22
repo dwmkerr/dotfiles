@@ -24,7 +24,7 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 ## Introduction
 
-The goal of this project is to provide a single command which will setup key features of the system. Each feature should be _orthogonal_ and not depend on other features. Each feature should be _optional_ and installed only if the user specifies.
+The goal of this project is to provide a single command which will setup key features of the system. Each feature should be _orthogonal_ and not depend on other features.
 
 The following is set up:
 

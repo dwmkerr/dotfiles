@@ -4,7 +4,7 @@ Some scattered documentation, needs sorting.
 
 ## Clean Mac
 
-Config: No permenently docked items. Small dock bar. Tap to click.
+Config: No permanently docked items. Small dock bar. Tap to click.
 
 1. [Google Chrome](https://chrome.com)
 2. [1Password](https://agilebits.com/downloads)
