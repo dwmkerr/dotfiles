@@ -7,7 +7,7 @@ Some scattered documentation, needs sorting.
 3. [Parallels](http://www.parallels.com/products/desktop/download/)
 3. App Store: xCode, Slack, Evernote
 6. [Docker](https://docs.docker.com/docker-for-mac/)
-X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
+X.  [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
 
 ## Keyboard Productivity
 

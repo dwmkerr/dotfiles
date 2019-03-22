@@ -65,12 +65,20 @@ if [[ "$os" == "osx" ]]; then
         brew install caskroom/cask/brew-cask
         brew cask install google-chrome
         brew cask install 1password
-        brew cask install docker-machine
         brew cask install dropbox
         brew cask install vlc
         brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox
+
         # The 'Hack' font.
         brew install caskroom/fonts/font-hack
+        
+        # Docker and associated tools.
+        brew cask install docker
+        brew install kubectl
+        brew cask install minikube
+
+        # Steam.
+        brew cask install steam
     fi
 fi
 
@@ -99,11 +107,13 @@ if ask "$os: Install/Update tmux?" Y; then
         echo "$os: Updating tmux..."
         apt-get update && apt-get install tmux
     fi
+    ensure_symlink "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.
 if ask "$os: Add .profile to bash/zsh?" Y; then
-    ln -sf "$(pwd)/profile.sh" "~/.profile.sh"
+	ensure_symlink "$(pwd)/profile.sh" "$HOME/.profile.sh"
+	ensure_symlink "$(pwd)/profile" "$HOME/.profile"
     echo "" >> ~/.bashrc
     echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
     echo "source ~/.profile.sh" >> ~/.bashrc
