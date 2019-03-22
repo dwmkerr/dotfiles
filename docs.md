@@ -4,20 +4,10 @@ Some scattered documentation, needs sorting.
 
 ## Clean Mac
 
-Config: No permanently docked items. Small dock bar. Tap to click.
-
-1. [Google Chrome](https://chrome.com)
-2. [1Password](https://agilebits.com/downloads)
 3. [Parallels](http://www.parallels.com/products/desktop/download/)
 3. App Store: xCode, Slack, Evernote
 6. [Docker](https://docs.docker.com/docker-for-mac/)
 X. [Dropbox](https://www.dropbox.com/downloading?src=index), [Box](https://www.box.com/resources/downloads), Office, [Idea](https://www.jetbrains.com/idea/#chooseYourEdition), [Evernote](https://evernote.com/download/), [Spectacle](https://www.spectacleapp.com/), [Android Studio](https://developer.android.com/studio/index.html)
-X. Virtualbox, Vagrant, Vagrant Manager: `brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox`
-X. [Spectacle](https://www.spectacleapp.com/) for window management.
-
-## Fonts
-
-[Hack](http://sourcefoundry.org/hack/) font for terminals and editors.
 
 ## Keyboard Productivity
 
@@ -64,7 +54,6 @@ Sublime Text > Preferences > General > User
 
 ## iTerm2
 
-- [Splits in current working directory](https://coderwall.com/p/9xo7aq/open-up-iterm2-splits-in-current-working-directory)
 - https://github.com/mhartington/oceanic-next-iterm
 
 ## Project Setup

@@ -20,8 +20,14 @@ fi
 if [[ "$os" == "osx" ]]; then
     if ask "$os: Standardise Dock Configuration?" Y; then
         # Set my preferred dock size.
-        defaults write com.apple.dock tilesize -int 32; killall Dock
-        defaults write com.apple.dock largesize -int 64; killall Dock
+        defaults write com.apple.dock tilesize -int 32
+        defaults write com.apple.dock largesize -int 64
+
+        # Only show apps which are open, rather than shortcuts.
+        defaults write com.apple.dock static-only -bool true
+
+        # Restart the dock.
+        killall Dock
     fi    
     if ask "$os: Enable 'tap-to-click'?" Y; then
         # Reference: http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
@@ -50,6 +56,21 @@ elif [[ "$os" == "ubuntu" ]]; then
     if ask "$os: update apt?" Y; then
         echo "$os: Updating apt..."
         sudo apt-get update -y
+    fi
+fi
+
+# Install MacOSX Applications.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Install Applications (vlc)?" Y; then
+        brew install caskroom/cask/brew-cask
+        brew cask install google-chrome
+        brew cask install 1password
+        brew cask install docker-machine
+        brew cask install dropbox
+        brew cask install vlc
+        brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox
+        # The 'Hack' font.
+        brew install caskroom/fonts/font-hack
     fi
 fi
 
