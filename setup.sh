@@ -82,7 +82,7 @@ fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.
 if ask "$os: Add .profile to bash/zsh?" Y; then
-    ln -sf "~/.profile.sh" "$(pwd)/profile.sh"
+    ln -sf "$(pwd)/profile.sh" "~/.profile.sh"
     echo "" >> ~/.bashrc
     echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
     echo "source ~/.profile.sh" >> ~/.bashrc
@@ -122,7 +122,7 @@ if [[ ${tmux_installed} != 0 ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing tmux ${TMUX_VERSION}..."
             brew install tmux
-            ln -s .tmux.conf ~/.tmux.conf
+            ln -s "$(pwd).tmux.conf" "~/.tmux.conf"
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing tmux ${TMUX_VERSION}..."
             # Get the build dependencies.
