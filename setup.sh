@@ -89,11 +89,11 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing zsh..."
             brew install zsh zsh-completions
-            chsh -s $(which zsh)
+            chsh -s "$(which zsh)"
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing zsh..."
             apt-get install -y zsh zsh-completions
-            chsh -s $(which zsh)
+            chsh -s "$(which zsh)"
         fi
     fi
 fi
@@ -125,6 +125,42 @@ if ask "$os: Add .profile to bash/zsh?" Y; then
     elif [[ "$SHELL" =~ zsh ]]; then 
         source ~/.zshrc
     fi
+fi
+
+if ask "$os: Install/Update/Configure Vim?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Installing vim..."
+        brew install vim
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Installing vim..."
+        apt-get update && apt-get install vim
+    fi
+    
+    # Install Vundle.
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+    # Use our dotfiles for vimrc and vim spell.
+    ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
+    ensure_symlink "$(pwd)/vim/vimrc" "$HOME/.vimrc"
+fi
+
+# Configure Git.
+if ask "$os: Configure dwmkerr user for Git?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Installing gpg2..."
+        brew install gnupg2
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Installing gpg2..."
+        apt-get install gnupg2
+    fi
+
+    echo "$os: Configuring Git for dwmkerr and GPG signing..."
+    git config --global user.name "Dave Kerr"
+    git config --global user.email "dwmkerr@gmail.com"
+    git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
+    git config --global commit.gpgSign true
+    git config --global tag.forceSignAnnotated true
+    git config --global gpg.program "gpg2"
 fi
 
 # If NVM is not installed, install it.
@@ -173,31 +209,6 @@ if [[ ${tmux_installed} != 0 ]]; then
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         ~/.tmux/plugins/tpm/bin/install_plugins
     fi
-fi
-
-# Configure Git.
-echo "$os: Configuring Git for dwmkerr and GPG signing..."
-git config --global user.name "Dave Kerr"
-git config --global user.email "dwmkerr@gmail.com"
-git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
-git config --global commit.gpgSign true
-git config --global tag.forceSignAnnotated true
-git config --global gpg.program "gpg2"
-
-# Configure vim.
-
-# Use our dotfiles for vimrc and vim spell.
-ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
-ensure_symlink "$(pwd)/vim/vimrc" "$HOME/.vimrc"
-
-exit
-
-# Install vundle.
-read -p "Install Vundle? (y/n)" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
 # Re-attach to user namespace is needed to get the system clipboard setup.
