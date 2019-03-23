@@ -28,14 +28,11 @@ fi
 if [[ "$os" == "osx" ]]; then
     if ask "$os: Standardise Dock Configuration?" Y; then
         # Set my preferred dock size.
-        defaults write com.apple.dock tilesize -int 32
-        defaults write com.apple.dock largesize -int 64
+        defaults write com.apple.dock tilesize -int 32; killall Dock
+        defaults write com.apple.dock largesize -float 64; killall Dock
 
         # Only show apps which are open, rather than shortcuts.
-        defaults write com.apple.dock static-only -bool true
-
-        # Restart the dock.
-        killall Dock
+        defaults write com.apple.dock static-only -bool true; killall Dock
     fi    
     if ask "$os: Enable 'tap-to-click'?" Y; then
         # Reference: http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
@@ -163,10 +160,15 @@ fi
 # Configure Git.
 if ask "$os: Configure dwmkerr user for Git?" Y; then
     if [[ "$os" == "osx" ]]; then
-        echo "$os: Installing gpg2..."
-        brew install gnupg2
+        echo "$os: Installing gpg..."
+        # Install GPG and Pinentry for Mac.
+        brew install gnupg pinentry-mac
+
+        # Tell GPG to use pinentry-mac, and restart the agent.
+        echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+        gpgconf --kill gpg-agent
     elif [[ "$os" == "ubuntu" ]]; then
-        echo "$os: Installing gpg2..."
+        echo "$os: Installing gpg..."
         apt-get install gnupg2
     fi
 
@@ -176,7 +178,7 @@ if ask "$os: Configure dwmkerr user for Git?" Y; then
     git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
     git config --global commit.gpgSign true
     git config --global tag.forceSignAnnotated true
-    git config --global gpg.program "gpg2"
+    git config --global gpg.program "gpg"
 fi
 
 # If NVM is not installed, install it.
