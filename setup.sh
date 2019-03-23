@@ -69,6 +69,9 @@ if [[ "$os" == "osx" ]]; then
         brew cask install vlc
         brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox
 
+        # Programming.
+        brew cask install iterm2
+
         # The 'Hack' font.
         brew install caskroom/fonts/font-hack
         
@@ -77,8 +80,11 @@ if [[ "$os" == "osx" ]]; then
         brew install kubectl
         brew cask install minikube
 
-        # Steam.
+        # Gaming apps.
         brew cask install steam
+
+        # File Sharing apps.
+        brew cask transmission
     fi
 fi
 
@@ -89,6 +95,8 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing zsh..."
             brew install zsh zsh-completions
+            # Make sure the installed zsh path is allowed in the list of shells.
+            echo "$(which zsh)" >> sudo tee -a /etc/shells
             chsh -s "$(which zsh)"
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing zsh..."
@@ -176,6 +184,26 @@ else
     echo "$os: NVM is installed..."
 fi
 
+# Many changes (such as chsh) need a restart, offer it now,
+if ask "$os: Some changes may require a restart - restart now?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Restarting..."
+        sudo shutdown -r now
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Restarting..."
+        echo "TODO"
+    fi
+
+    echo "$os: Configuring Git for dwmkerr and GPG signing..."
+    git config --global user.name "Dave Kerr"
+    git config --global user.email "dwmkerr@gmail.com"
+    git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
+    git config --global commit.gpgSign true
+    git config --global tag.forceSignAnnotated true
+    git config --global gpg.program "gpg2"
+fi
+
+exit;
 # NOTE: We need to support upgrading tmux too...
 # sudo apt-get -y remove tmux
 

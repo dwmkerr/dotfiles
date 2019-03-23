@@ -14,7 +14,6 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 * [Introduction](#introduction)
 * [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
-* [Installing or Updating](#installing-or-updating)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
@@ -55,23 +54,10 @@ cd dotfiles
 ./setup.sh
 ```
 
-## Installing or Updating
+There are a number of manual post-install steps:\
 
-
-
-First clone the repo:
-
-```sh
-git clone git@github.com:dwmkerr/dotfiles
-```
-
-Then run setup:
-
-```sh
-./setup.sh
-```
-
-A variety of tools required to support common coding requirements (Node Version Manager, Golang, Docker etc) are installed.
+1. Restore GPG keys from a backup.
+2. Setup SSH keys for GitHub.
 
 ## Shell Commands
 
