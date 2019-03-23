@@ -2,6 +2,14 @@
 source ./tools/ask.sh
 source ./tools/ensure_symlink.sh
 
+# TODO:
+# osx - show address bar at bottom of screen
+# osx - set background
+# osx - set icon
+# iterm - full screen options / max / transparent
+# iterm - set colour scheme
+# terminal - raise bug on broken colours
+
 # Identify the operating system.
 un=$(uname -a)
 os="unknown"
