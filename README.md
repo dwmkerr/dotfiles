@@ -71,8 +71,6 @@ Then run setup:
 ./setup.sh
 ```
 
-A variety of tools required to support common coding requirements (Node Version Manager, Golang, Docker etc) are installed.
-
 ## Shell Commands
 
 The following shell commands are setup:
