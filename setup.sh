@@ -4,7 +4,6 @@ source ./tools/ensure_symlink.sh
 
 # TODO:
 # osx - show address bar at bottom of screen
-# osx - set background
 # osx - set icon
 # iterm - full screen options / max / transparent
 # iterm - set colour scheme
@@ -41,6 +40,9 @@ if [[ "$os" == "osx" ]]; then
         sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
         sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     fi    
+    if ask "$os: Set wallpaper?" Y; then
+        osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$(pwd)/desktop/vim-shortcuts2560x1600.png\""
+    fi
 fi
 
 # Setup any package manager required.
@@ -141,6 +143,9 @@ if ask "$os: Add .profile to bash/zsh?" Y; then
 fi
 
 if ask "$os: Install/Update/Configure Vim?" Y; then
+    # I use ~/tmp for a lot of vim temp stuff...
+    mkdir ~/tmp
+
     if [[ "$os" == "osx" ]]; then
         echo "$os: Installing vim..."
         brew install vim
