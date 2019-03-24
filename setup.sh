@@ -78,6 +78,10 @@ if [[ "$os" == "osx" ]]; then
 
         # Programming.
         brew cask install iterm2
+        brew cask install visual-studio-code
+
+        # Communication.
+        brew cask install whatsapp
 
         # The 'Hack' font.
         brew install caskroom/fonts/font-hack

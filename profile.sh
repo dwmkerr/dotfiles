@@ -42,3 +42,9 @@ export PS1="\[\033[38;5;10m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\
 # Fix 'perl: warning: Setting locale failed.'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# Whether we're in iTerm, Terminal or whatever, we're using tmux.
+# If we are not running in interactive mode, we're done.
+# Otherwise, unless we are *already* in a tmux session, start tmux.
+[[ $- != *i* ]] && return
+[[ -z "$TMUX" ]] && exec tmux
