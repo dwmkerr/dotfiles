@@ -3,9 +3,7 @@ source ./tools/ask.sh
 source ./tools/ensure_symlink.sh
 
 # TODO:
-# osx - show address bar at bottom of screen
 # osx - set icon
-# iterm - full screen options / max / transparent
 # iterm - set colour scheme
 # terminal - raise bug on broken colours
 
@@ -42,6 +40,13 @@ if [[ "$os" == "osx" ]]; then
     fi    
     if ask "$os: Set wallpaper?" Y; then
         osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$(pwd)/desktop/vim-shortcuts2560x1600.png\""
+    fi
+    if ask "$os: Show hidden files and folders?" Y; then
+        defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder
+    fi
+
+    if ask "$os: Show the path bar in Finder?" Y; then
+        defaults write com.apple.finder ShowPathbar -bool true; killall Finder
     fi
 fi
 
@@ -95,8 +100,9 @@ if [[ "$os" == "osx" ]]; then
         # Gaming apps.
         brew cask install steam
 
-        # File Sharing apps.
-        brew cask transmission
+        # File management / download / sharing apps.
+        brew cask install transmission
+        brew cask install cyberduck
 
         # Virtual machines.
         brew cask install parallels
