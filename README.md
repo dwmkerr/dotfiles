@@ -58,6 +58,7 @@ There are a number of manual post-install steps:\
 
 1. Restore GPG keys from a backup.
 2. Setup SSH keys for GitHub.
+3. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
 
 ## Shell Commands
 
