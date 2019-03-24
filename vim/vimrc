@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
+Plugin 'jszakmeister/vim-togglecursor' " Toggle between line and block cursor when supported.
 Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.

@@ -14,6 +14,7 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 * [Introduction](#introduction)
 * [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
+* [iTerm 2 Configuration](#iterm-2-configuration)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
@@ -59,6 +60,21 @@ There are a number of manual post-install steps:\
 1. Restore GPG keys from a backup.
 2. Setup SSH keys for GitHub.
 3. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
+4. Restore Parallels virtual machines from backup.
+
+## iTerm 2 Configuration
+
+I've not yet been able to script this configuration. Here are the settings which are non-default:
+
+- General: Selection - [X] Applications in terminal may access clipboard
+- General: Window    - [ ] Native full screen windows
+- Profiles: Text     - [X] Blinking cursor
+- Profiles: Text     - Font: 16 pt Hack
+- Profiles: Window   - Transparency: ~15%
+- Profiles: Window   - Style: Fullscreen
+- Profiles: Terminal - [X] Silence bell
+- Profiles: Keys     - Left ⌥ key 'Esc+'
+- Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (^Space)
 
 ## Shell Commands
 

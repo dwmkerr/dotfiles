@@ -84,7 +84,8 @@ if [[ "$os" == "osx" ]]; then
         brew cask install whatsapp
 
         # The 'Hack' font.
-        brew install caskroom/fonts/font-hack
+        brew tap caskroom/fonts
+        brew cask install font-hack
         
         # Docker and associated tools.
         brew cask install docker
@@ -96,6 +97,9 @@ if [[ "$os" == "osx" ]]; then
 
         # File Sharing apps.
         brew cask transmission
+
+        # Virtual machines.
+        brew cask install parallels
     fi
 fi
 
