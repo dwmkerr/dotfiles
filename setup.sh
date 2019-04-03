@@ -3,9 +3,11 @@ source ./tools/ask.sh
 source ./tools/ensure_symlink.sh
 
 # TODO:
+# osx - mas (mac app store CLI: brew)
 # osx - set icon
 # iterm - set colour scheme
 # terminal - raise bug on broken colours
+# shell - tldr
 
 # Identify the operating system.
 un=$(uname -a)
@@ -84,9 +86,11 @@ if [[ "$os" == "osx" ]]; then
         # Programming.
         brew cask install iterm2
         brew cask install visual-studio-code
+        brew cask install wget
 
         # Communication.
         brew cask install whatsapp
+        brew cask install slack
 
         # The 'Hack' font.
         brew tap caskroom/fonts
@@ -137,6 +141,9 @@ if ask "$os: Install/Update tmux?" Y; then
         apt-get update && apt-get install tmux
     fi
     ensure_symlink "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
+
+    # Setup the tmux plugin manager.
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.
@@ -213,6 +220,75 @@ else
     echo "$os: NVM is installed..."
 fi
 
+# Configure Terraform.
+if ask "$os: Setup Terraform and Terraform Lint?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install terraform
+        brew tap wata727/tflint
+        brew install tflint
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Configure Golang.
+if ask "$os: Setup Golang?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install terraform
+        brew tap wata727/tflint
+        brew install tflint
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Setup ag.
+if ask "$os: Install/Configure The Silver Searcher?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install the_silver_searcher
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Updating tmux..."
+        apt-get install -y silversearcher-ag
+    fi
+fi
+
+# Setup wiktionary cli.
+if ask "$os: Install wped/wikt?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install php-cli php-curl php-xml elinks
+        wget https://raw.githubusercontent.com/mevdschee/wped/master/wped.php -O wped
+        chmod 755 wped
+        sudo mv wped /usr/local/bin/wped
+        sudo ln -s /usr/local/bin/wped /usr/local/bin/wikt
+    elif [[ "$os" == "ubuntu" ]]; then
+        sudo apt-get install php-cli php-curl php-xml elinks
+        wget https://raw.githubusercontent.com/mevdschee/wped/master/wped.php -O wped
+        chmod 755 wped
+        sudo mv wped /usr/bin/wped
+        sudo ln -s /usr/bin/wped /usr/bin/wikt
+    fi
+fi
+
+if ask "$os: Setup AWS/GCP/Azure/Alicloud CLIs?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install awscli
+        brew install azure-cli
+    elif [[ "$os" == "ubuntu" ]]; then
+        pip3 install awscli --upgrade --user
+
+        # Install az cli dependencies, Microsoft's key, thb binary.
+        sudo apt-get install curl apt-transport-https lsb-release gpg
+        curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+            gpg --dearmor | \
+            sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+        AZ_REPO=$(lsb_release -cs)
+        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+            sudo tee /etc/apt/sources.list.d/azure-cli.list
+        sudo apt-get update
+        sudo apt-get install azure-cli
+    fi
+fi
+
 # Many changes (such as chsh) need a restart, offer it now,
 if ask "$os: Some changes may require a restart - restart now?" Y; then
     if [[ "$os" == "osx" ]]; then
@@ -231,6 +307,8 @@ if ask "$os: Some changes may require a restart - restart now?" Y; then
     git config --global tag.forceSignAnnotated true
     git config --global gpg.program "gpg2"
 fi
+
+
 
 exit;
 # NOTE: We need to support upgrading tmux too...
@@ -279,10 +357,6 @@ curl -L https://raw.githubusercontent.com/docker/machine/v0.13.0/contrib/complet
 curl -L https://raw.githubusercontent.com/docker/compose/1.17.0/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
 
 # Install linters and related tools. These are used by ALE in Vim.
-
-# Install Terraform Lint.
-brew tap wata727/tflint
-brew install tflint
 
 # HTML linting.
 brew install tidy-html5
