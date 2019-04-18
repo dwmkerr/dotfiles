@@ -242,6 +242,15 @@ if ask "$os: Setup Golang?" Y; then
     fi
 fi
 
+# Setup Java.
+if ask "$os: Setup Java?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew cask install java
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
 # Setup ag.
 if ask "$os: Install/Configure The Silver Searcher?" Y; then
     if [[ "$os" == "osx" ]]; then
