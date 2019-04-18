@@ -68,6 +68,9 @@ There are a number of manual post-install steps:
 0. Actually install tmux plugins, using `Ctrl+B Ctrl+I` (otherwise things like `tmux-yank` won't work).
 0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
 0. Restore the AWS CLI credentials to bring back project access.
+0. Setup SSH keys for GitHub.
+0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
+0. Restore Parallels virtual machines from backup.
 0. Configure `~/.gitconfig` from `./git/gitconfig`.
 
 ## iTerm 2 Configuration
