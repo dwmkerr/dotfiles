@@ -14,6 +14,7 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 * [Introduction](#introduction)
 * [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
+    * [Manual Steps](#manual-steps)
 * [iTerm 2 Configuration](#iterm-2-configuration)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
@@ -56,15 +57,21 @@ cd dotfiles
 ./setup.sh
 ```
 
+### Manual Steps
+
 There are a number of manual post-install steps:
 
 1. Restore GPG keys from a backup.
-2. Setup SSH keys for GitHub.
-3. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
-4. Restore Parallels virtual machines from backup.
-5. Actually install tmux plugins, using `Ctrl+B Ctrl+I` (otherwise things like `tmux-yank` won't work).
-6. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
-7. Restore the AWS CLI credentials to bring back project access.
+0. Setup SSH keys for GitHub.
+0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
+0. Restore Parallels virtual machines from backup.
+0. Actually install tmux plugins, using `Ctrl+B Ctrl+I` (otherwise things like `tmux-yank` won't work).
+0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
+0. Restore the AWS CLI credentials to bring back project access.
+0. Setup SSH keys for GitHub.
+0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
+0. Restore Parallels virtual machines from backup.
+0. Configure `~/.gitconfig` from `./git/gitconfig`.
 
 ## iTerm 2 Configuration
 

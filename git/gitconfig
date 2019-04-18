@@ -1,0 +1,23 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Dave Kerr
+	email = dwmkerr@gmail.com
+	signingKey = 35D965FB60ACC2E94E605038F780C45862199FEC
+[core]
+	excludesfile = /Users/dave/.gitignore_global
+	editor = /usr/bin/vim
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/dave/.stCommitMsg
+	gpgSign = true
+[alias]
+    cleanup = "!git branch --merged master | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+[tag]
+	forceSignAnnotated = true
+[gpg]
+	program = gpg2
