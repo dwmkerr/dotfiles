@@ -1,4 +1,4 @@
-#!/bin/bash
+
 source ./tools/ask.sh
 source ./tools/ensure_symlink.sh
 
@@ -86,7 +86,6 @@ if [[ "$os" == "osx" ]]; then
         # Programming.
         brew cask install iterm2
         brew cask install visual-studio-code
-        brew cask install wget
 
         # Communication.
         brew cask install whatsapp
@@ -96,6 +95,7 @@ if [[ "$os" == "osx" ]]; then
         brew tap caskroom/fonts
         brew cask install font-hack
         
+        # TODO: move to its own section and have it's own profile.
         # Docker and associated tools.
         brew cask install docker
         brew install kubectl
@@ -110,6 +110,19 @@ if [[ "$os" == "osx" ]]; then
 
         # Virtual machines.
         brew cask install parallels
+
+        # Muzak stuff.
+        brew cask install spotmenu
+
+        # Utilities.
+        brew cask install spectacle
+    fi
+fi
+
+# Install Linux apps.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Install Linux CLI apps (telnet, tree, wget, etc)?" Y; then
+        brew install telnet wget tree
     fi
 fi
 
