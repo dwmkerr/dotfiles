@@ -29,6 +29,7 @@ Plugin 'mileszs/ack.vim'     " Ack support.
 Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
 Plugin 'rizzatti/dash.vim'   " Dash support.
 Plugin 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
+Plugin 'tpope/vim-fugitive'  " Git support.
 
 " Plugins for languages
 Plugin 'jparise/vim-graphql'      " GraphQL
@@ -41,7 +42,7 @@ Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact H
 Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plugin 'leafgarland/typescript-vim' "TypeScript
-" Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
+Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
 " Bundle 'gabrielelana/vim-markdown'
 
 " Support focus events, even when running in tmux.
@@ -188,8 +189,8 @@ set wildmenu
     " Also will not count acronym with 's' at the end a spelling error
     " Also will not count numbers that are part of this
     " Recognizes the following as correct:
-    syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
-
+    au BufNewFile,BufRead syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+    au BufNewFile,BufRead syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 " JavaScript Language Settings
 

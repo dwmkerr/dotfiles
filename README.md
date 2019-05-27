@@ -65,13 +65,14 @@ There are a number of manual post-install steps:
 0. Setup SSH keys for GitHub.
 0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
 0. Restore Parallels virtual machines from backup.
-0. Actually install tmux plugins, using `Ctrl+B Ctrl+I` (otherwise things like `tmux-yank` won't work).
+0. Actually install tmux plugins, using `<leader> Ctrl+I` (otherwise things like `tmux-yank` won't work).
 0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
 0. Restore the AWS CLI credentials to bring back project access.
 0. Setup SSH keys for GitHub.
 0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
 0. Restore Parallels virtual machines from backup.
 0. Configure `~/.gitconfig` from `./git/gitconfig`.
+0. Setup Vim NGINX syntax: https://arian.io/vim-syntax-highlighting-for-nginx/
 
 ## iTerm 2 Configuration
 
@@ -98,14 +99,17 @@ The following shell commands are setup:
 
 ## Cheat Sheet - TMux
 
-- Ctrl+B / Ctrl+S - Save Tmux Session
-- Ctrl+B / Ctrl+R - Restore Tmux Session
-- Ctrl+h/j/k/l - Navigate splits (vim aware)
-- Ctrl+/ - Last split
-- Ctrl+B h - Move window left
-- Ctrl+B l - Move window right
-- Ctrl+B { - Swap pane left
-- Ctrl+B } - Swap pane right
+| Command             | Usage                                                |
+|---------------------|------------------------------------------------------|
+| `Ctrl + h/j/k/l`    | Navigate splits (vim aware)                          |
+| `move-window -r`    | Re-order the tab numbers (useful if there are gaps). |
+| `<leader> / Ctrl+S` | Save Tmux Session                                    |
+| `<leader> / Ctrl+R` | Restore Tmux Session                                 |
+| `<leader> /`        | Last split                                           |
+| `<leader> h`        | Move window left                                     |
+| `<leader> l`        | Move window right                                    |
+| `<leader> {`        | Swap pane left                                       |
+| `<leader> }`        | Swap pane right                                      |
 
 ## Cheat Sheet - Vim
 
