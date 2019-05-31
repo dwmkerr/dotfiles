@@ -1,3 +1,14 @@
+# IMPORTANT:
+#
+# There is no shebang in this script. This will be sourced from the user's
+# current shell. So we might be using bash, zsh, etc. If we use an explicit
+# shebang, we can guarantee the shell which will interpret the script, but
+# cannot conditionally set up the user's _current_ shell.
+#
+# See the section near the end where we are sourcing auto-complete settings for
+# an example of why this matters. If we use a shebang in this script, we'll only
+# ever source auto-completions for the shell in the shebang.
+
 #!/usr/bin/env bash
 
 # Import everything from the .profile folder.
@@ -43,8 +54,19 @@ export PS1="\[\033[38;5;10m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Whether we're in iTerm, Terminal or whatever, we're using tmux.
 # If we are not running in interactive mode, we're done.
-# Otherwise, unless we are *already* in a tmux session, start tmux.
 [[ $- != *i* ]] && return
+
+# We *are* interactive, so if we are not already in tmux, start it.
 [[ -z "$TMUX" ]] && exec tmux
+
+# Load auto-completions depending on our shell.
+if [ -n "$BASH_VERSION" ]; then
+    # Source auto-completions from the Mac and Linux locations.
+    if [ -f /usr/local/etc/bash_completion ]; then . /usr/local/etc/bash_completion; fi
+    if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
+elif [ -n "$ZSH_VERSION" ]; then
+    # Source zsh auto-completions.
+    fpath=(~/.zsh/completion $fpath)
+    autoload -Uz compinit && compinit -i
+fi

@@ -1,6 +1,8 @@
-
-source ./tools/ask.sh
-source ./tools/ensure_symlink.sh
+# Load each of the tools.
+for file in ./tools/*; do
+    [ -e "$file" ] || continue
+    source $file
+done
 
 # TODO:
 # osx - mas (mac app store CLI: brew)
@@ -9,19 +11,10 @@ source ./tools/ensure_symlink.sh
 # terminal - raise bug on broken colours
 # shell - tldr
 
-# Identify the operating system.
-un=$(uname -a)
-os="unknown"
-if [[ "$un" =~ [Dd]arwin ]]; then
-    echo "Operating System: OSX"
-    os="osx"
-elif [[ "$un" =~ [Uu]buntu ]]; then
-    echo "Operating System: Ubuntu"
-    os="ubuntu"
-else
-    echo "Operating System: Unknown"
-    exit 1
-fi
+# Get the operating system, output it. The script will terminate if the OS
+# cannot be categorically identified.
+os=$(get_os)
+echo "os identified as: $os"
 
 # Perform MacOSX Dock Configuration.
 if [[ "$os" == "osx" ]]; then
@@ -358,7 +351,11 @@ if ask "$os: Some changes may require a restart - restart now?" Y; then
     git config --global gpg.program "gpg2"
 fi
 
-
+# Run each of the setup files.
+for file in ./setup.d/*; do
+    [ -e "$file" ] || continue
+    source $file
+done
 
 exit;
 # NOTE: We need to support upgrading tmux too...
@@ -398,13 +395,6 @@ fi
 
 # Re-attach to user namespace is needed to get the system clipboard setup.
 brew install reattach-to-user-namespace
-brew install bash-completion
-
-# Not sure if we want this here, but here's some zsh completion...
-mkdir -p ~/.zsh/completion
-curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
-curl -L https://raw.githubusercontent.com/docker/machine/v0.13.0/contrib/completion/zsh/_docker-machine > ~/.zsh/completion/_docker-machine
-curl -L https://raw.githubusercontent.com/docker/compose/1.17.0/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
 
 # Install linters and related tools. These are used by ALE in Vim.
 
