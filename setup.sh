@@ -1,19 +1,48 @@
-#!/bin/bash
-source ./tools/ask.sh
-source ./tools/ensure_symlink.sh
+# Load each of the tools.
+for file in ./tools/*; do
+    [ -e "$file" ] || continue
+    source $file
+done
 
-# Identify the operating system.
-un=$(uname -a)
-os="unknown"
-if [[ "$un" =~ [Dd]arwin ]]; then
-    echo "Operating System: OSX"
-    os="osx"
-elif [[ "$un" =~ [Uu]buntu ]]; then
-    echo "Operating System: Ubuntu"
-    os="ubuntu"
-else
-    echo "Operating System: Unknown"
-    exit 1
+# TODO:
+# osx - mas (mac app store CLI: brew)
+# osx - set icon
+# iterm - set colour scheme
+# terminal - raise bug on broken colours
+# shell - tldr
+
+# Get the operating system, output it. The script will terminate if the OS
+# cannot be categorically identified.
+os=$(get_os)
+echo "os identified as: $os"
+
+# Perform MacOSX Dock Configuration.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Standardise Dock Configuration?" Y; then
+        # Set my preferred dock size.
+        defaults write com.apple.dock tilesize -int 32; killall Dock
+        defaults write com.apple.dock largesize -float 64; killall Dock
+
+        # Only show apps which are open, rather than shortcuts.
+        defaults write com.apple.dock static-only -bool true; killall Dock
+    fi    
+    if ask "$os: Enable 'tap-to-click'?" Y; then
+        # Reference: http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
+        defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+        sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+        sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+        sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    fi    
+    if ask "$os: Set wallpaper?" Y; then
+        osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$(pwd)/desktop/vim-shortcuts2560x1600.png\""
+    fi
+    if ask "$os: Show hidden files and folders?" Y; then
+        defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder
+    fi
+
+    if ask "$os: Show the path bar in Finder?" Y; then
+        defaults write com.apple.finder ShowPathbar -bool true; killall Finder
+    fi
 fi
 
 # Setup any package manager required.
@@ -37,13 +66,69 @@ elif [[ "$os" == "ubuntu" ]]; then
     fi
 fi
 
+# Install MacOSX Applications.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Install Applications (vlc)?" Y; then
+        brew install caskroom/cask/brew-cask
+        brew cask install google-chrome
+        brew cask install 1password
+        brew cask install dropbox
+        brew cask install vlc
+        brew cask install virtualbox && brew cask install vagrant && brew cask install virtualbox
+
+        # Programming.
+        brew cask install iterm2
+        brew cask install visual-studio-code
+
+        # Communication.
+        brew cask install whatsapp
+        brew cask install slack
+
+        # The 'Hack' font.
+        brew tap caskroom/fonts
+        brew cask install font-hack
+        
+        # TODO: move to its own section and have it's own profile.
+        # Docker and associated tools.
+        brew cask install docker
+        brew install kubectl
+        brew cask install minikube
+
+        # Gaming apps.
+        brew cask install steam
+
+        # File management / download / sharing apps.
+        brew cask install transmission
+        brew cask install cyberduck
+
+        # Virtual machines.
+        brew cask install parallels
+
+        # Muzak stuff.
+        brew cask install spotmenu
+
+        # Utilities.
+        brew cask install spectacle
+    fi
+fi
+
+# Install Linux apps.
+if [[ "$os" == "osx" ]]; then
+    if ask "$os: Install Linux CLI apps (telnet, tree, wget, etc)?" Y; then
+        brew install telnet wget tree
+    fi
+fi
+
 # Move to zsh.
 echo "$os: checking shell..."
 if [[ "$os" == "osx" ]]; then
     if [[ ! "$SHELL" =~ "zsh" ]]; then
         if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
             echo "Installing zsh..."
-            brew install zsh
+            brew install zsh zsh-completions
+            # Make sure the installed zsh path is allowed in the list of shells.
+            echo "$(which zsh)" >> sudo tee -a /etc/shells
+            chsh -s "$(which zsh)"
         fi
     else
         echo "$os: Shell is '$SHELL'"
@@ -53,27 +138,91 @@ elif [[ "$os" == "ubuntu" ]]; then
         if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
             echo "$os: Installing zsh..."
             # Install zsh, then install oh-my-zsh, setup config and theme.
-            sudo apt-get install -y zsh
+            sudo apt-get install -y zsh zsh-completions
             sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
             ln -sf $(pwd)/zsh/zshrc ~/.zshrc
             ln -sf $(pwd)/zsh/dwmkerr.zsh-theme ~/.oh-my-zsh/themes/dwmkerr.zsh-theme
+            chsh -s "$(which zsh)"
         fi
     else
         echo "$os: Shell is '$SHELL'"
     fi
 fi
 
-# Check the shell, and make sure that we are sourcing the .profile file.
-echo "$os: checking for .profile setup..."
-if [[ "$SHELL" =~ bash ]]; then
-    # TODO: we should only do this if the line is not already in our rc.
-    if ask "$os: Add 'source .profile' to bashrc?" Y; then
-        ln -sf "~/.profile.sh" "$(pwd)/profile.sh"
-        echo "" >> ~/.bashrc
-        echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
-        echo "source ~/.profile.sh" >> ~/.bashrc
-        source ~/.bashrc
+# Ensure tmux is up to date.
+if ask "$os: Install/Update tmux?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Updating tmux..."
+        brew install tmux
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Updating tmux..."
+        apt-get update && apt-get install tmux
     fi
+    ensure_symlink "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
+
+    # Setup the tmux plugin manager.
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# Check the shell, and make sure that we are sourcing the .profile file.
+if ask "$os: Add .profile to bash/zsh?" Y; then
+	ensure_symlink "$(pwd)/profile.sh" "$HOME/.profile.sh"
+	ensure_symlink "$(pwd)/profile" "$HOME/.profile"
+    echo "" >> ~/.bashrc
+    echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.bashrc
+    echo "source ~/.profile.sh" >> ~/.bashrc
+    echo "" >> ~/.zshrc
+    echo "# Load dwmkerr/dotfiles shell configuration." >> ~/.zshrc
+    echo "source ~/.profile.sh" >> ~/.zshrc
+    if [[ "$SHELL" =~ bash ]]; then
+        source ~/.bashrc
+    elif [[ "$SHELL" =~ zsh ]]; then 
+        source ~/.zshrc
+    fi
+fi
+
+if ask "$os: Install/Update/Configure Vim?" Y; then
+    # I use ~/tmp for a lot of vim temp stuff...
+    mkdir ~/tmp
+
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Installing vim..."
+        brew install vim
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Installing vim..."
+        apt-get update && apt-get install vim
+    fi
+    
+    # Install Vundle.
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+    # Use our dotfiles for vimrc and vim spell.
+    ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
+    ensure_symlink "$(pwd)/vim/vimrc" "$HOME/.vimrc"
+fi
+
+# Configure Git.
+if ask "$os: Configure dwmkerr user for Git?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Installing gpg..."
+        # Install GPG and Pinentry for Mac.
+        brew install gnupg pinentry-mac
+
+        # Tell GPG to use pinentry-mac, and restart the agent.
+        echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+        gpgconf --kill gpg-agent
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Installing gpg..."
+        apt-get install gnupg2
+    fi
+
+    echo "$os: Configuring Git for dwmkerr and GPG signing..."
+    git config --global user.name "Dave Kerr"
+    git config --global user.email "dwmkerr@gmail.com"
+    git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
+    git config --global commit.gpgSign true
+    git config --global tag.forceSignAnnotated true
+    git config --global gpg.program "gpg"
 fi
 
 # If NVM is not installed, install it.
@@ -89,6 +238,138 @@ else
     echo "$os: NVM is installed..."
 fi
 
+# Configure Terraform.
+if ask "$os: Setup Terraform and Terraform Lint?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install terraform
+        brew tap wata727/tflint
+        brew install tflint
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Configure Golang.
+if ask "$os: Setup Golang?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install terraform
+        brew tap wata727/tflint
+        brew install tflint
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Setup Java.
+if ask "$os: Setup Java 8?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        # Note that Java 8 is not the latest version, but some tools like the
+        # Android SDK don't support version 9 at the time of writing. So install
+        # Java 8 by preference.
+        brew cask reinstall AdoptOpenJDK/homebrew-openjdk/adoptopenjdk
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Setup Android.
+android_version="28"
+if ask "$os: Setup Android v${android_version}?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install gradle
+
+        # Install the Android SDK and HAXM.
+        brew cask install android-sdk
+        brew cask install intel-haxm
+
+        # Now install the appropriate SDKs components for the given Android version.
+        sdkmanager "platform-tools" "platforms;android-${android_version}" "extras;intel;Hardware_Accelerated_Execution_Manager" "build-tools;${android_version}.0.0" "system-images;android-${android_version};google_apis;x86" "emulator"
+
+        # Finally, create an emulator for the given Android version.
+        avdmanager create avd -memory 768 -n Android28Emulator -k "system-images;android-${android_version};google_apis;x86"
+
+        # We should *not* have an 'emulator' symlink, as we add:
+        #   /usr/local/share/android-sdk/emulator/
+        # to our path. Having the link causes 'missing binary' issues. So remove it.
+        rm /usr/local/share/android-sdk/emulator/emulator
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: TODO"
+    fi
+fi
+
+# Setup ag.
+if ask "$os: Install/Configure The Silver Searcher?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install the_silver_searcher
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Updating tmux..."
+        apt-get install -y silversearcher-ag
+    fi
+fi
+
+# Setup wiktionary cli.
+if ask "$os: Install wped/wikt?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install php-cli php-curl php-xml elinks
+        wget https://raw.githubusercontent.com/mevdschee/wped/master/wped.php -O wped
+        chmod 755 wped
+        sudo mv wped /usr/local/bin/wped
+        sudo ln -s /usr/local/bin/wped /usr/local/bin/wikt
+    elif [[ "$os" == "ubuntu" ]]; then
+        sudo apt-get install php-cli php-curl php-xml elinks
+        wget https://raw.githubusercontent.com/mevdschee/wped/master/wped.php -O wped
+        chmod 755 wped
+        sudo mv wped /usr/bin/wped
+        sudo ln -s /usr/bin/wped /usr/bin/wikt
+    fi
+fi
+
+if ask "$os: Setup AWS/GCP/Azure/Alicloud CLIs?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install awscli
+        brew install azure-cli
+    elif [[ "$os" == "ubuntu" ]]; then
+        pip3 install awscli --upgrade --user
+
+        # Install az cli dependencies, Microsoft's key, thb binary.
+        sudo apt-get install curl apt-transport-https lsb-release gpg
+        curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+            gpg --dearmor | \
+            sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+        AZ_REPO=$(lsb_release -cs)
+        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+            sudo tee /etc/apt/sources.list.d/azure-cli.list
+        sudo apt-get update
+        sudo apt-get install azure-cli
+    fi
+fi
+
+# Many changes (such as chsh) need a restart, offer it now,
+if ask "$os: Some changes may require a restart - restart now?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        echo "$os: Restarting..."
+        sudo shutdown -r now
+    elif [[ "$os" == "ubuntu" ]]; then
+        echo "$os: Restarting..."
+        echo "TODO"
+    fi
+
+    echo "$os: Configuring Git for dwmkerr and GPG signing..."
+    git config --global user.name "Dave Kerr"
+    git config --global user.email "dwmkerr@gmail.com"
+    git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
+    git config --global commit.gpgSign true
+    git config --global tag.forceSignAnnotated true
+    git config --global gpg.program "gpg2"
+fi
+
+# Run each of the setup files.
+for file in ./setup.d/*; do
+    [ -e "$file" ] || continue
+    source $file
+done
+
+exit;
 # NOTE: We need to support upgrading tmux too...
 # sudo apt-get -y remove tmux
 
@@ -102,7 +383,7 @@ if [[ ${tmux_installed} != 0 ]]; then
         if [[ "$os" == "osx" ]]; then
             echo "$os: Installing tmux ${TMUX_VERSION}..."
             brew install tmux
-            ln -s .tmux.conf ~/.tmux.conf
+            ln -s "$(pwd).tmux.conf" "~/.tmux.conf"
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing tmux ${TMUX_VERSION}..."
             # Get the build dependencies.
@@ -124,46 +405,10 @@ if [[ ${tmux_installed} != 0 ]]; then
     fi
 fi
 
-# Configure Git.
-echo "$os: Configuring Git for dwmkerr and GPG signing..."
-git config --global user.name "Dave Kerr"
-git config --global user.email "dwmkerr@gmail.com"
-git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
-git config --global commit.gpgSign true
-git config --global tag.forceSignAnnotated true
-git config --global gpg.program "gpg2"
-
-# Configure vim.
-
-# Use our dotfiles for vimrc and vim spell.
-ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
-ensure_symlink "$(pwd)/vimrc" "$HOME/.vimrc"
-
-exit
-
-# Install vundle.
-read -p "Install Vundle? (y/n)" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-
 # Re-attach to user namespace is needed to get the system clipboard setup.
 brew install reattach-to-user-namespace
-brew install bash-completion
-
-# Not sure if we want this here, but here's some zsh completion...
-mkdir -p ~/.zsh/completion
-curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
-curl -L https://raw.githubusercontent.com/docker/machine/v0.13.0/contrib/completion/zsh/_docker-machine > ~/.zsh/completion/_docker-machine
-curl -L https://raw.githubusercontent.com/docker/compose/1.17.0/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
 
 # Install linters and related tools. These are used by ALE in Vim.
-
-# Install Terraform Lint.
-brew tap wata727/tflint
-brew install tflint
 
 # HTML linting.
 brew install tidy-html5

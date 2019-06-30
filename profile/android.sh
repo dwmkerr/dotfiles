@@ -1,8 +1,14 @@
 #!/usr/bin/env bash 
+# If the Android SDK has been installed, set the SDK path.
+sdk_path="/usr/local/share/android-sdk"
+if [[ -d "$sdk_path" ]]; then
+    # This is the preferred environment variable for the SDK root.
+    export ANDROID_SDK_ROOT="$sdk_path"
 
-# Setup key Android environment variables. Assumes an installation with
-# something like Android Studio or Eclipse, rather than an SDK installed
-# with HomeBrew.
-export ANDROID_HOME=${HOME}/Library/Android/sdk
-export PATH=${PATH}:${ANDROID_HOME}/tools
-export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+    # ANDROID_HOME is deprecated, but we'll set it just in case some other tool
+    # has tried to set it to something else.
+    export ANDROID_HOME="$sdk_path"
+
+    # Make sure we set the correct emulator path first!
+    export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/tools:$PATH
+fi

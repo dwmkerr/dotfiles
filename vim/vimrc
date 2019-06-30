@@ -22,11 +22,14 @@ Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
 Plugin 'vim-airline/vim-airline'    " A useful statusbar.
 Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
+Plugin 'jszakmeister/vim-togglecursor' " Toggle between line and block cursor when supported.
 Plugin 'tpope/vim-surround'  " Surround motions.
 Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plugin 'mileszs/ack.vim'     " Ack support.
 Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
 Plugin 'rizzatti/dash.vim'   " Dash support.
+Plugin 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
+Plugin 'tpope/vim-fugitive'  " Git support.
 
 " Plugins for languages
 Plugin 'jparise/vim-graphql'      " GraphQL
@@ -38,7 +41,9 @@ Plugin 'othree/html5.vim'         " HTML + SVG
 Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
 Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
-" Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
+Plugin 'leafgarland/typescript-vim' "TypeScript
+Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
+" Bundle 'gabrielelana/vim-markdown'
 
 " Support focus events, even when running in tmux.
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -50,7 +55,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'AndrewRadev/splitjoin.vim'
 
 " Highlight the yanked text briefly.
-Plugin 'machakann/vim-highlightedyank'
+" Plugin 'machakann/vim-highlightedyank'
 
 " NERD Commenter plugin.
 Plugin 'scrooloose/nerdcommenter'
@@ -159,6 +164,7 @@ set wildmenu
     au FileType html           setl sw=2 sts=2 et
     au FileType javascript     setl sw=2 sts=2 et
     au FileType javascript.jsx setl sw=2 sts=2 et
+    au FileType typescript     setl sw=2 sts=2 et
     au FileType json           setl sw=2 sts=2 et
     au FileType ruby           setl sw=2 sts=2 et
     au FileType yaml           setl sw=2 sts=2 et
@@ -170,7 +176,7 @@ set wildmenu
     " Keep the spellfile in the homedir. This will be a symlink to the dotfiles
     " version of the spellfile.
     set spellfile=$HOME/.vim-spell-en.utf-8.add
-    
+
     " Spell check markdown and git commit messages.
     autocmd FileType markdown setlocal spell
     autocmd FileType gitcommit setlocal spell
@@ -178,6 +184,13 @@ set wildmenu
     " For filetypes with spellcheck available, we'll also support auto-complete.
     set complete+=kspell
 
+    " Don't count acronyms / abbreviations as spelling errors
+    " (all upper-case letters, at least three characters)
+    " Also will not count acronym with 's' at the end a spelling error
+    " Also will not count numbers that are part of this
+    " Recognizes the following as correct:
+    au BufNewFile,BufRead syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+    au BufNewFile,BufRead syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
 " JavaScript Language Settings
 
@@ -210,13 +223,16 @@ set wildmenu
     let g:go_highlight_structs = 1
     let g:go_highlight_types = 1
 
-    " Highlight the variable under the cursor.
-    let g:go_auto_sameids = 1
+    " Show type info.
+    " let g:go_auto_type_info = 1
 
 " Markdown language settings
 
     " I don't find the folding particularly useful, turn it off.
-    " let g:vim_markdown_folding_disabled = 1
+    let g:vim_markdown_folding_disabled = 1
+
+    " vim-table-mode - use Markdown table.
+    let g:table_mode_corner='|'
 
 " Custom Commands
 
@@ -261,6 +277,19 @@ noremap <leader><leader> :tabnew %<cr>
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 
+" The Silver Searcher (ag) Configuration.
+
+    " Is 'ag' available?
+    if executable('ag')
+        " For grep, use ag.
+        set grepprg=ag\ --nogroup\ --nocolor
+
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore.
+        " Fast enough we don't even need to cache.
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        let g:ctrlp_use_caching = 0
+    endif
+
 " Ack Plugin Configuration
 
     " Use ag, rather than ack (sorry, I need my .gitignore to be used...).
@@ -280,7 +309,8 @@ set undodir=~/.vim/undo
 set undofile
 
 " Enable highlighted yank on earlier versions of vim.
-if !exists('##TextYankPost')
-  map y <Plug>(highlightedyank)
-endif
-let g:highlightedyank_highlight_duration = 100
+" if !exists('##TextYankPost')
+"   map y <Plug>(highlightedyank)
+" endif
+" let g:highlightedyank_highlight_duration = 100
+" let g:highlightedyank_highlight_duration = 100
