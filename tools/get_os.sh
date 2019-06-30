@@ -1,7 +1,7 @@
 # Echo's the operating system, simplified to:
 # - osx
 # - ubuntu
-function get_os() {
+get_os() {
     # Identify the operating system.
     local un=$(uname -a)
     os="unknown"
