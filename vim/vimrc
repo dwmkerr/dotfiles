@@ -42,8 +42,8 @@ Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact H
 Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plugin 'leafgarland/typescript-vim' "TypeScript
-Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it.
-" Bundle 'gabrielelana/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
+" Plugin 'gabrielelana/vim-markdown'
 
 " Support focus events, even when running in tmux.
 Plugin 'tmux-plugins/vim-tmux-focus-events'
