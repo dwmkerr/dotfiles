@@ -122,19 +122,31 @@ fi
 
 # Move to zsh.
 echo "$os: checking shell..."
-if [[ "$SHELL" != "/bin/zsh" ]]; then
-    if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
-        if [[ "$os" == "osx" ]]; then
-            echo "$os: Installing zsh..."
+if [[ "$os" == "osx" ]]; then
+    if [[ ! "$SHELL" =~ "zsh" ]]; then
+        if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
+            echo "Installing zsh..."
             brew install zsh zsh-completions
             # Make sure the installed zsh path is allowed in the list of shells.
             echo "$(which zsh)" >> sudo tee -a /etc/shells
             chsh -s "$(which zsh)"
-        elif [[ "$os" == "ubuntu" ]]; then
+        fi
+    else
+        echo "$os: Shell is '$SHELL'"
+    fi
+elif [[ "$os" == "ubuntu" ]]; then
+    if [[ ! "$SHELL" =~ "zsh" ]]; then
+        if ask "$os: Shell is '$SHELL', change to zsh?" Y; then
             echo "$os: Installing zsh..."
-            apt-get install -y zsh zsh-completions
+            # Install zsh, then install oh-my-zsh, setup config and theme.
+            sudo apt-get install -y zsh zsh-completions
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+            ln -sf $(pwd)/zsh/zshrc ~/.zshrc
+            ln -sf $(pwd)/zsh/dwmkerr.zsh-theme ~/.oh-my-zsh/themes/dwmkerr.zsh-theme
             chsh -s "$(which zsh)"
         fi
+    else
+        echo "$os: Shell is '$SHELL'"
     fi
 fi
 
