@@ -113,6 +113,20 @@ if [[ "$os" == "osx" ]]; then
     fi
 fi
 
+# Ensure that snap is installed for Ubuntu.
+echo "checking for snap (my os is '$os')..."
+if [[ "$os" == "ubuntu" ]]; then
+    if [ ! -x "$(command -v snap)" ]; then
+        if ask "$os: 'snap' is required for $os, install now?" Y; then
+            echo "$os: Installing snap..."
+            sudo apt-get install -y snapd
+        else
+            echo "$os: Exiting setup as 'snap' is required...";
+            exit 1;
+        fi
+    fi
+fi
+
 # Install Linux apps.
 if [[ "$os" == "osx" ]]; then
     if ask "$os: Install Linux CLI apps (telnet, tree, wget, etc)?" Y; then
@@ -132,9 +146,14 @@ if [[ "$SHELL" != "/bin/zsh" ]]; then
             chsh -s "$(which zsh)"
         elif [[ "$os" == "ubuntu" ]]; then
             echo "$os: Installing zsh..."
-            apt-get install -y zsh zsh-completions
+            sudo apt-get update -y
+            sudo apt-get install -y zsh
             chsh -s "$(which zsh)"
         fi
+
+        # After we have installed zsh, create a link to our zshrc.
+        echo "$os: setting ~/.zshrc link..."
+        ensure_symlink "$(pwd)/zsh/zshrc" "$HOME/.zshrc"
     fi
 fi
 
@@ -248,12 +267,12 @@ fi
 
 # Configure Golang.
 if ask "$os: Setup Golang?" Y; then
+    golangver="1.11"
     if [[ "$os" == "osx" ]]; then
-        brew install terraform
-        brew tap wata727/tflint
-        brew install tflint
     elif [[ "$os" == "ubuntu" ]]; then
-        echo "$os: TODO"
+        echo "$os: Installing Go $golangver with snap..."
+        sudo snap install --classic --channel="${golangver}/stable go"
+        echo "TODO: set GOPATH..."
     fi
 fi
 
