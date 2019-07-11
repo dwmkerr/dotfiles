@@ -176,6 +176,8 @@ if ask "$os: Install/Update tmux?" Y; then
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.
+# TODO: It is quite important here we only perform this step if the profile
+# is _not_ already being sourced, otherwise we will load it multiple times...
 if ask "$os: Add .profile to bash/zsh?" Y; then
 	ensure_symlink "$(pwd)/profile.sh" "$HOME/.profile.sh"
 	ensure_symlink "$(pwd)/profile" "$HOME/.profile"
