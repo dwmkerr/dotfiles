@@ -8,7 +8,6 @@ get_os() {
     if [[ "$un" =~ [Dd]arwin ]]; then
         echo "osx"
     elif [[ "$un" =~ [Uu]buntu ]]; then
-        echo "Operating System: Ubuntu"
         echo "ubuntu"
     else
         logger -s "Unable to idenfify operating system from uname '$un'"
