@@ -149,8 +149,11 @@ if ask "$os: Install/Update tmux?" Y; then
     fi
     ensure_symlink "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
 
-    # Setup the tmux plugin manager.
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    # Setup the tmux plugin manager if it is not already installed.
+    if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+        echo "$os: Setting up TPM..."
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
 fi
 
 # Check the shell, and make sure that we are sourcing the .profile file.

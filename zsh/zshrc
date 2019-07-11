@@ -86,7 +86,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval $(/usr/libexec/path_helper -s)
+
+
+# If the path_helper tool exists (i.e. on a Mac) then run it.
+if [ -f "/usr/libexec/path_helper" ]; then
+    eval $(/usr/libexec/path_helper -s)
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
