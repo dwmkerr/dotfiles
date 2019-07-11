@@ -74,6 +74,14 @@ There are a number of manual post-install steps:
 0. Configure `~/.gitconfig` from `./git/gitconfig`.
 0. Setup Vim NGINX syntax: https://arian.io/vim-syntax-highlighting-for-nginx/
 
+## Ubuntu Terminal Configuration
+
+Set the [OneDark Theme](https://github.com/denysdovhan/one-gnome-terminal) with:
+
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"
+```
+
 ## iTerm 2 Configuration
 
 I've not yet been able to script this configuration. Here are the settings which are non-default:
