@@ -14,7 +14,7 @@
 # Import everything from the .profile folder.
 for file in ~/.profile/*; do
     [ -e "$file" ] || continue
-    source $file
+    source "$file"
 done
 
 # If we have a .private folder, source everything in it. This is useful for
@@ -22,7 +22,7 @@ done
 if [[ -d ~/.private ]]; then
     for private in ~/.private/*; do
         [ -e "$private" ] || continue
-        source $private
+        source "$private"
     done
 fi
 

@@ -2,7 +2,7 @@
 for file in ./tools/*; do
     [ -e "$file" ] || continue
     echo "Loading tool '$file'..."
-    source $file
+    source "$file"
 done
 
 # TODO:
@@ -114,7 +114,6 @@ if [[ "$os" == "osx" ]]; then
 fi
 
 # Ensure that snap is installed for Ubuntu.
-echo "checking for snap (my os is '$os')..."
 if [[ "$os" == "ubuntu" ]]; then
     if [ ! -x "$(command -v snap)" ]; then
         if ask "$os: 'snap' is required for $os, install now?" Y; then
@@ -124,6 +123,8 @@ if [[ "$os" == "ubuntu" ]]; then
             echo "$os: Exiting setup as 'snap' is required...";
             exit 1;
         fi
+    else
+        echo "$os: 'snap' is installed..."
     fi
 fi
 
@@ -264,17 +265,6 @@ if ask "$os: Setup Terraform and Terraform Lint?" Y; then
 
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: TODO"
-    fi
-fi
-
-# Configure Golang.
-if ask "$os: Setup Golang?" Y; then
-    golangver="1.11"
-    if [[ "$os" == "osx" ]]; then
-    elif [[ "$os" == "ubuntu" ]]; then
-        echo "$os: Installing Go $golangver with snap..."
-        sudo snap install --classic --channel="${golangver}/stable go"
-        echo "TODO: set GOPATH..."
     fi
 fi
 
