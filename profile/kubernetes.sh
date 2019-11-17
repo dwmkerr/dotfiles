@@ -3,7 +3,6 @@
 # Kubernetes and OpenShift config.
 alias k='kubectl'
 
-
 # Log into to the locally configured OpenShift instance.
 function oslogin() {
   oc login $OPENSHIFT_URL -u $OPENSHIFT_USER -p $OPENSHIFT_PASS --insecure-skip-tls-verify
