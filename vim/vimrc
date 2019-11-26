@@ -1,71 +1,63 @@
-" --- Vundle Configuration
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugins')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Sensible vim configuration everyone can agree on.
+Plug 'tpope/vim-sensible'
 
 " Plugins for colour schemes.
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'joshdick/onedark.vim'
-Plugin 'rakr/vim-one'
+Plug 'altercation/vim-colors-solarized'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
 
-" Install Plugins
-Plugin 'fatih/vim-go'        " Brutal Golang features
-Plugin 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
-Plugin 'kien/ctrlp.vim'      " Ctrl-P to open anything.
-Plugin 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
-Plugin 'w0rp/ale'            " Asynchronous Linting Engine.
-Plugin 'vim-airline/vim-airline'    " A useful statusbar.
-Plugin 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
-Plugin 'jszakmeister/vim-togglecursor' " Toggle between line and block cursor when supported.
-Plugin 'tpope/vim-surround'  " Surround motions.
-Plugin 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
-Plugin 'mileszs/ack.vim'     " Ack support.
-Plugin 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
-Plugin 'rizzatti/dash.vim'   " Dash support.
-Plugin 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
-Plugin 'tpope/vim-fugitive'  " Git support.
+Plug 'fatih/vim-go'        " Brutal Golang features
+Plug 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
+Plug 'kien/ctrlp.vim'      " Ctrl-P to open anything.
+Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
+Plug 'w0rp/ale'            " Asynchronous Linting Engine.
+Plug 'vim-airline/vim-airline'    " A useful statusbar.
+Plug 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
+Plug 'jszakmeister/vim-togglecursor' " Toggle between line and block cursor when supported.
+Plug 'tpope/vim-surround'  " Surround motions.
+Plug 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
+Plug 'mileszs/ack.vim'     " Ack support.
+Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
+Plug 'rizzatti/dash.vim'   " Dash support.
+Plug 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
+Plug 'tpope/vim-fugitive'  " Git support.
 
 " Plugins for languages
-Plugin 'jparise/vim-graphql'      " GraphQL
-Plugin 'PProvost/vim-ps1'         " PowerShell
-Plugin 'mxw/vim-jsx'              " JSX support.
-Plugin 'pangloss/vim-javascript'  " Better syntax and indenting for js.
-Plugin 'elzr/vim-json'            " As above.
-Plugin 'othree/html5.vim'         " HTML + SVG
-Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
-Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
-Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
-Plugin 'leafgarland/typescript-vim' "TypeScript
-Plugin 'ianks/vim-tsx'
+Plug 'jparise/vim-graphql'      " GraphQL
+Plug 'PProvost/vim-ps1'         " PowerShell
+Plug 'mxw/vim-jsx'              " JSX support.
+Plug 'pangloss/vim-javascript'  " Better syntax and indenting for js.
+Plug 'elzr/vim-json'            " As above.
+Plug 'othree/html5.vim'         " HTML + SVG
+Plug 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
+Plug 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
+Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
+Plug 'leafgarland/typescript-vim' "TypeScript
+Plug 'ianks/vim-tsx'
 
-" Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
-" Plugin 'gabrielelana/vim-markdown'
+" Plug 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
+" Plug 'gabrielelana/vim-markdown'
 
 " Support focus events, even when running in tmux.
-Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Lots of mappings such as [<Space> ]<Space>.
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 
 " Nice splitting / joining.
-Plugin 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Highlight the yanked text briefly.
-" Plugin 'machakann/vim-highlightedyank'
+" Plug 'machakann/vim-highlightedyank'
 
 " NERD Commenter plugin.
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
-" all of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-filetype plugin on
+" Initialize plugin system.
+call plug#end()
 
 " --- Simple Vim config.
 set tabstop=4       " number of visual spaces per TAB
@@ -76,11 +68,7 @@ set showcmd             " show command in bottom bar
 set cursorline          " highlight current line
 set colorcolumn=80      " highlight column 80
 
-set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
-
-" Make backspace work in a sane fashion.
-set backspace=indent,eol,start
 
 " Break bad habits - no arrow keys!
 noremap <Up> <NOP>
