@@ -42,6 +42,8 @@ Plugin 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact H
 Plugin 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plugin 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plugin 'leafgarland/typescript-vim' "TypeScript
+Plugin 'ianks/vim-tsx'
+
 " Plugin 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
 " Plugin 'gabrielelana/vim-markdown'
 
@@ -165,6 +167,7 @@ set wildmenu
     au FileType javascript     setl sw=2 sts=2 et
     au FileType javascript.jsx setl sw=2 sts=2 et
     au FileType typescript     setl sw=2 sts=2 et
+    au FileType typescript.tsx setl sw=2 sts=2 et
     au FileType json           setl sw=2 sts=2 et
     au FileType ruby           setl sw=2 sts=2 et
     au FileType yaml           setl sw=2 sts=2 et
@@ -268,8 +271,13 @@ inoremap <leader>s <C-c>:w<cr>
 nmap sj :SplitjoinSplit<cr>
 nmap sk :SplitjoinJoin<cr>
 
-" Add a space after each comment delimiter.
+" I comment with two spaces, ever since some old programming book I read did
+" it like this. We also want multi line comments to have the comment symbols
+" flush to the left, otherwise we tend to get linting errors.
 let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+
+
 
 noremap <leader><leader> :tabnew %<cr>
 
