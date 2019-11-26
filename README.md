@@ -15,12 +15,15 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 * [Introduction](#introduction)
 * [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
     * [Manual Steps](#manual-steps)
+* [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
 * [iTerm 2 Configuration](#iterm-2-configuration)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
     * [Cheat Sheet](#cheat-sheet)
     * [Plugins](#plugins)
+* [Tooling Choices](#tooling-choices)
+    * [Vim](#vim)
 * [TODO](#todo)
 
 <!-- vim-markdown-toc -->
@@ -155,6 +158,14 @@ Note: including the vertical pipe `|` in the table above would cause rendering i
 This is a new list, it'll take some time to bring others up to date.
 
  - [vim-table-mode](https://github.com/dhruvasagar/vim-table-mode) to aid with dynamic formatting of markdown tables
+
+## Tooling Choices
+
+### Vim
+
+*Why Vim Plug over Vundle?*
+
+I was impressed enough with the comments on [this post](https://erikzaadi.com/2016/02/11/moving-from-vundle-to-vim-plug/) to make the switch, particularly as [coc](https://github.com/neoclide/coc.nvim) doesn't support Vundle, meaning I had to give Plug a try.
 
 ## TODO
 

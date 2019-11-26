@@ -195,26 +195,6 @@ if ask "$os: Add .profile to bash/zsh?" Y; then
     fi
 fi
 
-if ask "$os: Install/Update/Configure Vim?" Y; then
-    # I use ~/tmp for a lot of vim temp stuff...
-    mkdir ~/tmp
-
-    if [[ "$os" == "osx" ]]; then
-        echo "$os: Installing vim..."
-        brew install vim
-    elif [[ "$os" == "ubuntu" ]]; then
-        echo "$os: Installing vim..."
-        apt-get update && apt-get install vim
-    fi
-    
-    # Install Vundle.
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-    # Use our dotfiles for vimrc and vim spell.
-    ensure_symlink "$(pwd)/vim/vim-spell-en.utf-8.add" "$HOME/.vim-spell-en.utf-8.add"
-    ensure_symlink "$(pwd)/vim/vimrc" "$HOME/.vimrc"
-fi
-
 # Configure Git.
 if ask "$os: Configure dwmkerr user for Git?" Y; then
     if [[ "$os" == "osx" ]]; then
