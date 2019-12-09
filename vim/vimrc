@@ -38,7 +38,7 @@ Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plug 'leafgarland/typescript-vim' "TypeScript
 Plug 'ianks/vim-tsx'
 
-" Plug 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
+Plug 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
 " Plug 'gabrielelana/vim-markdown'
 
 " Support focus events, even when running in tmux.
