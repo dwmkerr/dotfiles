@@ -33,13 +33,13 @@ Plug 'pangloss/vim-javascript'  " Better syntax and indenting for js.
 Plug 'elzr/vim-json'            " As above.
 Plug 'othree/html5.vim'         " HTML + SVG
 Plug 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
-Plug 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
 Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plug 'leafgarland/typescript-vim' "TypeScript
 Plug 'ianks/vim-tsx'
 
-" Plug 'plasticboy/vim-markdown'                    " Markdown support. Not yet sure if this is worth it. Doesn't colour headers, gets list indentation wrong.
-" Plug 'gabrielelana/vim-markdown'
+" Plugins for markdown.
+Plug 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
+Plug 'plasticboy/vim-markdown'  " Markdown support.
 
 " Support focus events, even when running in tmux.
 Plug 'tmux-plugins/vim-tmux-focus-events'

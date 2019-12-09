@@ -4,7 +4,7 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 
 **Screenshot on MacOSX**
 
-![Screensho: MacOSX](./docs/screenshot_macosx.png)
+![Screenshot: MacOSX](./docs/screenshot_macosx.png)
 
 **Screenshot on Ubuntu**
 
@@ -140,6 +140,9 @@ The following shell commands are setup:
 | **Spelling**     |                                                |
 | `]s` and `[s`    | Next/Previous spelling error.                  |
 | `z=` and `zg`    | Check dictionary / add to dictionary.          |
+| **Markdown**     | Provided by `vim-markdown`                     |
+| `]]` and `[[`    | Next and previous headers.                     |
+| `gx`             | Open link in standard editor.                  |
 
 ### Cheat Sheet
 
