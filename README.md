@@ -20,7 +20,6 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
-    * [Cheat Sheet](#cheat-sheet)
     * [Plugins](#plugins)
 * [Tooling Choices](#tooling-choices)
     * [Vim](#vim)
@@ -124,35 +123,37 @@ The following shell commands are setup:
 
 ## Cheat Sheet - Vim
 
-| Command          | Usage                                          |
-|------------------|------------------------------------------------|
-| `\[<Space>`      | blank line above                               |
-| `]<Space>`       | blank line below                               |
-| `sj`             | Splitjoin down (i.e. split a line downwards).  |
-| `sk`             | Splitjoin up (i.e. join a line upwards).       |
-| `<leader>r`      | Open current file in NERDTree.                 |
-| `<leader>w`      | Write buffer.                                  |
-| `<leader>\\`     | Open buffer in new tab.                        |
-| `<leader>d`      | Open word under cursor in Dash.                |
-| `<leader>t`      | Show current buffer in NERDTree.               |
-| `:Tabularize /=` | Line up selection, using '='                   |
-| `gd`             | where possible, will go to a local definition. |
-| **Spelling**     |                                                |
-| `]s` and `[s`    | Next/Previous spelling error.                  |
-| `z=` and `zg`    | Check dictionary / add to dictionary.          |
-| **Markdown**     | Provided by `vim-markdown`                     |
-| `]]` and `[[`    | Next and previous headers.                     |
-| `gx`             | Open link in standard editor.                  |
-
-### Cheat Sheet
-
 Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x` rather than `<Leader>x` for brevity. I still need to port the above to the structure below.
 
-| Shortcut            | Usage                                                                   |
-|---------------------|-------------------------------------------------------------------------|
-| **Markdown Tables** |                                                                         |
-| `\tm`               | Enter/Exit 'table mode', which will dynamically format markdown tables. |
-| `ci｜`              | Example of the `｜` motion for cells - i.e. 'change-in-cell'.           |
+| Command                              | Usage                                                                   |
+|--------------------------------------|-------------------------------------------------------------------------|
+| `\[<Space>`                          | blank line above                                                        |
+| `]<Space>`                           | blank line below                                                        |
+| `sj`                                 | Splitjoin down (i.e. split a line downwards).                           |
+| `sk`                                 | Splitjoin up (i.e. join a line upwards).                                |
+| `<leader>r`                          | Open current file in NERDTree.                                          |
+| `<leader>w`                          | Write buffer.                                                           |
+| `<leader>\\`                         | Open buffer in new tab.                                                 |
+| `<leader>d`                          | Open word under cursor in Dash.                                         |
+| `<leader>t`                          | Show current buffer in NERDTree.                                        |
+| `:Tabularize /=`                     | Line up selection, using '='                                            |
+| `gd`                                 | where possible, will go to a local definition.                          |
+| `<leader>f`                          | Toggle focus mode.                                                      |
+| **Navigation**                       |                                                                         |
+| `gx`                                 | Open link or address under cursor.                                      |
+| **Spelling**                         |                                                                         |
+| `]s` and `[s`                        | Next/Previous spelling error.                                           |
+| `z=` and `zg`                        | Check dictionary / add to dictionary.                                   |
+| **Markdown**                         | Provided by `vim-markdown`                                              |
+| `]]` and `[[`                        | Next and previous headers.                                              |
+| `gx`                                 | Open link in standard editor.                                           |
+| **Focus**                            | From `vim-goyo` and `vim-limelight`                                     |
+| `:Goyo`                              | Enter focus mode.                                                       |
+| `:Limelight 0.8` and `:Limelight!`   | Go into limelight, 80% ultra focus, and toggle limelight.               |
+| `let g:limelight_paragraph_span = 1` | Span more paragraphs in limelight.                                      |
+| **Markdown Tables**                  |                                                                         |
+| `\tm`                                | Enter/Exit 'table mode', which will dynamically format markdown tables. |
+| `ci｜`                               | Example of the `｜` motion for cells - i.e. 'change-in-cell'.           |
 
 Note: including the vertical pipe `|` in the table above would cause rendering issues. So instead, the unicode character `｜` is used to illustrate the commands. Do not use the unicode character, use the normal ASCII 0x7C character.
 
