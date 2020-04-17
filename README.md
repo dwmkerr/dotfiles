@@ -96,7 +96,7 @@ I've not yet been able to script this configuration. Here are the settings which
 - Profiles: Window   - Style: Fullscreen
 - Profiles: Terminal - [X] Silence bell
 - Profiles: Keys     - Left ⌥ key 'Esc+'
-- Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (^Space)
+- Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (⌥ +Space)
 
 ## Shell Commands
 
