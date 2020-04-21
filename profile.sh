@@ -11,16 +11,16 @@
 
 #!/usr/bin/env bash
 
-# Import everything from the .profile folder.
-for file in ~/.profile/*; do
+# Import everything from the .profile.d folder.
+for file in $HOME/.profile.d/*; do
     [ -e "$file" ] || continue
     source "$file"
 done
 
 # If we have a .private folder, source everything in it. This is useful for
 # automatically loading things like project specific secrets.
-if [[ -d ~/.private ]]; then
-    for private in ~/.private/*; do
+if [[ -d $HOME/.private ]]; then
+    for private in $HOME/.private/*; do
         [ -e "$private" ] || continue
         source "$private"
     done
