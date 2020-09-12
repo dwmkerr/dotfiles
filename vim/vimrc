@@ -104,7 +104,10 @@ noremap <Right> <NOP>
 
 " Enable the mouse. Also enable when in tmux.
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+  " Note that this config is not needed in Neovim.
+  set ttymouse=xterm2
+endif
 
 " Use the system clipboard.
 set clipboard=unnamed
@@ -244,21 +247,24 @@ nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
 :imap jj <Esc>
 :ino <C-c> <Esc>
 
-" Line number stuff.
-set number
-set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-  else
-    set relativenumber
-  endif
-endfunc
-:au FocusLost * :set norelativenumber
-:au FocusGained * :set relativenumber
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeavE * :set relativenumber
-nnoremap <Leader>n :call NumberToggle()<cr>
+" Line Number Configuration
+
+    " By default, use hybrid line numbers (i.e. relative numbers, with the
+    " current line shown as the _actual_ line number (not zero).
+    set number relativenumber
+
+    " This group of autocommands automatically toggles to use normal line
+    " numbers on insert mode and hybrid on visual. It also handles switching
+    " if we lose or gain focus.
+    " We put these autocommands in an autocommand group so that we can turn off
+    " this behaviour in its entirity if we need to (such as when we enter focus
+    " mode).
+    augroup auto_toggle_relative_linenumbers
+        autocmd FocusLost * :set number norelativenumber
+        autocmd FocusGained * :set number relativenumber
+        autocmd InsertEnter * :set number norelativenumber
+        autocmd InsertLeave * :set number relativenumber
+    augroup end
 
 " Map leader s to save.
 nnoremap <leader>s :w<cr>
@@ -450,25 +456,43 @@ set undofile
             " Resume latest coc list
             nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+map <leader>f :Goyo<cr>
 
+function! s:goyo_enter()
+  " Zoom in and hide tmux status if we are in tmux.
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  " Hide the mode and command.
+  set noshowmode
+  set noshowcmd
 
-" Enable highlighted yank on earlier versions of vim.
-" if !exists('##TextYankPost')
-"   map y <Plug>(highlightedyank)
-" endif
-" let g:highlightedyank_highlight_duration = 100
-" let g:highlightedyank_highlight_duration = 100
+  " Disable automatically changing line number mode (otherwise line numbers
+  " come back when we go into/outof focus).
+  autocmd! auto_toggle_relative_linenumbers
 
-nnoremap <silent> <leader>f :call Focus()<cr>
-let g:focus_on = 0
-function! Focus()
-    if g:focus_on
-        let g:focus_on=0
-        Goyo
-        Limelight!
-    else
-        let g:focus_on=1
-        Goyo
-        Limelight 0.8
-    endif
+  " Start limelight.
+  Limelight 0.8
 endfunction
+
+function! s:goyo_leave()
+  " Zoom out and hide tmux status if we are in tmux.
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  " Show the mode and command.
+  set showmode
+  set showcmd
+
+  " Disable automatically changing line number mode (otherwise line numbers
+  " come back when we go into/outof focus).
+  autocmd! auto_toggle_relative_linenumbers
+
+  " Stop limelight.
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()

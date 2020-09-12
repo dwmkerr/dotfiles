@@ -127,20 +127,22 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 
 | Command                              | Usage                                                                   |
 |--------------------------------------|-------------------------------------------------------------------------|
-| `\[<Space>`                          | blank line above                                                        |
-| `]<Space>`                           | blank line below                                                        |
-| `sj`                                 | Splitjoin down (i.e. split a line downwards).                           |
-| `sk`                                 | Splitjoin up (i.e. join a line upwards).                                |
+| **Custom Commands**                  |                                                                         |
 | `<leader>r`                          | Open current file in NERDTree.                                          |
 | `<leader>w`                          | Write buffer.                                                           |
 | `<leader>\\`                         | Open buffer in new tab.                                                 |
 | `<leader>d`                          | Open word under cursor in Dash.                                         |
 | `<leader>t`                          | Show current buffer in NERDTree.                                        |
-| `:Tabularize /=`                     | Line up selection, using '='                                            |
-| `gd`                                 | where possible, will go to a local definition.                          |
 | `<leader>f`                          | Toggle focus mode.                                                      |
+| **Other Commands**                   |                                                                         |
+| `\[<Space>`                          | blank line above                                                        |
+| `]<Space>`                           | blank line below                                                        |
+| `sj`                                 | Splitjoin down (i.e. split a line downwards).                           |
+| `sk`                                 | Splitjoin up (i.e. join a line upwards).                                |
+| `:Tabularize /=`                     | Line up selection, using '='                                            |
 | **Navigation**                       |                                                                         |
 | `gx`                                 | Open link or address under cursor.                                      |
+| `gd`                                 | where possible, will go to a local definition.                          |
 | **Spelling**                         |                                                                         |
 | `]s` and `[s`                        | Next/Previous spelling error.                                           |
 | `z=` and `zg`                        | Check dictionary / add to dictionary.                                   |
