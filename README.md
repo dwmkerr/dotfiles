@@ -159,6 +159,10 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 
 Note: including the vertical pipe `|` in the table above would cause rendering issues. So instead, the unicode character `｜` is used to illustrate the commands. Do not use the unicode character, use the normal ASCII 0x7C character.
 
+Other useful stuff:
+
+- By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
+
 ### Plugins
 
 This is a new list, it'll take some time to bring others up to date.

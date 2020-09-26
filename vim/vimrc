@@ -81,6 +81,12 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Word configuration.
+
+    " Dashes are considered parts of a word for the purposes of motions, search
+    " autocomplete, etc.
+    set iskeyword+=-
+
 " Pane configuration.
 
     " More natural (to me) splitting.
