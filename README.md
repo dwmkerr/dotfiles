@@ -111,9 +111,10 @@ The following shell commands are setup:
 
 | Command             | Usage                                                 |
 |---------------------|-------------------------------------------------------|
+| `<leader> ?`        | Get help on commands.                                 |
 | `Ctrl + h/j/k/l`    | Navigate splits (vim aware)                           |
 | `move-window -r`    | Re-order the tab numbers (useful if there are gaps).  |
-| `<leader> / S`      | Show Sessions with window preview, hit `x` to delete. |  |
+| `<leader> / S`      | Show Sessions with window preview, hit `x` to delete. |
 | `<leader> / Ctrl+S` | Save Tmux Session                                     |
 | `<leader> / Ctrl+R` | Restore Tmux Session                                  |
 | `<leader> /`        | Last split                                            |
