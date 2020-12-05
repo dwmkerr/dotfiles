@@ -1,6 +1,18 @@
 # dotfiles
 
-My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programming environments etc.
+This repository contains all of my configuration for MacOS and Linux, with a focus on terminal, editor, shell, programming environments etc. This repository can easily be forked to allow you to create and customise your own machine setup.
+
+Some key features are:
+
+- Support for setting up a clean machine with developer focused tooling
+- The ability to choose what features you do or don't install
+- Idempotent setup, which allows you to run the setup whenever you want to add or upgrade features
+- Small, simple scripts to setup 'features', such as Ruby and `rbenv`, Python, Vim and so on
+- Small, simple scripts which are sourced into your shell profile, providing things like auto-completion
+- Management of dotfiles such as `~/.vimrc` and `~/.gitconfig`
+- Optional management of private file, such as SSH keys, as long as you have access to an AWS S3 bucket
+
+⚠️ **Warning**: I have tried wherever possible to ensure no _destructive_ change will happen when working with the scripts or commands in this project, without explicit user intervention (i.e. the user typing `yes` to make changes). The goal is that you can run the setup scripts without changing _anything_ unless you explicitly choose a feature. However, I cannot guarantee I haven't made an mistakes, so please exercise caution.
 
 **Screenshot on MacOSX**
 
@@ -13,8 +25,9 @@ My setup for MacOSX and Linux, with a focus on terminal, editor, shell, programm
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
-* [Quick Start - Clean MacOSX Machine](#quick-start---clean-macosx-machine)
-    * [Manual Steps](#manual-steps)
+* [Quick Start](#quick-start)
+* [Features](#features)
+* [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
 * [iTerm 2 Configuration](#iterm-2-configuration)
 * [Shell Commands](#shell-commands)
@@ -39,12 +52,12 @@ The following is set up:
 - `~/.private` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
 - `~/.profile` as a version controlled folder, the contents of which are always loaded on shell startup
 
-## Quick Start - Clean MacOSX Machine
+## Quick Start
 
-On a _completely clean_ Mac, run the following commands in a terminal.
+Run the commands below to upgrade the XCode tools, which provides Git. We then clone the `dotfiles` repository. Once this is done we can run `make setup`.
 
 ```sh
-# Install commandline tools (so that we have git).
+# MacOSX only - install command-line tools (so that we have git).
 xcode-select --install
 
 # Create a working environment, in my standard format.
@@ -56,12 +69,27 @@ cd repos/github/dwmkerr
 # so this is over https.
 git clone https://github.com/dwmkerr/dotfiles.git
 cd dotfiles
-./setup.sh
 ```
 
-### Manual Steps
+Now that you are in the dotfiles folder, you can interactively install features:
 
-There are a number of manual post-install steps:
+```sh
+make setup
+```
+
+If you want to restore private files, make sure you install the AWS CLI during the `setup` step. Then create a named profile and restore the private files as shown below:
+
+```sh
+DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
+DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
+
+# Run AWS configure to create the named profile - you will be asked to provide
+# an access key and secret.
+aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
+make private-files-restore
+```
+
+Finally, there are some manual steps which I have not automated.
 
 1. Restore GPG keys from a backup.
 0. Setup SSH keys for GitHub.
@@ -75,6 +103,43 @@ There are a number of manual post-install steps:
 0. Restore Parallels virtual machines from backup.
 0. Configure `~/.gitconfig` from `./git/gitconfig`.
 0. Setup Vim NGINX syntax: https://arian.io/vim-syntax-highlighting-for-nginx/
+
+## Features
+
+Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.sh` script to _install or upgrade_ the feature. Some also have a `./profile.d/x-<feature-name>.sh` file which is sourced by interactive shells if commands need to be run on shell startup (such as enabled `pyenv` and similar features. The numbers are used to ensure that if there _are_ dependencies on features, we try and install in the right order.
+
+**The Profile**
+
+To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
+
+**Private Files**
+
+Private files, such as GPG and SSH keys can be backed up or restored with the commands below:
+
+```sh
+DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
+DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
+
+# Run AWS configure to create the named profile - you will be asked to provide
+# an access key and secret.
+aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
+
+# Backup private files with:
+make private-files-backup
+
+# Restore private files with:
+make private-files-restore
+```
+
+You will be asked before backing up or restoring any file as an additional safety check, as these files are by their nature highly sensitive.
+
+## Developer Guide
+
+There's not much to say really, just follow the principles below:
+
+- Try to keep features _orthogonal_, so that they don't rely on each other
+- Try to remember to support `bash` as well as `zsh`
+- Try to remember to support Linux as well as MacOSX
 
 ## Ubuntu Terminal Configuration
 
