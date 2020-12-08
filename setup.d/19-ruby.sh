@@ -1,8 +1,3 @@
-# Check if the user wants to setup RVM.
-if ! ask "$os: setup rvm (Ruby Version Manager)?" Y; then
-    return 0
-fi
-
 # Install RVM, but do not automatically try and edit a bash profile or whatever
 # to source commands, we'll handle that ourselves in the ~/.profile/ruby.sh
 # script. Get the GPG keys first.

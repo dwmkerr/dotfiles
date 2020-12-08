@@ -108,13 +108,41 @@ Finally, there are some manual steps which I have not automated.
 
 Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.sh` script to _install or upgrade_ the feature. Some also have a `./profile.d/x-<feature-name>.sh` file which is sourced by interactive shells if commands need to be run on shell startup (such as enabled `pyenv` and similar features. The numbers are used to ensure that if there _are_ dependencies on features, we try and install in the right order.
 
-**The Profile**
-
-To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
-
 **Private Files**
 
 Private files, such as GPG and SSH keys can be backed up or restored with the commands below:
+
+**Package Manager**
+
+- Installs or upgrades [Homebrew](https://brew.sh/) on OSX.
+- Updates `apt` on Ubuntu.
+- Installs and updates `snap` on Ubuntu.
+
+**Git**
+
+Sets up `gnupg` and the `git` user settings.
+
+**OSX Configuration**
+
+Various preferences for OSX, such as showing the path bar on the Finder windows, smaller icons, etc.
+
+**OSX Applications**
+
+Many applications I used, such as WhatsApp, Visual Studio Code, T-Mux.
+
+This also installs common CLI applications, such as `tree`, as well as GNU tools (`coretools`, `gsed` etc).
+
+**Shell**
+
+This installs `zsh` and sets it as the default shell for the user.
+
+**TMux**
+
+This installs `tmux` and the Tmux Plugin Manager.
+
+**The Profile**
+
+To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
 
 ```sh
 DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
@@ -247,3 +275,8 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 ## TODO
 
 - [ ] Autocomplete for docker/k8s is still not properly setup.
+- [ ] osx - mas (mac app store CLI: brew)
+- [ ] osx - set icon
+- [ ] iterm - set colour scheme
+- [ ] terminal - raise bug on broken colours
+- [ ] shell - tldr

@@ -24,6 +24,14 @@ Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim spl
 Plug 'rizzatti/dash.vim'   " Dash support.
 Plug 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
 Plug 'tpope/vim-fugitive'  " Git support.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}   " Modern, LSP-based autocompletion.
+
+" FZF Vim Integration.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Polyglot plugin which supports many languages.
+Plug 'sheerun/vim-polyglot'
 
 " Plugins for languages
 Plug 'jparise/vim-graphql'      " GraphQL
@@ -33,17 +41,19 @@ Plug 'pangloss/vim-javascript'  " Better syntax and indenting for js.
 Plug 'elzr/vim-json'            " As above.
 Plug 'othree/html5.vim'         " HTML + SVG
 Plug 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
-Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plug 'leafgarland/typescript-vim' "TypeScript
 Plug 'ianks/vim-tsx'
 Plug 'cespare/vim-toml'         " TOML support
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' } " Python Docstrings
 
-" Plugins for Markdown and writing with focus.
-Plug 'godlygeek/tabular'        " Line up text! Needed by vim-markdown.
-Plug 'plasticboy/vim-markdown'  " Markdown support.
+" Plugins for Markdown
+"   Note: language support is via vim-polyglot.
+Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" Plugins for writing with focus.
 Plug 'junegunn/goyo.vim'        " Go into distraction free mode (:Gojo)
-Plug 'junegunn/limelight.vim'   " Focus on the current paragraph only, works very well with Gojo and demoing stuff.
-Plug 'shime/vim-livedown'       " Livedown commands for Markdown text. Ensure `npm install -g livedown` has been run first.
+Plug 'junegunn/limelight.vim'   " Focus on the current paragraph only.
 
 " Support focus events, even when running in tmux.
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -53,6 +63,9 @@ Plug 'tpope/vim-unimpaired'
 
 " Nice splitting / joining.
 Plug 'AndrewRadev/splitjoin.vim'
+
+" Line up text, e.g. :Tab /= to line up text on equals sign.
+Plug 'godlygeek/tabular'
 
 " Highlight the yanked text briefly.
 " Plug 'machakann/vim-highlightedyank'
@@ -85,7 +98,8 @@ noremap <Right> <NOP>
 
     " Dashes are considered parts of a word for the purposes of motions, search
     " autocomplete, etc.
-    set iskeyword+=-
+    " TODO: not sure I like this - word motions feel clunkier now so turning it off for a bit. 
+    " set iskeyword+=-
 
 " Pane configuration.
 
@@ -106,6 +120,10 @@ noremap <Right> <NOP>
     " Syntax highlighting on, dark background, onedark theme.
     syntax on
     set background=dark
+    let g:onedark_color_overrides = {
+    \ "comment_grey": { "gui": "#818998", "cterm": "170", "cterm16": "5" }
+    \}
+    " let g:onedark_terminal_italics=1
     colorscheme onedark
 
 " Enable the mouse. Also enable when in tmux.
@@ -127,6 +145,7 @@ set dir=~/tmp
 set wildmenu
 
 " Plugin: ctrlp configuration.
+
 
     " Ignore some common files for ctrlp, also ignore gitignore.
     let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
@@ -158,6 +177,7 @@ set wildmenu
 
     " Show the buffers in the tabline.
     let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#neomake#enabled = 0
 
 " Language Settings
 
@@ -205,6 +225,11 @@ set wildmenu
     " Disable syntax concealing for json files.
     let g:vim_json_syntax_conceal = 0
 
+    " A number of tools allow for comments in JSON files. This line adds comment
+    " highlighting in JSON.
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+
+
 " Ruby Language Settings
 
     " 'Fastlane' file types are ruby files.
@@ -236,6 +261,9 @@ set wildmenu
     " I don't find the folding particularly useful, turn it off.
     let g:vim_markdown_folding_disabled = 1
 
+    " Format YAML frontmatter properly.
+    let g:vim_markdown_frontmatter = 1
+
     " I tend to indent lists with two spaces, rather than the four
     " which is the default.
     let g:vim_markdown_auto_insert_bullets = 0
@@ -243,6 +271,23 @@ set wildmenu
 
     " vim-table-mode - use Markdown table.
     let g:table_mode_corner='|'
+
+" Python Language Settings
+
+    " I tend to use google style docstrings.
+    let g:pydocstring_formatter = 'google'
+
+    " The default mapping for Pydocstring is C-l, which interferes with how I
+    " navigate splits. Instead, use C-_.
+    " Note that pydocstring seems to work very inconsistently and might be better
+    " removed.
+    nmap <silent> <C-_> <Plug>(pydocstring)
+
+    " Allow setting of classes to None, e.g. 'Thread' to 'None', rather than
+    " demanding 'Optional'. Note however that it may be more correct to simply
+    " be more strict with code!
+    let g:ale_python_mypy_options = '--no-strict-optional'
+
 
 " Custom Commands
 
@@ -287,13 +332,38 @@ nmap sk :SplitjoinJoin<cr>
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 
-
-
 noremap <leader><leader> :tabnew %<cr>
 
 " When in insert mode, highlight the current line.
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
+
+" FZF (Fuzzy Find) configuration.
+
+    " Note: see GitHub issue: https://github.com/junegunn/fzf/issues/453
+    " Basically, we do not want to open files in 'special' buffers like the
+    " NerdTree or Quickfix window. At some stage 'sticky' buffers might come
+    " into vim, giving a 'native' way to avoid opening files in these buffers.
+    " Until then, this is a workaround to first focus a non-sticky window.
+
+    " Prevent FZF commands from opening in none modifiable buffers
+    function! FZFOpen(cmd)
+        " If more than 1 window, and buffer is not modifiable or file type is
+        " NERD tree or Quickfix type.
+        if winnr('$') > 1 && (!&modifiable || &ft == 'nerdtree' || &ft == 'qf')
+            " Move one window to the right, then up.
+            wincmd l
+            wincmd k
+        endif
+        exe a:cmd
+    endfunction
+
+    " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
+    nnoremap <C-f> :call FZFOpen(":Files")<CR> 
+    nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
+    nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
+    nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
+
 
 " The Silver Searcher (ag) Configuration.
 
@@ -313,8 +383,9 @@ noremap <leader><leader> :tabnew %<cr>
     " Use ag, rather than ack (sorry, I need my .gitignore to be used...).
     let g:ackprg = 'ag --nogroup --nocolor --column'
 
-    " Leader a to quickly get ready to ack.
-    :noremap <Leader>a :Ack 
+    " Leader a to quickly get ready to ack. Ack! is used - the bang means "don't
+    " open the first result automatically".
+    :noremap <Leader>a :Ack!
 
 " Leader d to open in Dash.
 :nmap <silent> <leader>d <Plug>DashSearch
@@ -327,7 +398,11 @@ set undodir=~/.vim/undo
 set undofile
 
 " NOTE: Experimental COC configuration.
-
+            
+            " For Python code, we can find the 'workspace' root with a pylint
+            " or setup.cfg file. This helps if we have a monorepo with many
+            " python projects in subfolders.
+            autocmd FileType python let b:coc_root_patterns = [".git", ".hg", ".projections.json", ".pylintrc", "setup.cfg"]
 
             " if hidden is not set, TextEdit might fail.
             set hidden
@@ -352,19 +427,22 @@ set undofile
 
             " Use tab for trigger completion with characters ahead and navigate.
             " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-            inoremap <silent><expr> <TAB>
-                  \ pumvisible() ? "\<C-n>" :
-                  \ <SID>check_back_space() ? "\<TAB>" :
-                  \ coc#refresh()
-            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+            " inoremap <silent><expr> <TAB>
+            "       \ pumvisible() ? "\<C-n>" :
+            "       \ <SID>check_back_space() ? "\<TAB>" :
+            "       \ coc#refresh()
+            " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
             function! s:check_back_space() abort
               let col = col('.') - 1
               return !col || getline('.')[col - 1]  =~# '\s'
             endfunction
 
-            " Use <c-space> to trigger completion.
-            inoremap <silent><expr> <c-space> coc#refresh()
+            " Use <c-y> to trigger completion.
+            inoremap <silent><expr> <c-y> coc#refresh()
+
+            " " Use <c-space> to trigger completion.
+            " inoremap <silent><expr> <c-space> coc#refresh()
 
             " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
             " Coc only does snippet and additional edit on confirm.
@@ -412,11 +490,11 @@ set undofile
             augroup end
 
             " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-            xmap <leader>a  <Plug>(coc-codeaction-selected)
-            nmap <leader>a  <Plug>(coc-codeaction-selected)
+            xmap <leader>A  <Plug>(coc-codeaction-selected)
+            nmap <leader>A  <Plug>(coc-codeaction-selected)
 
             " Remap for do codeAction of current line
-            nmap <leader>ac  <Plug>(coc-codeaction)
+            nmap <leader>Ac  <Plug>(coc-codeaction)
             " Fix autofix problem of current line
             nmap <leader>qf  <Plug>(coc-fix-current)
 

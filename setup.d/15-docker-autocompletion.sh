@@ -1,8 +1,3 @@
-# Check if the user wants the feature, bail if not.
-if ! ask "$os: setup docker autocompletion?" Y; then
-    return 0
-fi
-
 # Note the standard bash and zsh autocompletion paths.
 bash_autocomplete_dir="/etc/bash_completion.d"
 zsh_autocomplete_dir="${HOME}/.zsh/completion"

@@ -93,9 +93,6 @@ if [ -f "/usr/libexec/path_helper" ]; then
     eval $(/usr/libexec/path_helper -s)
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # Bash Completion.
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
@@ -113,3 +110,5 @@ fi
 
 # Load dwmkerr/dotfiles shell configuration.
 source ~/.profile.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

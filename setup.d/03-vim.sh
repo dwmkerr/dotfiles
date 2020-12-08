@@ -1,8 +1,3 @@
-# Check if the user wants to setup vim.
-if ! ask "$os: setup vim?" Y; then
-    return 0
-fi
-
 # I expect the following folder in my $HOME for temp stuff. Vim'll save the edit
 # history and backups there.
 mkdir ~/tmp

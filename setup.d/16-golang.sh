@@ -2,11 +2,6 @@
 golangver="1.11"
 gopath="$HOME/go"
 
-# Check if the user wants the feature, bail if not.
-if ! ask "$os: setup golang ${golangver}?" Y; then
-    return 0
-fi
-
 if [[ "$os" == "osx" ]]; then
     echo "$os: Installing Go $golangver with brew..."
     brew install go@${golangver}

@@ -1,8 +1,3 @@
-# Check if the user wants to setup RVM.
-if ! ask "$os: setup pyenv (Python Version Manager)?" Y; then
-    return 0
-fi
-
 # Install pyrev and python.
 brew install pyenv
 
