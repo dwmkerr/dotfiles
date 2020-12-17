@@ -14,8 +14,8 @@ shopt -s nullglob
 profile=${DOTFILES_PRIVATE_PROFILE:-dwmkerr}
 bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
-# Helper function to copy files after checking with the user first.
-function copy_safe() {
+# Helper function to backup files after checking with the user first.
+function backup_safe() {
     echo -n "Backup '$1' to '$2'? [y/n]: "
     read yesno
     if [[ $yesno =~ ^[Yy] ]]; then
@@ -24,26 +24,26 @@ function copy_safe() {
 }
 
 # Alicloud CLI configuration and credentials.
-copy_safe ~/.aliyun/config.json "s3://${bucket}/aliyun/"
+backup_safe ~/.aliyun/config.json "s3://${bucket}/aliyun/"
 
 # AWS CLI configuration and credentials.
-copy_safe ~/.aws/config "s3://${bucket}/aws/"
-copy_safe ~/.aws/credentials "s3://${bucket}/aws/"
+backup_safe ~/.aws/config "s3://${bucket}/aws/"
+backup_safe ~/.aws/credentials "s3://${bucket}/aws/"
 
 # Azure CLI configuration and credentials.
-copy_safe ~/.azure/config "s3://${bucket}/azure/"
+backup_safe ~/.azure/config "s3://${bucket}/azure/"
 
 # Google Cloud CLI configuration and credentials.
 for path in ~/.config/gcloud/configurations/*; do
     [ -e "$path" ] || continue
-    copy_safe "${path}" "s3://${bucket}/config/gcloud/configurations/"
+    backup_safe "${path}" "s3://${bucket}/config/gcloud/configurations/"
 done
-copy_safe ~/.config/gcloud/credentials.db "s3://${bucket}/config/gcloud/"
+backup_safe ~/.config/gcloud/credentials.db "s3://${bucket}/config/gcloud/"
 
 # Copy SSH keys and config.
 for path in ~/.ssh/*; do
-    [ -f "$path" ] && copy_safe "${path}" "s3://${bucket}/ssh/"
-    [ -d "$path" ] && copy_safe "${path}" "s3://${bucket}/ssh/$(basename $path)/" --recursive
+    [ -f "$path" ] && backup_safe "${path}" "s3://${bucket}/ssh/"
+    [ -d "$path" ] && backup_safe "${path}" "s3://${bucket}/ssh/$(basename $path)/" --recursive
 done
 
 # Backup all GPG secret keys.

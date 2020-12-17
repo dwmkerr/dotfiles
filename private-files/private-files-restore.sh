@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 shopt -s nullglob
+set -e
 
 # private-files-restore.sh
 #
@@ -19,19 +20,20 @@ function restore_safe() {
     read yesno
     if [[ $yesno =~ ^[Yy] ]]; then
         mkdir -p "$(dirname $2)"
+        echo "Preparing to run: aws s3 cp \"$1\" \"$2\" $3 --profile \"${profile}"
         aws s3 cp "$1" "$2" $3 --profile "${profile}"
     fi
 }
 
 # Alicloud CLI configuration and credentials.
-copy_safe "s3://${bucket}/aliyun/" "$HOME/.aliyun/config.json" 
+restore_safe "s3://${bucket}/aliyun/config.json" "$HOME/.aliyun/" 
 
-# AWS CLI configuration and credentials.
-copy_safe "s3://${bucket}/aws/" "$HOME/.aws/config"
-copy_safe "s3://${bucket}/aws/" "$HOME/.aws/credentials"
+# AWS CLI configuration and credentials
+restore_safe "s3://${bucket}/aws/config" "$HOME/.aws/"
+restore_safe "s3://${bucket}/aws/credentials" "$HOME/.aws/"
 
 # Azure CLI configuration and credentials.
-copy_safe "s3://${bucket}/azure/" "$HOME/.azure/config"
+restore_safe "s3://${bucket}/azure/config" "$HOME/.azure/"
 
 # Google Cloud CLI configuration and credentials.
 echo -n "Restore Google Cloud configuration and credentials? (Warning, will overwrite existing) [y/n]: "
@@ -39,7 +41,7 @@ read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
     dest="$HOME/.config/gcloud/"
     mkdir -p "${dest}"
-    aws s3 sync "s3://${bucket}/config/gcloud/" "${dest}"
+    aws s3 sync "s3://${bucket}/config/gcloud" "${dest}"
 fi
 
 # Restore SSH keys and config.
@@ -48,7 +50,7 @@ read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
     dest="$HOME/.ssh/"
     mkdir -p "${dest}"
-    aws s3 sync "s3://${bucket}/ssh/" "${dest}"
+    aws s3 sync "s3://${bucket}/ssh" "${dest}"
 fi
 
 # Restore GPG secret keys.
@@ -62,5 +64,5 @@ fi
 echo -n "Restore GPG trust database? (Warning, will overwrite existing) [y/n]: "
 read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
-    aws s3 cp "s3://${bucket}/gpg/trust-database.txt" - | gpg  --import-ownertrust
+    aws s3 cp "s3://${bucket}/gpg/trust-database.txt" - | gpg --import-ownertrust
 fi

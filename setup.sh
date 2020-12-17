@@ -18,7 +18,7 @@ for file in ./setup.d/*; do
 
     # Ask the user if they want to setup the feature, then setup or skip.
     feature=$(basename "$file")
-    if ! ask "$os: setup feature '$feature'?" "y/N"; then continue; fi
+    if ! ask "$os: setup feature '$feature'?" "N"; then continue; fi
     source $file
 done
 

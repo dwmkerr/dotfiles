@@ -6,6 +6,9 @@ if [[ "$os" == "osx" ]]; then
         if ask "$os: HomeBrew is not installed. Install it?" Y; then
             echo "$os: Installing HomeBrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            # If there was an error, it might be this issue:
+            echo "If you see an error above, run:"
+            echo "  brew doctor"
         fi    
     fi
     if ask "$os: Update HomeBrew?" Y; then

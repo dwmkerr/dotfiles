@@ -91,7 +91,9 @@ export LANG=en_US.UTF-8
 # Load auto-completions depending on our shell.
 if [ -n "$BASH_VERSION" ]; then
     # Source auto-completions from the Mac and Linux locations.
-    if [ -f /usr/local/etc/bash_completion ]; then . /usr/local/etc/bash_completion; fi
+    # Note that this is based on Bash Completion 2, which requires Bash 4 or onwards.
+    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+    [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
     if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
 elif [ -n "$ZSH_VERSION" ]; then
     # Source zsh auto-completions.

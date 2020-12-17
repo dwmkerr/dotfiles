@@ -1,3 +1,6 @@
+# TODO: This conflicts with the shell installation which is being used to set
+# up autocompletion2 for bash.
+
 # Note the standard bash and zsh autocompletion paths.
 bash_autocomplete_dir="/etc/bash_completion.d"
 zsh_autocomplete_dir="${HOME}/.zsh/completion"

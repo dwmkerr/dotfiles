@@ -4,19 +4,23 @@ if [[ "$os" != "osx" ]]; then
     return 0
 fi
 
-if ask "$os: Standardise Dock Configuration?" Y; then
-    # Set my preferred dock size.
-    defaults write com.apple.dock tilesize -int 32; killall Dock
-    defaults write com.apple.dock largesize -float 64; killall Dock
+if ask "$os: Standardise Dock Configuration?" N; then
+    # Set my preferred dock size and enable magnification.
+    defaults write com.apple.dock tilesize -int 32
+    defaults write com.apple.dock largesize -float 64
+    defaults write com.apple.dock magnification -bool true
 
     # Only show apps which are open, rather than shortcuts.
-    defaults write com.apple.dock static-only -bool true; killall Dock
+    defaults write com.apple.dock static-only -bool true
+
+    # Restart the dock.
+    killall Dock
 fi    
 
 if ask "$os: Enable 'tap-to-click'?" Y; then
-    # Reference: http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
-    defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-    sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    # https://www.compsmag.com/how-to/turning-on-mac-touch-to-click-support-from-command-line/
+    defaults write com.apple.AppleMultitouchTrackpad Click -bool true
+    sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Click -bool true
     sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 fi    

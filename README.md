@@ -26,14 +26,14 @@ Some key features are:
 
 * [Introduction](#introduction)
 * [Quick Start](#quick-start)
+* [MacOS - Manual Steps](#macos---manual-steps)
 * [Features](#features)
+* [Private Files](#private-files)
 * [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
-* [iTerm 2 Configuration](#iterm-2-configuration)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
-    * [Plugins](#plugins)
 * [Tooling Choices](#tooling-choices)
     * [Vim](#vim)
 * [TODO](#todo)
@@ -77,32 +77,34 @@ Now that you are in the dotfiles folder, you can interactively install features:
 make setup
 ```
 
-If you want to restore private files, make sure you install the AWS CLI during the `setup` step. Then create a named profile and restore the private files as shown below:
+To restore private files, check the [Private Files](#private-files) section.
 
-```sh
-DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
-DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
 
-# Run AWS configure to create the named profile - you will be asked to provide
-# an access key and secret.
-aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
-make private-files-restore
-```
+## MacOS - Manual Steps
 
-Finally, there are some manual steps which I have not automated.
+The following steps have not yet been automated:
 
-1. Restore GPG keys from a backup.
+1. Sign into Chrome and setup sync
+0. Sign into Dropbox and setup sync
+0. Setup 1Password and sync with Dropbox
+1. For `Terminal`, install the profiles under `./terminal` to give the One Dark / One Light themes
+0. For `iTerm2`, install the profile under `./terminal` to give the One Dark
+0. For `iTerm2` set the following options:
+     General: Selection - [X] Applications in terminal may access clipboard
+     General: Window    - [ ] Native full screen windows
+     Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (⌥ +Space)
+
+
+---
+
+These steps are work in progress.
+
+0. Restore GPG keys from a backup.
 0. Setup SSH keys for GitHub.
-0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
 0. Restore Parallels virtual machines from backup.
-0. Actually install tmux plugins, using `<leader> Ctrl+I` (otherwise things like `tmux-yank` won't work).
 0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
 0. Restore the AWS CLI credentials to bring back project access.
 0. Setup SSH keys for GitHub.
-0. Load the iTerm and Terminal 'One Dark' colour schemes from the `terminal` folder.
-0. Restore Parallels virtual machines from backup.
-0. Configure `~/.gitconfig` from `./git/gitconfig`.
-0. Setup Vim NGINX syntax: https://arian.io/vim-syntax-highlighting-for-nginx/
 
 ## Features
 
@@ -118,13 +120,45 @@ Private files, such as GPG and SSH keys can be backed up or restored with the co
 - Updates `apt` on Ubuntu.
 - Installs and updates `snap` on Ubuntu.
 
+**OSX Configuration**
+
+Various preferences for OSX, such as showing the path bar on the Finder windows, smaller icons, etc.
+
 **Git**
 
 Sets up `gnupg` and the `git` user settings.
 
-**OSX Configuration**
+**Node**
 
-Various preferences for OSX, such as showing the path bar on the Finder windows, smaller icons, etc.
+Sets up `nvm` (Node Version Manager) and the current LTS version of node.
+
+**Python**
+
+Sets up `pyenv` (Python Environment Manager) and `python3`.
+
+**Ruby**
+
+Sets up `rvm` (Ruby Version Manager) and `ruby`.
+
+**Golang**
+
+Sets up `golang` and `$GOPATH`.
+
+**Vim**
+
+Sets up `vim` and vim config file. Plugins are installed with `PlugInstall`.
+
+**TMux**
+
+This installs `tmux` and the Tmux Plugin Manager.
+
+**Shell**
+
+This installs `bash`, `zsh` and sets `zsh` as the default shell for the user. Sets the command prompt and profile.
+
+Installs On My Zsh, which I use for themes and some conveniences, and copies over the zsh themes.
+
+To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
 
 **OSX Applications**
 
@@ -132,17 +166,9 @@ Many applications I used, such as WhatsApp, Visual Studio Code, T-Mux.
 
 This also installs common CLI applications, such as `tree`, as well as GNU tools (`coretools`, `gsed` etc).
 
-**Shell**
+## Private Files
 
-This installs `zsh` and sets it as the default shell for the user.
-
-**TMux**
-
-This installs `tmux` and the Tmux Plugin Manager.
-
-**The Profile**
-
-To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
+Backup or restore private files with:
 
 ```sh
 DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
@@ -176,20 +202,6 @@ Set the [OneDark Theme](https://github.com/denysdovhan/one-gnome-terminal) with:
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"
 ```
-
-## iTerm 2 Configuration
-
-I've not yet been able to script this configuration. Here are the settings which are non-default:
-
-- General: Selection - [X] Applications in terminal may access clipboard
-- General: Window    - [ ] Native full screen windows
-- Profiles: Text     - [X] Blinking cursor
-- Profiles: Text     - Font: 16 pt Hack
-- Profiles: Window   - Transparency: ~15%
-- Profiles: Window   - Style: Fullscreen
-- Profiles: Terminal - [X] Silence bell
-- Profiles: Keys     - Left ⌥ key 'Esc+'
-- Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (⌥ +Space)
 
 ## Shell Commands
 
@@ -258,12 +270,6 @@ Other useful stuff:
 
 - By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
 
-### Plugins
-
-This is a new list, it'll take some time to bring others up to date.
-
- - [vim-table-mode](https://github.com/dhruvasagar/vim-table-mode) to aid with dynamic formatting of markdown tables
-
 ## Tooling Choices
 
 ### Vim
@@ -280,3 +286,7 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 - [ ] iterm - set colour scheme
 - [ ] terminal - raise bug on broken colours
 - [ ] shell - tldr
+- [ ] node is not sourcing properly
+- [ ] fix: long urls in tmux work if they span lines - *unless* they are in `vim`
+- [ ] vi: decide on vi/nvim
+- [ ] restore: ssh keys restored should all have permissions `0600`
