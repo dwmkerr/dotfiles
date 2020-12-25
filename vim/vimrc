@@ -374,14 +374,14 @@ noremap <leader><leader> :tabnew %<cr>
 
         " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore.
         " Fast enough we don't even need to cache.
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g --path-to-ignore ~/.ignore""'
         let g:ctrlp_use_caching = 0
     endif
 
 " Ack Plugin Configuration
 
     " Use ag, rather than ack (sorry, I need my .gitignore to be used...).
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'ag --nogroup --nocolor --column --path-to-ignore ~/.ignore'
 
     " Leader a to quickly get ready to ack. Ack! is used - the bang means "don't
     " open the first result automatically".

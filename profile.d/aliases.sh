@@ -15,3 +15,6 @@ alias clipclean="pbpaste | pbcopy"
 
 # Start a web server
 alias serve="python -m SimpleHTTPServer 3000"
+
+# When we use `ag`, provide the a shared `.ignore` file.
+alias ag='ag --path-to-ignore ~/.ignore'

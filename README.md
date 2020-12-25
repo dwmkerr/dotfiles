@@ -79,7 +79,6 @@ make setup
 
 To restore private files, check the [Private Files](#private-files) section.
 
-
 ## MacOS - Manual Steps
 
 The following steps have not yet been automated:
@@ -165,6 +164,10 @@ To enable features to be used in shells, the shell profile file will source our 
 Many applications I used, such as WhatsApp, Visual Studio Code, T-Mux.
 
 This also installs common CLI applications, such as `tree`, as well as GNU tools (`coretools`, `gsed` etc).
+
+**Commandline Tools**
+
+`ag` is setup and will use a global ignore file at `~/.ignore`. `vim-ack` also uses this file.
 
 ## Private Files
 
@@ -285,8 +288,6 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 - [ ] osx - set icon
 - [ ] iterm - set colour scheme
 - [ ] terminal - raise bug on broken colours
-- [ ] shell - tldr
 - [ ] node is not sourcing properly
 - [ ] fix: long urls in tmux work if they span lines - *unless* they are in `vim`
 - [ ] vi: decide on vi/nvim
-- [ ] restore: ssh keys restored should all have permissions `0600`
