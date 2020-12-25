@@ -214,22 +214,24 @@ The following shell commands are setup:
 |-----------------|----------------------------------------------------------------------|
 | `serve`         | Serve the current folder over HTTP on port 3000.                     |
 | `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc. |
+| `ghclone`       | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.           |
 
 ## Cheat Sheet - TMux
 
-| Command             | Usage                                                 |
-|---------------------|-------------------------------------------------------|
-| `<leader> ?`        | Get help on commands.                                 |
-| `Ctrl + h/j/k/l`    | Navigate splits (vim aware)                           |
-| `move-window -r`    | Re-order the tab numbers (useful if there are gaps).  |
-| `<leader> / S`      | Show Sessions with window preview, hit `x` to delete. |
-| `<leader> / Ctrl+S` | Save Tmux Session                                     |
-| `<leader> / Ctrl+R` | Restore Tmux Session                                  |
-| `<leader> /`        | Last split                                            |
-| `<leader> h`        | Move window left                                      |
-| `<leader> l`        | Move window right                                     |
-| `<leader> {`        | Swap pane left                                        |
-| `<leader> }`        | Swap pane right                                       |
+| Command                 | Usage                                                 |
+|-------------------------|-------------------------------------------------------|
+| `man tmux`              | Get help on commands.                                 |
+| `<leader> ?`            | Get help on commands.                                 |
+| `Ctrl + h/j/k/l`        | Navigate splits (vim aware)                           |
+| `Meta + h/l`            | Move through tabs.                                    |
+| `Ctrl + Meta + h/j/k/l` | Move through tabs.                                    |
+| `move-window -r`        | Re-order the tab numbers (useful if there are gaps).  |
+| `<leader> / S`          | Show Sessions with window preview, hit `x` to delete. |
+| `<leader> / Ctrl+S`     | Save Tmux Session                                     |
+| `<leader> / Ctrl+R`     | Restore Tmux Session                                  |
+| `<leader> /`            | Last split                                            |
+| `<leader> {`            | Swap pane left                                        |
+| `<leader> }`            | Swap pane right                                       |
 
 ## Cheat Sheet - Vim
 

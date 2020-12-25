@@ -5,6 +5,11 @@ if [ -x "$(command -v hub)" ]; then
     eval "$(hub alias -s)"
 fi
 
+# Clone from GitHub.
+ghclone() {
+    git clone git@github.com:$1
+}
+
 # Not really a command, but a much nicer version of git branch.
 # Source: https://stackoverflow.com/questions/2514172/listing-each-branch-and-its-lastevisions-date-in-git
 alias gbranch='for k in `git branch -l | \

@@ -50,3 +50,12 @@ if ask "$os: Install kubectl?" Y; then
         sudo mv ./kubectl /usr/local/bin/kubectl
     fi
 fi
+
+# Setup tldr.
+if ask "$os: Install tldr?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install tldr
+    elif [[ "$os" == "ubuntu" ]]; then
+        apt install -y tldr
+    fi
+fi
