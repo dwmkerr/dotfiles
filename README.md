@@ -105,6 +105,16 @@ These steps are work in progress.
 0. Restore the AWS CLI credentials to bring back project access.
 0. Setup SSH keys for GitHub.
 
+Some other tools I install which I have paid subscriptions for or are essentials:
+
+- Amplitube
+- Creative Cloud
+- Cyberduck
+- Dash
+- Epic Games Launcher
+- Guitar Pro
+
+
 ## Features
 
 Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.sh` script to _install or upgrade_ the feature. Some also have a `./profile.d/x-<feature-name>.sh` file which is sourced by interactive shells if commands need to be run on shell startup (such as enabled `pyenv` and similar features. The numbers are used to ensure that if there _are_ dependencies on features, we try and install in the right order.
@@ -112,6 +122,11 @@ Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.
 **Private Files**
 
 Private files, such as GPG and SSH keys can be backed up or restored with the commands below:
+
+```
+make private-files-backup
+make private-files-restore
+```
 
 **Package Manager**
 
