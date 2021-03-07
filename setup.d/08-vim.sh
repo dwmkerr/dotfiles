@@ -7,7 +7,7 @@ if [[ "$os" == "osx" ]]; then
     brew install vim
 elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Installing vim..."
-    apt-get update && apt-get install vim
+    sudo apt-get install -y vim
 fi
 
 # Note: I no longer use Vundle, having migrated to Vim-Plug. However, if you

@@ -1,5 +1,8 @@
 # Configure Git.
 if [[ "$os" == "osx" ]]; then
+    echo "$os: Installing git..."
+    brew install git
+
     echo "$os: Installing gpg..."
     # Install GPG and Pinentry for Mac.
     brew install gnupg pinentry-mac
@@ -19,8 +22,11 @@ if [[ "$os" == "osx" ]]; then
     chmod 600 ~/.gnupg/*
 
 elif [[ "$os" == "ubuntu" ]]; then
+    echo "$os: Installing git..."
+    sudo apt install -y git
+
     echo "$os: Installing gpg..."
-    apt-get install gnupg2
+    sudo apt install -y gnupg2
 fi
 
 # Configure Git.

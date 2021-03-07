@@ -5,7 +5,7 @@ if ask "$os: Install/Update tmux?" Y; then
         brew install tmux
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: Updating tmux..."
-        apt-get update && apt-get install tmux
+        sudo apt-get install -y tmux
     fi
     ensure_symlink "$(pwd)/tmux/tmux.conf" "$HOME/.tmux.conf"
 fi

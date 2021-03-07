@@ -43,7 +43,7 @@ fi
 # Setup Kubectl
 if ask "$os: Install kubectl?" Y; then
     if [[ "$os" == "osx" ]]; then
-        brew install kubectl
+        brew install kubernetes-cli
     elif [[ "$os" == "ubuntu" ]]; then
         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
         chmod +x ./kubectl

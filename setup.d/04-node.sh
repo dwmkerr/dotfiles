@@ -12,3 +12,10 @@ else
     echo "$os: NVM is installed..."
 fi
 
+# Install the current node lts.
+if ask "$os: install and use node lts as default?" n; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install 'lts/*'
+    nvm alias default 'lts/*'
+fi
