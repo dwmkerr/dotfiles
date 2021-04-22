@@ -44,23 +44,22 @@ if [[ ! "$SHELL" =~ zsh$ ]]; then
     fi
 fi
 
-# Check the shell, and make sure that we are sourcing the .profile file.
-if ask "$os: Add .profile to bash/zsh?" Y; then
-    # Create the profile script symlink as well as profile folder symlink.
-	ensure_symlink "$(pwd)/profile.sh" "$HOME/.profile.sh"
-	ensure_symlink "$(pwd)/profile.d" "$HOME/.profile.d"
+# Check the shell, and make sure that we are sourcing the .shell.sh file.
+if ask "$os: Add .shell.sh to bash/zsh?" Y; then
+    # Create the .shell.sh script symlink as well as profile folder symlink.
+	ensure_symlink "$(pwd)/shell.sh" "$HOME/.shell.sh"
+	ensure_symlink "$(pwd)/shell.d" "$HOME/.shell.d"
     
     # If we don't have the profile sourced for Bash, source it.
-    source_command="source ~/.profile.sh"
+    source_command="source ~/.shell.sh"
     if ! grep -q "${source_command}" ~/.bashrc; then
-        echo "$os: profile is not sourced in ~/.bashrc, adding this now..."
+        echo "$os: .shell.sh is not sourced in ~/.shell, adding this now..."
         echo "${source_command}" >> ~/.bashrc
     fi
 
     # If we don't have the profile sourced for ZSH, source it.
     if ! grep -q "${source_command}" ~/.zshrc; then
-        echo "$os: profile is not sourced in ~/.zshrc, adding this now..."
+        echo "$os: p.shrofile is not sourced in ~/.zshrc, adding this now..."
         echo "${source_command}" >> ~/.zshrc
     fi
 fi
-

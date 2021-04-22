@@ -49,8 +49,8 @@ The following is set up:
 - `zsh` as the default shell
 - `tmux` for terminal multiplexing, with my preferred theme and settings
 - `vim` as the default editor, with my preferred theme and settings
-- `~/.private` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
-- `~/.profile` as a version controlled folder, the contents of which are always loaded on shell startup
+- `~/.shell-private.d` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
+- `~/.shell` as a version controlled folder, the contents of which are always loaded on shell startup
 
 ## Quick Start
 
@@ -117,7 +117,7 @@ Some other tools I install which I have paid subscriptions for or are essentials
 
 ## Features
 
-Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.sh` script to _install or upgrade_ the feature. Some also have a `./profile.d/x-<feature-name>.sh` file which is sourced by interactive shells if commands need to be run on shell startup (such as enabled `pyenv` and similar features. The numbers are used to ensure that if there _are_ dependencies on features, we try and install in the right order.
+Each of the 'features' listed below typically has a `./setup.d/x-<feature-name>.sh` script to _install or upgrade_ the feature. Some also have a `./.shell.d/x-<feature-name>.sh` file which is sourced by interactive shells if commands need to be run on shell startup (such as enabled `pyenv` and similar features. The numbers are used to ensure that if there _are_ dependencies on features, we try and install in the right order.
 
 **Private Files**
 
@@ -168,11 +168,11 @@ This installs `tmux` and the Tmux Plugin Manager.
 
 **Shell**
 
-This installs `bash`, `zsh` and sets `zsh` as the default shell for the user. Sets the command prompt and profile.
+This installs `bash`, `zsh` and sets `zsh` as the default shell for the user. Sets the command prompt and sources the `.shell.sh` file.
 
 Installs On My Zsh, which I use for themes and some conveniences, and copies over the zsh themes.
 
-To enable features to be used in shells, the shell profile file will source our special `profile.sh` file. This file then goes and sources the appropriate files from `~/.profile.d`.
+To enable features to be used in shells, the shell configuration file will source our special `shell.sh` file. This file then goes and sources the appropriate files from `~/.shell.d`.
 
 **OSX Applications**
 
@@ -225,11 +225,11 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-termin
 
 The following shell commands are setup:
 
-| Command         | Usage                                                                |
-|-----------------|----------------------------------------------------------------------|
-| `serve`         | Serve the current folder over HTTP on port 3000.                     |
-| `restart-shell` | Restart the current shell, reloading `~/.private`, `~/.profile` etc. |
-| `ghclone`       | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.           |
+| Command         | Usage                                                                      |
+|-----------------|----------------------------------------------------------------------------|
+| `serve`         | Serve the current folder over HTTP on port 3000.                           |
+| `restart-shell` | Restart the current shell, reloading `~/.shell-private.d`, `~/.shell` etc. |
+| `ghclone`       | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.                 |
 
 ## Cheat Sheet - TMux
 

@@ -9,16 +9,16 @@
 # an example of why this matters. If we use a shebang in this script, we'll only
 # ever source auto-completions for the shell in the shebang.
 
-# Import everything from the .profile.d folder.
-for file in $HOME/.profile.d/*; do
+# Import everything from the .shell.d folder.
+for file in $HOME/.shell.d/*; do
     [ -e "$file" ] || continue
     source "$file"
 done
 
 # If we have a .private folder, source everything in it. This is useful for
 # automatically loading things like project specific secrets.
-if [[ -d $HOME/.private ]]; then
-    for private in $HOME/.private/*; do
+if [[ -d $HOME/.shell-private.d ]]; then
+    for private in $HOME/.shell-private.d/*; do
         [ -e "$private" ] || continue
         source "$private"
     done
@@ -93,10 +93,14 @@ if [ -n "$BASH_VERSION" ]; then
     # Source auto-completions from the Mac and Linux locations.
     # Note that this is based on Bash Completion 2, which requires Bash 4 or onwards.
     export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-    [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+    [[ -r "/usr/local/etc/shell.d/bash_completion.sh" ]] && . "/usr/local/etc/shell.d/bash_completion.sh"
     if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
 elif [ -n "$ZSH_VERSION" ]; then
     # Source zsh auto-completions.
     fpath=($HOME/.zsh/completion $fpath)
     autoload -Uz compinit && compinit -i
 fi
+
+function mkd {
+  mkdir -p -- "$1" && cd -P -- "$1";
+}

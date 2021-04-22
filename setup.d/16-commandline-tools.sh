@@ -7,7 +7,7 @@ if ask "$os: Install/Configure The Silver Searcher?" Y; then
         apt-get install -y silversearcher-ag
     fi
 
-    # We refer to this global ag ignore file in the profile.d/aliases.sh file,
+    # We refer to this global ag ignore file in the shell.d/aliases.sh file,
     # because `ag` is an alias for using `ag` with this file.
     ensure_symlink "$(pwd)/ag/ignore" "$HOME/.ignore"
 fi
