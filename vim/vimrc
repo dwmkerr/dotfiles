@@ -36,8 +36,6 @@ Plug 'sheerun/vim-polyglot'
 " Plugins for languages
 Plug 'jparise/vim-graphql'      " GraphQL
 Plug 'PProvost/vim-ps1'         " PowerShell
-Plug 'mxw/vim-jsx'              " JSX support.
-Plug 'pangloss/vim-javascript'  " Better syntax and indenting for js.
 Plug 'elzr/vim-json'            " As above.
 Plug 'othree/html5.vim'         " HTML + SVG
 Plug 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
