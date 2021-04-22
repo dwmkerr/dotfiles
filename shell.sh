@@ -100,7 +100,3 @@ elif [ -n "$ZSH_VERSION" ]; then
     fpath=($HOME/.zsh/completion $fpath)
     autoload -Uz compinit && compinit -i
 fi
-
-function mkd {
-  mkdir -p -- "$1" && cd -P -- "$1";
-}

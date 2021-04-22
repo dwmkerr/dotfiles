@@ -15,7 +15,7 @@ eachdir() {
 }
 
 # get the ISO8601 time
-t() {
+T() {
   date +"%Y-%m-%dT%H:%M"
 }
 
@@ -27,4 +27,9 @@ D() {
 # Restart the shell.
 restart-shell() {
   exec -l $SHELL
+}
+
+# Make a directory (don't fail if it exists) and move into it.
+function mkd {
+  mkdir -p -- "$1" && cd -P -- "$1";
 }
