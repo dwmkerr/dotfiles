@@ -33,3 +33,10 @@ restart-shell() {
 function mkd {
   mkdir -p -- "$1" && cd -P -- "$1";
 }
+
+# Cut, but in reverse, e.g:
+# $ echo "One;Two;Three;Four;Five;" | revcut -d';' -f2
+# -> Four
+function revcut {
+  rev | cut "$@" | rev
+}

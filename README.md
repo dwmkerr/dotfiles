@@ -234,9 +234,15 @@ The following shell commands are setup:
 
 | Command                         | Usage                                                                      |
 |---------------------------------|----------------------------------------------------------------------------|
+| **Quick Aliases** | [`shell.d/aliases.sh`](./shell.d/aliases.sh) |
 | [`serve`](./shell.d/aliases.sh) | Serve the current folder over HTTP on port 3000.                           |
-| [`restart-shell`](./shell.d/aliases.sh) | Restart the current shell, reloading `~/.shell-private.d`, `~/.shell` etc. |
 | [`vinilla`](./shell.d/aliases.sh) | Open `vi` without loading the `vimrc` (i.e. vanilla configuration). |
+| **Basic Functions** | |
+| [`eachdir`](./shell.d/functions.sh) | Run a command in each child directory. |
+| [`D`](./shell.d/functions.sh) | Get the date in ISO86091 format (e.g. `2021-04-24`). |
+| [`mkd`](./shell.d/functions.sh) | Make a directory, using `-p` and `cd` into it. |
+| [`revcut`](./shell.d/functions.sh) | Cut, but in reverse (i.e. from the last to the first delimiter). |
+| **Git Functions** | |
 | [`ghclone`](./shell.d/git.sh) | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.                 |
 
 ## Cheat Sheet - TMux
