@@ -19,8 +19,5 @@ alias serve="python -m SimpleHTTPServer 3000"
 # When we use `ag`, provide the a shared `.ignore` file.
 alias ag='ag --path-to-ignore ~/.ignore'
 
-# We want a consistent set up copy/paste commands.
-
-# TODO: if macos, setup pbcopy/pbpaste
-# TODO: if linux, setup pbcopy/pbpaste
-# TODO: if windows/wsl, setup pbcopy/pbpaste
+# Open vim without loading the vimrc.
+alias vinilla='vi -u NONE'

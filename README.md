@@ -2,6 +2,8 @@
 
 This repository contains all of my configuration for MacOS and Linux, with a focus on terminal, editor, shell, programming environments etc. This repository can easily be forked to allow you to create and customise your own machine setup.
 
+This repository also contains some handy [Shell Scripts and Aliases](#shell-scripts-and-aliases) that others might find helpful.
+
 Some key features are:
 
 - Support for setting up a clean machine with developer focused tooling
@@ -31,6 +33,7 @@ Some key features are:
 * [Private Files](#private-files)
 * [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
+* [Shell Scripts and Aliases](#shell-scripts-and-aliases)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
@@ -221,15 +224,20 @@ Set the [OneDark Theme](https://github.com/denysdovhan/one-gnome-terminal) with:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"
 ```
 
+## Shell Scripts and Aliases
+
+The following features are loaded as part of my configuration. Check the link to the source if you'd like to copy over an individual feature for your own use.
+
 ## Shell Commands
 
 The following shell commands are setup:
 
-| Command         | Usage                                                                      |
-|-----------------|----------------------------------------------------------------------------|
-| `serve`         | Serve the current folder over HTTP on port 3000.                           |
-| `restart-shell` | Restart the current shell, reloading `~/.shell-private.d`, `~/.shell` etc. |
-| `ghclone`       | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.                 |
+| Command                         | Usage                                                                      |
+|---------------------------------|----------------------------------------------------------------------------|
+| [`serve`](./shell.d/aliases.sh) | Serve the current folder over HTTP on port 3000.                           |
+| [`restart-shell`](./shell.d/aliases.sh) | Restart the current shell, reloading `~/.shell-private.d`, `~/.shell` etc. |
+| [`vinilla`](./shell.d/aliases.sh) | Open `vi` without loading the `vimrc` (i.e. vanilla configuration). |
+| [`ghclone`](./shell.d/git.sh) | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.                 |
 
 ## Cheat Sheet - TMux
 
