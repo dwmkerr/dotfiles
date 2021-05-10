@@ -15,7 +15,7 @@ eachdir() {
 }
 
 # get the ISO8601 time
-T() {
+DT() {
   date +"%Y-%m-%dT%H:%M"
 }
 

@@ -10,7 +10,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 
 Plug 'fatih/vim-go'        " Brutal Golang features
-Plug 'heavenshell/vim-jsdoc' " JSDoc support for Vim.
 Plug 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plug 'w0rp/ale'            " Asynchronous Linting Engine.
@@ -43,6 +42,13 @@ Plug 'leafgarland/typescript-vim' "TypeScript
 Plug 'ianks/vim-tsx'
 Plug 'cespare/vim-toml'         " TOML support
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' } " Python Docstrings
+
+" Plugins for JavaScript.
+" Create JSDoc comments.
+Plug 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascript.jsx','typescript'],
+  \ 'do': 'make install'
+\}
 
 " Plugins for Markdown
 "   Note: language support is via vim-polyglot.

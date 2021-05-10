@@ -25,8 +25,8 @@ alias gbranchr='for k in `git branch -r | \
 alias gpo='git push --set-upstream origin $(git_current_branch)'
 
 # Colour constants for nicer output.
-GREEN='\033[0;32m'
-RESET='\033[0m'
+GREEN='\e[0;32m'
+RESET='\e[0m'
 
 # Push the current branch to origin, set upstream, open the PR page if possible.
 # Inspired by: https://gist.github.com/tobiasbueschel/ba385f25432c6b75f63f31eb2edf77b5
@@ -39,7 +39,7 @@ gpr() {
     branch=${branch:-HEAD}
 
     # Pushing take a little while, so let the user know we're working.
-    echo "Opening pull request for ${GREEN}${branch}${RESET}..."
+    echo -e "Opening pull request for ${GREEN}${branch}${RESET}..."
 
     # Push to origin, grabbing the output but then echoing it back.
     push_output=`git push origin -u ${branch} 2>&1`
@@ -47,11 +47,11 @@ gpr() {
     echo ${push_output}
 
     # If there's anything which starts with http, it's a good guess it'll be a
-    # link to GitHub/GitLab/Whatever. So open it.
-    link=$(echo ${push_output} | grep -o 'http.*' | sed -e 's/[[:space:]]*$//')
+    # link to GitHub/GitLab/Whatever. So open the first link found.
+    link=$(echo ${push_output} | grep -o 'http.*' | head -n1 | sed -e 's/[[:space:]]*$//')
     if [ ${link} ]; then
         echo ""
-        echo "Opening: ${GREEN}${link}${RESET}..."
+        echo -e "Opening: ${GREEN}${link}${RESET}..."
         python -mwebbrowser ${link}
     fi
 }
