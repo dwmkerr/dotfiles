@@ -256,6 +256,8 @@ The following shell commands are setup:
 | `Ctrl + Meta + h/j/k/l` | Move through tabs.                                    |
 | `move-window -r`        | Re-order the tab numbers (useful if there are gaps).  |
 | `<leader> / S`          | Show Sessions with window preview, hit `x` to delete. |
+| `<leader> / $`          | Rename session.                                       |
+| `new -s <name>`         | New session with name.                                |
 | `<leader> / Ctrl+S`     | Save Tmux Session                                     |
 | `<leader> / Ctrl+R`     | Restore Tmux Session                                  |
 | `<leader> /`            | Last split                                            |
