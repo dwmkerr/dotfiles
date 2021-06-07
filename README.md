@@ -33,10 +33,12 @@ Some key features are:
 * [Private Files](#private-files)
 * [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
+* [Shell Prompt Theme](#shell-prompt-theme)
 * [Shell Scripts and Aliases](#shell-scripts-and-aliases)
 * [Shell Commands](#shell-commands)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
+* [Cheat Sheet - Shell](#cheat-sheet---shell)
 * [Tooling Choices](#tooling-choices)
     * [Vim](#vim)
 * [TODO](#todo)
@@ -224,6 +226,16 @@ Set the [OneDark Theme](https://github.com/denysdovhan/one-gnome-terminal) with:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"
 ```
 
+## Shell Prompt Theme
+
+The [`set_ps1.sh`](./shell.d/set_ps1.sh) can be used to set `PS1` styles:
+
+```
+$ set_ps1 debian
+```
+
+The `PS1` is converted to Z-Shell format if the current shell is `zsh`. My current 'default' theme is named `dwmkerr`.
+
 ## Shell Scripts and Aliases
 
 The following features are loaded as part of my configuration. Check the link to the source if you'd like to copy over an individual feature for your own use.
@@ -305,6 +317,14 @@ Note: including the vertical pipe `|` in the table above would cause rendering i
 Other useful stuff:
 
 - By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
+
+## Cheat Sheet - Shell
+
+These are just some common commands I often forget:
+
+| Command      | Usage                                                                                     |
+|--------------|-------------------------------------------------------------------------------------------|
+| `tput cvvis` | Show the cursor. Useful if it disappears when a command hides it and fails to restore it. |
 
 ## Tooling Choices
 

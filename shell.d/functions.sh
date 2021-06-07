@@ -35,7 +35,7 @@ function mkd {
 }
 
 # Cut, but in reverse, e.g:
-# $ echo "One;Two;Three;Four;Five;" | revcut -d';' -f2
+# $ echo "One;Two;Three;Four;Five" | revcut -d';' -f2
 # -> Four
 function revcut {
   rev | cut "$@" | rev
