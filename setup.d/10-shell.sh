@@ -46,20 +46,25 @@ fi
 
 # Check the shell, and make sure that we are sourcing the .shell.sh file.
 if ask "$os: Add .shell.sh to bash/zsh?" Y; then
-    # Create the .shell.sh script symlink as well as profile folder symlink.
+
+    # Create the .shell.sh script symlink as well as shell.d folder symlink.
 	ensure_symlink "$(pwd)/shell.sh" "$HOME/.shell.sh"
 	ensure_symlink "$(pwd)/shell.d" "$HOME/.shell.d"
     
-    # If we don't have the profile sourced for Bash, source it.
-    source_command="source ~/.shell.sh"
-    if ! grep -q "${source_command}" ~/.bashrc; then
-        echo "$os: .shell.sh is not sourced in ~/.shell, adding this now..."
-        echo "${source_command}" >> ~/.bashrc
-    fi
+    # Source our shell configuration in any local shell config files.
+    config_files=(~/.bashrc ~/.zshrc)
+    for config_file in ${config_files[@]}; do
+        # Skip config files that don't exist.
+        ! [ -r ~/.bashrc ] && continue
 
-    # If we don't have the profile sourced for ZSH, source it.
-    if ! grep -q "${source_command}" ~/.zshrc; then
-        echo "$os: p.shrofile is not sourced in ~/.zshrc, adding this now..."
-        echo "${source_command}" >> ~/.zshrc
-    fi
+        # If we don't have the 'source ~/.shell.d' line in our config, add it.
+        source_command="[ -r ~/.shell.sh ] && source ~/.shell.sh"
+        if ! grep -q "${source_command}" "${config_file}"; then
+            if ask "$os: .shell.sh is not sourced in '${config_file}' add it?" Y; then
+                echo "" >> "${config_file}"
+                echo "# Source my personal (github.com/dwmkerr/dotfiles) configuration." >> "${config_file}"
+                echo "${source_command}" >> "${config_file}"
+            fi
+        fi
+    done
 fi
