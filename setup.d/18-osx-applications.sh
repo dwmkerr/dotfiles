@@ -47,6 +47,7 @@ apps=('coreutils'
     'gnutls'
     'grep'
     'telnet'
+    'ossp-uuid' # uuid linux tool
     'tree'
     'wget'
 )
