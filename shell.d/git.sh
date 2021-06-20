@@ -23,35 +23,3 @@ alias gbranchr='for k in `git branch -r | \
 
 # Push to origin. Use it all the time innit?
 alias gpo='git push --set-upstream origin $(git_current_branch)'
-
-# Colour constants for nicer output.
-GREEN='\e[0;32m'
-RESET='\e[0m'
-
-# Push the current branch to origin, set upstream, open the PR page if possible.
-# Inspired by: https://gist.github.com/tobiasbueschel/ba385f25432c6b75f63f31eb2edf77b5
-# How to get the current branch: https://stackoverflow.com/questions/1593051/how-to-programmatically-determine-the-current-checked-out-git-branch
-# How to open the browser: https://stackoverflow.com/questions/3124556/clean-way-to-launch-the-web-browser-from-shell-script
-gpr() {
-    # Get the current branch name, or use 'HEAD' if we cannot get it.
-    branch=$(git symbolic-ref -q HEAD)
-    branch=${branch##refs/heads/}
-    branch=${branch:-HEAD}
-
-    # Pushing take a little while, so let the user know we're working.
-    echo -e "Opening pull request for ${GREEN}${branch}${RESET}..."
-
-    # Push to origin, grabbing the output but then echoing it back.
-    push_output=`git push origin -u ${branch} 2>&1`
-    echo ""
-    echo ${push_output}
-
-    # If there's anything which starts with http, it's a good guess it'll be a
-    # link to GitHub/GitLab/Whatever. So open the first link found.
-    link=$(echo ${push_output} | grep -o 'http.*' | head -n1 | sed -e 's/[[:space:]]*$//')
-    if [ ${link} ]; then
-        echo ""
-        echo -e "Opening: ${GREEN}${link}${RESET}..."
-        python -mwebbrowser ${link}
-    fi
-}
