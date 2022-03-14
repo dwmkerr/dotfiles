@@ -4,6 +4,9 @@ call plug#begin('~/.vim/plugins')
 " Sensible vim configuration everyone can agree on.
 Plug 'tpope/vim-sensible'
 
+" Essential plugins for collaboration and style.
+Plug 'editorconfig/editorconfig-vim' " Support editorconfig file.
+
 " Plugins for colour schemes.
 Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
