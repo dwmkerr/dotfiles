@@ -98,6 +98,9 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Tell search and other tools to ignore files that we don't want to search.
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
+
 " Word configuration.
 
     " Dashes are considered parts of a word for the purposes of motions, search
@@ -173,6 +176,9 @@ set wildmenu
 
     " But still ignore some normally not needed files.
     let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
+
+    " Ignore the files in our 'wildignore' settings (see higher up in the file).
+    let NERDTreeRespectWildIgnore=1
 
     " Show the current file in NERDTree.
     map <leader>t :NERDTreeFind<cr>
@@ -292,6 +298,12 @@ set wildmenu
     " be more strict with code!
     let g:ale_python_mypy_options = '--no-strict-optional'
 
+" Template settings
+
+    " When we have templates, try and use the 'base' type for the syntax, e.g.
+    " *.yaml.tpl uses the yaml type.
+    autocmd BufNewFile,BufRead *.yml.tpl set syntax=yaml
+    autocmd BufNewFile,BufRead *.yaml.tpl set syntax=yaml
 
 " Custom Commands
 
@@ -341,6 +353,21 @@ noremap <leader><leader> :tabnew %<cr>
 " When in insert mode, highlight the current line.
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
+
+" ALE Configuration.
+
+    " When a 'prettierrc' config is present, use it:
+    " https://prettier.io/docs/en/vim.html#alehttpsgithubcomdense-analysisale
+
+    " Use prettier for JS/CSS.
+    let g:ale_fixers = {
+    \   'javascript': ['prettier'],
+    \   'css': ['prettier'],
+    \}
+
+    " Reduce the risk of bad commits by linting on save.
+    let g:ale_fix_on_save = 1
+
 
 " FZF (Fuzzy Find) configuration.
 

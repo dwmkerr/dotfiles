@@ -9,6 +9,10 @@
 # Inspired by: https://gist.github.com/tobiasbueschel/ba385f25432c6b75f63f31eb2edf77b5
 # How to get the current branch: https://stackoverflow.com/questions/1593051/how-to-programmatically-determine-the-current-checked-out-git-branch
 # How to open the browser: https://stackoverflow.com/questions/3124556/clean-way-to-launch-the-web-browser-from-shell-script
+
+# Before we define the function, remove any existing alias that might have the same name.
+unalias gpr 2>/dev/null
+
 gpr() {
     # Colour constants for nicer output.
     green='\e[0;32m'
