@@ -259,22 +259,26 @@ The following shell commands are setup:
 
 ## Cheat Sheet - TMux
 
-| Command                 | Usage                                                 |
-|-------------------------|-------------------------------------------------------|
-| `man tmux`              | Get help on commands.                                 |
-| `<leader> ?`            | Get help on commands.                                 |
-| `Ctrl + h/j/k/l`        | Navigate splits (vim aware)                           |
-| `Meta + h/l`            | Move through tabs.                                    |
-| `Ctrl + Meta + h/j/k/l` | Move through tabs.                                    |
-| `move-window -r`        | Re-order the tab numbers (useful if there are gaps).  |
-| `<leader> / S`          | Show Sessions with window preview, hit `x` to delete. |
-| `<leader> / $`          | Rename session.                                       |
-| `new -s <name>`         | New session with name.                                |
-| `<leader> / Ctrl+S`     | Save Tmux Session                                     |
-| `<leader> / Ctrl+R`     | Restore Tmux Session                                  |
-| `<leader> /`            | Last split                                            |
-| `<leader> {`            | Swap pane left                                        |
-| `<leader> }`            | Swap pane right                                       |
+| Command                                   | Usage                                                 |
+|-------------------------------------------|-------------------------------------------------------|
+| **Sessions**                              |                                                       |
+| `tmux detach -E 'bash --noprofile --norc` | Detach the current session and open a vanilla shell.  |
+|-------------------------------------------|-------------------------------------------------------|
+| `man tmux`                                | Get help on commands.                                 |
+| `<leader> ?`                              | Get help on commands.                                 |
+| `Ctrl + h/j/k/l`                          | Navigate splits (vim aware)                           |
+| `Meta + h/l`                              | Move through tabs.                                    |
+| `Ctrl + Meta + h/j/k/l`                   | Move through tabs.                                    |
+| `move-window -r`                          | Re-order the tab numbers (useful if there are gaps).  |
+| `<leader> / S`                            | Show Sessions with window preview, hit `x` to delete. |
+| `<leader> / $`                            | Rename session.                                       |
+| `new -s <name>`                           | New session with name.                                |
+| `<leader> / Ctrl+S`                       | Save Tmux Session                                     |
+| `<leader> / Ctrl+R`                       | Restore Tmux Session                                  |
+| `<leader> /`                              | Last split                                            |
+| `<leader> {`                              | Swap pane left                                        |
+| `<leader> }`                              | Swap pane right                                       |
+
 
 ## Cheat Sheet - Vim
 
