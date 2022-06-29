@@ -23,6 +23,7 @@ if ask "$os: Enable 'tap-to-click'?" N; then
     sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Click -bool true
     sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    echo "'tap-to-click' enabled - this will be applied on restart..."
 fi    
 
 if ask "$os: Set wallpaper?" N; then
@@ -44,7 +45,7 @@ fi
 # Get the current computer name and ask if the user wants to change it.
 computer_name=$(scutil --get ComputerName)
 if ask "$os: Computer name is '${computer_name}', would you like to change it?" N; then
-    echo -n "Enter the new computer name: "
+    porintf "Enter the new computer name: "
     read new_computer_name
     scutil --set ComputerName "${new_computer_name}"
 fi
@@ -52,7 +53,7 @@ fi
 # Get the current host name and ask if the user wants to change it.
 host_name=$(scutil --get HostName)
 if ask "$os: Host name is '${host_name}', would you like to change it?" N; then
-    echo -n "Enter the new host name (no spaces): "
+    porintf "Enter the new host name (no spaces): "
     read new_host_name
     scutil --set HostName "${new_host_name}"
 fi
@@ -60,7 +61,7 @@ fi
 # Get the current local host name and ask if the user wants to change it.
 local_host_name=$(scutil --get LocalHostName)
 if ask "$os: Local Host name is '${local_host_name}', would you like to change it?" N; then
-    echo -n "Enter the new local host name (no spaces): "
+    porintf "Enter the new local host name (no spaces): "
     read new_local_host_name
     scutil --set LocalHostName "${new_local_host_name}"
 fi
