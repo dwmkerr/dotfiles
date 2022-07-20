@@ -1,4 +1,5 @@
 # Creates symbolic links.
+.PHONY: link
 link:
 	ln -sf ${PWD}/shell.sh ~/.shell.sh
 	ln -sf ${PWD}/shell.d ~/.shell.d
@@ -11,9 +12,15 @@ link:
 	ln -sf ${PWD}/ag/agignore ~/.agignore
 
 # Backup private config files (ssh keys etc).
+.PHONY: private-files-backup
 private-files-backup:
 	./private-files/private-files-backup.sh
 
 # Restore private config files (ssh keys etc).
+.PHONY: private-files-restore
 private-files-restore:
 	./private-files/private-files-restore.sh
+
+.PHONY: setup
+setup:
+	./setup.sh

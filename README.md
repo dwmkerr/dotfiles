@@ -28,9 +28,12 @@ Some key features are:
 
 * [Introduction](#introduction)
 * [Quick Start](#quick-start)
+* [SSH Keys, GPG Keys and Private Files](#ssh-keys-gpg-keys-and-private-files)
+    * [Backing Up Private Files](#backing-up-private-files)
+    * [Restoring Private Files](#restoring-private-files)
+    * [Configuring Backup and Restore](#configuring-backup-and-restore)
 * [MacOS - Manual Steps](#macos---manual-steps)
 * [Features](#features)
-* [Private Files](#private-files)
 * [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
 * [Shell Prompt Theme](#shell-prompt-theme)
@@ -59,14 +62,7 @@ The following is set up:
 
 ## Quick Start
 
-The fastest way to setup a new machine is:
-
-1. Open Chrome
-2. Login, which will install BitWarden
-3. Open GitHub and navigate to the `dwmkerr/dotfiles` repo
-4. Follow instructions below - the majority of the setup is scripted
-
-Run the commands below to upgrade the XCode tools, which provides Git. We then clone the `dotfiles` repository. Once this is done we can run `make setup`.
+The fastest way to setup a new machine:
 
 ```sh
 # MacOSX only - install command-line tools (so that we have git).
@@ -80,21 +76,65 @@ cd ~/repos/github/dwmkerr
 # so this is over https.
 git clone https://github.com/dwmkerr/dotfiles.git
 cd dotfiles
-```
 
-Now that you are in the dotfiles folder, you can interactively install features:
-
-```sh
+# Setup the machine - the script will run interactively.
 make setup
 ```
 
-To restore private files, check the [Private Files](#private-files) section.
+## SSH Keys, GPG Keys and Private Files
+
+SSH Keys, GPG Keys and Private Files (such as cloud configuration files, which contain sensitive information) can be backed up and restored to a folder on AWS.
+
+This means that to transfer sensitive information from one machine to another, you can simple run `backup-private-files` on the source machine, and `restore-private-files` on the target machine.
+
+### Backing Up Private Files
+
+As long as your AWS profile is configured, this is a one-liner:
+
+```sh
+make private-files-backup
+```
+
+You will be asked for confirmation before backing up any files.
+
+### Restoring Private Files
+
+Assuming you have the AWS CLI installed, run the following commands to create a profile (you will need credentials, which should be in the password manager):
+
+```sh
+# Restore private files:
+make private-files-restore
+```
+
+You will be asked for confirmation before restoring any files.
+
+### Configuring Backup and Restore
+
+The following variables can be used to configure the backup and restore process. The values shown are the defaults, so these only need to be changed if you are using a different S3 bucket or AWS profile name.
+
+```sh
+# Define the name of the AWS profile used to access the S3 bucket.
+# Default is "dwmkerr".
+DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
+# Define the name of the AWS S3 bucket that stores private files.
+# Default is "dwmkerr-dotfiles-private".
+DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
+
+# Run backup/restore as normal...,
+make private-files-restore
+make private-files-backup
+
+# Backup private files:
+make private-files-backup
+```
 
 ## MacOS - Manual Steps
 
 The following steps have not yet been automated:
 
 1. Sign into Chrome and setup sync
+0. Install and into Bitwarden
+0. Open Joplin and enable S3 synchronisation (AWS credentials are in Bitwarden)
 1. For `Terminal`, install the profiles under `./terminal` to give the One Dark / One Light themes
 0. For `iTerm2`, install the profile under `./terminal` to give the One Dark
 0. For `iTerm2` set the following options:
@@ -107,12 +147,8 @@ The following steps have not yet been automated:
 
 These steps are work in progress.
 
-0. Restore GPG keys from a backup.
-0. Setup SSH keys for GitHub.
 0. Restore Parallels virtual machines from backup.
 0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
-0. Restore the AWS CLI credentials to bring back project access.
-0. Setup SSH keys for GitHub.
 
 Some other tools I install which I have paid subscriptions for or are essentials:
 
@@ -192,27 +228,6 @@ This also installs common CLI applications, such as `tree`, as well as GNU tools
 **Commandline Tools**
 
 `ag` is setup and will use a global ignore file at `~/.ignore`. `vim-ack` also uses this file.
-
-## Private Files
-
-Backup or restore private files with:
-
-```sh
-DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
-DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
-
-# Run AWS configure to create the named profile - you will be asked to provide
-# an access key and secret.
-aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
-
-# Backup private files with:
-make private-files-backup
-
-# Restore private files with:
-make private-files-restore
-```
-
-You will be asked before backing up or restoring any file as an additional safety check, as these files are by their nature highly sensitive.
 
 ## Developer Guide
 

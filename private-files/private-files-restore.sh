@@ -6,40 +6,22 @@ set -e
 #
 # This script is used to restore private and sensitive files, such as ssh keys and
 # gpg keys, from an encrypted AWS S3 bucket.
-#
-# Note: this script assumes you are logged in with access to the AWS S3 bucket
-# below and that the AWS CLI is installed.
+
+# Load the helper functions.
+helper_functions_path="$(dirname "$(readlink -f "$0")")/helper-functions.sh"
+source "${helper_functions_path}"
 
 # Set the bucket name and profile. This can be overwritten if needed.
 profile=${DOTFILES_PRIVATE_PROFILE:-dwmkerr}
 bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
-# Helper function to restore files after checking with the user first.
-function restore_safe() {
-    echo -n "Restore '$1' to '$2'? [y/n]: "
-    read yesno
-    if [[ $yesno =~ ^[Yy] ]]; then
-        mkdir -p "$(dirname $2)"
-        echo "Preparing to run: aws s3 cp \"$1\" \"$2\" $3 --profile \"${profile}"
-        aws s3 cp "$1" "$2" $3 --profile "${profile}"
-    fi
-}
-
-# Helper function to check if an AWS profile exists.
-function aws_profile_exists() {
-
-    local profile_name="${1}"
-    echo -n "Checking for AWS profile: '${profile_name}'... "
-    local profile_name_check=$(cat $HOME/.aws/config | grep "\[profile ${profile_name}]")
-
-    if [ -z "${profile_name_check}" ]; then
-        echo "profile doesn't exist"
-        return 1
-    else
-        echo "profile exists"
-        return 0
-    fi
-}
+# Ensure the AWS profile exists - if it doesn't, configure it.
+if aws_profile_exists "${profile}"; then
+    echo "AWS Profile "${profile}" will be used."
+else
+    echo "AWS Profile "${profile}" does not exist, setting up now:"
+    aws configure --profile "${profile}"
+fi
 
 # Alicloud CLI configuration and credentials.
 restore_safe "s3://${bucket}/aliyun/config.json" "$HOME/.aliyun/" 

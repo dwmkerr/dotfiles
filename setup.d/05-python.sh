@@ -17,5 +17,5 @@ version="3.7.3"
 if ask "$os: setup Python ${version} as the default?" n; then
     # Use the full path to the pyenv binary as we have probably not restarted
     # the shell since installing it...
-    ~/.pyenv/bin/pyenv install ${version}
+    /usr/local/bin/pyenv install ${version}
 fi

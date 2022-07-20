@@ -4,26 +4,22 @@ if [[ "$os" != "osx" ]]; then
     return 0
 fi
 
-apps=('1password'
+apps=('bitwarden'
     'cyberduck'
     'docker'
-    'dropbox'
     'font-hack'
     'keepingyouawake'
     'iterm2'
+    'joplin'
     'minikube'
     'parallels'
-    'slack'
     'spectacle'
     'spotmenu'
     'spotify'
-    'steam'
-    'transmission'
     'vagrant'
     'virtualbox'
     'visual-studio-code'
     'vlc'
-    'whatsapp'
 )
 # Note that I no longer install the following apps - they are installed by the
 # enterprise profile:
