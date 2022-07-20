@@ -23,6 +23,22 @@ function backup_safe() {
     fi
 }
 
+# Helper function to check if an AWS profile exists.
+function aws_profile_exists() {
+
+    local profile_name="${1}"
+    echo -n "Checking for AWS profile: '${profile_name}'... "
+    local profile_name_check=$(cat $HOME/.aws/config | grep "\[profile ${profile_name}]")
+
+    if [ -z "${profile_name_check}" ]; then
+        echo "profile doesn't exist"
+        return 1
+    else
+        echo "profile exists"
+        return 0
+    fi
+}
+
 # Alicloud CLI configuration and credentials.
 backup_safe ~/.aliyun/config.json "s3://${bucket}/aliyun/"
 

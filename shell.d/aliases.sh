@@ -21,4 +21,7 @@ alias serve="python -m http.server 3000"
 alias ag='ag --path-to-ignore ~/.ignore'
 
 # Open vim without loading the vimrc.
-alias vinilla='vi -u NONE'
+alias vimnilla='vi -u NONE'
+
+# Open bash without loading and config.
+alias bashnilla='bash --noprofile --norc'

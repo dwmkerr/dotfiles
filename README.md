@@ -117,7 +117,7 @@ Some other tools I install which I have paid subscriptions for or are essentials
 - Cyberduck
 - Dash
 - Epic Games Launcher
-- Guitar Pro
+- Guitar Pro 8
 
 
 ## Features
@@ -264,6 +264,7 @@ The following shell commands are setup:
 | **Sessions**                              |                                                       |
 | `tmux detach -E 'bash --noprofile --norc` | Detach the current session and open a vanilla shell.  |
 |-------------------------------------------|-------------------------------------------------------|
+| `<leader> R`                              | Reload Tmux configuration (i.e. source the `~/.tmux.conf` file). |
 | `man tmux`                                | Get help on commands.                                 |
 | `<leader> ?`                              | Get help on commands.                                 |
 | `Ctrl + h/j/k/l`                          | Navigate splits (vim aware)                           |

@@ -208,6 +208,7 @@ set wildmenu
     au FileType yaml           setl sw=2 sts=2 et
     au FileType terraform      setl sw=2 sts=2 et
     au FileType make           set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
+    au FileType sshconfig      setl sw=2 sts=2 etc
 
 " Spell-checking settings
 
