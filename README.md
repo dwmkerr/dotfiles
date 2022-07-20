@@ -59,6 +59,13 @@ The following is set up:
 
 ## Quick Start
 
+The fastest way to setup a new machine is:
+
+1. Open Chrome
+2. Login, which will install BitWarden
+3. Open GitHub and navigate to the `dwmkerr/dotfiles` repo
+4. Follow instructions below - the majority of the setup is scripted
+
 Run the commands below to upgrade the XCode tools, which provides Git. We then clone the `dotfiles` repository. Once this is done we can run `make setup`.
 
 ```sh
@@ -66,9 +73,8 @@ Run the commands below to upgrade the XCode tools, which provides Git. We then c
 xcode-select --install
 
 # Create a working environment, in my standard format.
-cd ~
-mkdir -p repos/github/dwmkerr
-cd repos/github/dwmkerr
+mkdir -p ~/repos/github/dwmkerr
+cd ~/repos/github/dwmkerr
 
 # Clone the dotfiles - note that a new machine will not have my SSH key
 # so this is over https.
@@ -89,8 +95,6 @@ To restore private files, check the [Private Files](#private-files) section.
 The following steps have not yet been automated:
 
 1. Sign into Chrome and setup sync
-0. Sign into Dropbox and setup sync
-0. Setup 1Password and sync with Dropbox
 1. For `Terminal`, install the profiles under `./terminal` to give the One Dark / One Light themes
 0. For `iTerm2`, install the profile under `./terminal` to give the One Dark
 0. For `iTerm2` set the following options:
