@@ -33,6 +33,7 @@ Some key features are:
     * [Restoring Private Files](#restoring-private-files)
     * [Configuring Backup and Restore](#configuring-backup-and-restore)
 * [MacOS - Manual Steps](#macos---manual-steps)
+    * [iTerm2 Configuration](#iterm2-configuration)
 * [Features](#features)
 * [Developer Guide](#developer-guide)
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
@@ -136,12 +137,16 @@ The following steps have not yet been automated:
 0. Install and into Bitwarden
 0. Open Joplin and enable S3 synchronisation (AWS credentials are in Bitwarden)
 1. For `Terminal`, install the profiles under `./terminal` to give the One Dark / One Light themes
-0. For `iTerm2`, install the profile under `./terminal` to give the One Dark
-0. For `iTerm2` set the following options:
-     General: Selection - [X] Applications in terminal may access clipboard
-     General: Window    - [ ] Native full screen windows
-     Keys: HotKey       - [X] Show/hide all windows with a system-wide hotkey (⌥ +Space)
 
+### iTerm2 Configuration
+
+Install the profile under `./terminal/dwmkerrj.json` to set the [One Dark Theme](https://github.com/one-dark/iterm-one-dark-theme)
+
+Then for the global preferences, set:
+
+- General: Selection - (Enabled) Applications in terminal may access clipboard
+- General: Window (Disabled) Native full screen windows
+- Keys: HotKey - (Enabled) Show/hide all windows with a system-wide hotkey (⌥ +Space)
 
 ---
 
