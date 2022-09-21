@@ -1,10 +1,12 @@
 # Setup parameters.
-golangver="1.11"
+golangver="1.19.1"
 gopath="$HOME/go"
 
 if [[ "$os" == "osx" ]]; then
-    echo "$os: Installing Go $golangver with brew..."
-    brew install go@${golangver}
+    pkg_path="${TMPDIR}golang.pkg"
+    curl -o "${pkg_path}" "https://dl.google.com/go/go${golangver}.darwin-amd64.pkg"
+    sudo open "${pkg_path}"
+    rm "${pkg_path}"
 elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Installing Go $golangver with snap..."
     sudo snap install --classic --channel="${golangver}/stable" go
