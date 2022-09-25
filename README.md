@@ -140,7 +140,11 @@ The following steps have not yet been automated:
 
 ### iTerm2 Configuration
 
-Install the profile under `./terminal/dwmkerrj.json` to set the [One Dark Theme](https://github.com/one-dark/iterm-one-dark-theme)
+Install the profile under `./terminal/dwmkerrj.json` which configures:
+
+- The [One Dark Theme](https://github.com/one-dark/iterm-one-dark-theme)
+- The Window to be automatically maximised to full screen
+- The Left Alt key to map to `Esc+`
 
 Then for the global preferences, set:
 

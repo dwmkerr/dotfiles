@@ -5,7 +5,7 @@ if [ -x "$(command -v go)" ]; then
 
     # Export GOBIN and GOPATH, setting our global go home directory.
     export GOPATH=$HOME/go
-    export GOBIN="$GOROOT/bin"
+    export GOBIN="$GOPATH/bin"
     export PATH=$PATH:"$GOBIN"
 
 fi
