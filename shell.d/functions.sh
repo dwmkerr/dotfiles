@@ -25,7 +25,7 @@ D() {
 }
 
 # Restart the shell.
-restart-shell() {
+function restart_shell() {
   exec -l $SHELL
 }
 

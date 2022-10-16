@@ -1,3 +1,11 @@
+# todo
+
+- Note; javascript projects can get CoC support by adding a jsconfig.json file as per https://code.visualstudio.com/docs/languages/jsconfig
+
+:CocInstall coc-tsserver
+- neovim
+
+
 # dotfiles
 
 This repository contains all of my configuration for MacOS and Linux, with a focus on terminal, editor, shell, programming environments etc. This repository can easily be forked to allow you to create and customise your own machine setup.
@@ -39,7 +47,8 @@ Some key features are:
 * [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
 * [Shell Prompt Theme](#shell-prompt-theme)
 * [Shell Scripts and Aliases](#shell-scripts-and-aliases)
-* [Shell Commands](#shell-commands)
+    * [Shell Commands](#shell-commands)
+    * [Shell Scripts](#shell-scripts)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
 * [Cheat Sheet - Shell](#cheat-sheet---shell)
@@ -268,22 +277,29 @@ The `PS1` is converted to Z-Shell format if the current shell is `zsh`. My curre
 
 The following features are loaded as part of my configuration. Check the link to the source if you'd like to copy over an individual feature for your own use.
 
-## Shell Commands
+### Shell Commands
 
 The following shell commands are setup:
 
-| Command                         | Usage                                                                      |
-|---------------------------------|----------------------------------------------------------------------------|
-| **Quick Aliases** | [`shell.d/aliases.sh`](./shell.d/aliases.sh) |
-| [`serve`](./shell.d/aliases.sh) | Serve the current folder over HTTP on port 3000.                           |
-| [`vinilla`](./shell.d/aliases.sh) | Open `vi` without loading the `vimrc` (i.e. vanilla configuration). |
-| **Basic Functions** | |
-| [`eachdir`](./shell.d/functions.sh) | Run a command in each child directory. |
-| [`D`](./shell.d/functions.sh) | Get the date in ISO86091 format (e.g. `2021-04-24`). |
-| [`mkd`](./shell.d/functions.sh) | Make a directory, using `-p` and `cd` into it. |
-| [`revcut`](./shell.d/functions.sh) | Cut, but in reverse (i.e. from the last to the first delimiter). |
-| **Git Functions** | |
-| [`ghclone`](./shell.d/git.sh) | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.                 |
+| Command                                   | Usage                                                               |
+|-------------------------------------------|---------------------------------------------------------------------|
+| **Quick Aliases**                         | [`shell.d/aliases.sh`](./shell.d/aliases.sh)                        |
+| [`serve`](./shell.d/aliases.sh)           | Serve the current folder over HTTP on port 3000.                    |
+| [`vinilla`](./shell.d/aliases.sh)         | Open `vi` without loading the `vimrc` (i.e. vanilla configuration). |
+| **Basic Functions**                       |                                                                     |
+| [`eachdir`](./shell.d/functions.sh)       | Run a command in each child directory.                              |
+| [`D`](./shell.d/functions.sh)             | Get the date in ISO86091 format (e.g. `2021-04-24`).                |
+| [`mkd`](./shell.d/functions.sh)           | Make a directory, using `-p` and `cd` into it.                      |
+| [`restart_shell`](./shell.d/functions.sh) | Restart the current shell process, useful when profile changes.     |
+| [`revcut`](./shell.d/functions.sh)        | Cut, but in reverse (i.e. from the last to the first delimiter).    |
+| **Git Functions**                         |                                                                     |
+| [`ghclone`](./shell.d/git.sh)             | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.          |
+
+### Shell Scripts
+
+| Script                      | Usage                                                                            |
+|-----------------------------|----------------------------------------------------------------------------------|
+| `./scripts/test-shell.d.sh` | Source each `./shell.d` file in turn, time result. Good for checking for errors. |
 
 ## Cheat Sheet - TMux
 
