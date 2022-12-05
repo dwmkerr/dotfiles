@@ -51,6 +51,7 @@ Some key features are:
     * [Shell Scripts](#shell-scripts)
 * [Cheat Sheet - TMux](#cheat-sheet---tmux)
 * [Cheat Sheet - Vim](#cheat-sheet---vim)
+    * [Vim Tab Completion](#vim-tab-completion)
 * [Cheat Sheet - Shell](#cheat-sheet---shell)
 * [Tooling Choices](#tooling-choices)
     * [Vim](#vim)
@@ -367,6 +368,10 @@ Other useful stuff:
 
 - By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
 
+### Vim Tab Completion
+
+COC is used - it's basically setup like VS Code - tab selects the first option. Then `<C-n>` and `<C-p>` to cycle (or up/down).
+
 ## Cheat Sheet - Shell
 
 These are just some common commands I often forget:
@@ -393,3 +398,5 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 - [ ] node is not sourcing properly
 - [ ] fix: long urls in tmux work if they span lines - *unless* they are in `vim`
 - [ ] vi: decide on vi/nvim
+- [ ] Note; javascript projects can get CoC support by adding a jsconfig.json file as per https://code.visualstudio.com/docs/languages/jsconfig then :CocInstall coc-tsserver
+- [ ] update all to neovim
