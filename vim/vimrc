@@ -18,11 +18,11 @@ Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plug 'w0rp/ale'            " Asynchronous Linting Engine.
 Plug 'vim-airline/vim-airline'    " A useful statusbar.
 Plug 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
-Plug 'jszakmeister/vim-togglecursor' " Toggle between line and block cursor when supported.
 Plug 'tpope/vim-surround'  " Surround motions.
 Plug 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plug 'mileszs/ack.vim'     " Ack support.
-Plug 'christoomey/vim-tmux-navigator' " Seamless navigation between tmux/vim splits.
+Plug 'christoomey/vim-tmux-navigator'
+
 Plug 'rizzatti/dash.vim'   " Dash support.
 Plug 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
 Plug 'tpope/vim-fugitive'  " Git support.
@@ -80,9 +80,14 @@ Plug 'godlygeek/tabular'
 " NERD Commenter plugin.
 Plug 'scrooloose/nerdcommenter'
 
-
 " Initialize plugin system.
 call plug#end()
+
+" Disable vim-polygot for go as we use vim-go.
+if exists('g:loaded_polyglot')
+    let g:polyglot_disabled = ['go']
+endif
+
 
 " --- Simple Vim config.
 set tabstop=4       " number of visual spaces per TAB
@@ -135,6 +140,9 @@ set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
     \}
     " let g:onedark_terminal_italics=1
     colorscheme onedark
+
+" Cursor Configuration
+   set guicursor=n-c-v:block-nCursor,i-ci:ver100-iCursor-blinkon200-blinkoff150
 
 " Enable the mouse. Also enable when in tmux.
 set mouse=a
@@ -198,17 +206,17 @@ set wildmenu
     au FileType * set fo-=c fo-=r fo-=o sw=4 sts=4 et
 
     " Language specific indentation.
-    au FileType html           setl sw=2 sts=2 et
-    au FileType javascript     setl sw=2 sts=2 et
-    au FileType javascript.jsx setl sw=2 sts=2 et
-    au FileType typescript     setl sw=2 sts=2 et
-    au FileType typescript.tsx setl sw=2 sts=2 et
-    au FileType json           setl sw=2 sts=2 et
-    au FileType ruby           setl sw=2 sts=2 et
-    au FileType yaml           setl sw=2 sts=2 et
-    au FileType terraform      setl sw=2 sts=2 et
+    au FileType html           setl ts=2 sw=2 sts=2 et
+    au FileType javascript     setl ts=2 sw=2 sts=2 et
+    au FileType javascript.jsx setl ts=2 sw=2 sts=2 et
+    au FileType typescript     setl ts=2 sw=2 sts=2 et
+    au FileType typescript.tsx setl ts=2 sw=2 sts=2 et
+    au FileType json           setl ts=2 sw=2 sts=2 et
+    au FileType ruby           setl ts=2 sw=2 sts=2 et
+    au FileType yaml           setl ts=2 sw=2 sts=2 et
+    au FileType terraform      setl ts=2 sw=2 sts=2 et
     au FileType make           set noexpandtab shiftwidth=8 softtabstop=0 " makefiles must use tabs
-    au FileType sshconfig      setl sw=2 sts=2 etc
+    au FileType sshconfig      setl ts=2 sw=2 sts=2 et
 
 " Spell-checking settings
 
@@ -276,6 +284,10 @@ set wildmenu
     let g:go_mod_fmt_autosave = 0
 
 " Markdown language settings
+
+    " For vim-markdown-toc set the indent to '-' rather than '*'. Hyphens
+    " seem to be more standard (e.g. that's what 'prettier' uses).
+    let g:vmt_list_item_char = '-'
 
     " I don't find the folding particularly useful, turn it off.
     let g:vim_markdown_folding_disabled = 1
@@ -375,34 +387,42 @@ noremap <leader><leader> :tabnew %<cr>
     \}
 
     " Reduce the risk of bad commits by linting on save.
-    let g:ale_fix_on_save = 1
+    " Note: disabled as it's quite aggressive with golang.
+    let g:ale_fix_on_save = 0
 
 " FZF (Fuzzy Find) configuration.
 
     " Note: see GitHub issue: https://github.com/junegunn/fzf/issues/453
-    " Basically, we do not want to open files in 'special' buffers like the
-    " NerdTree or Quickfix window. At some stage 'sticky' buffers might come
-    " into vim, giving a 'native' way to avoid opening files in these buffers.
-    " Until then, this is a workaround to first focus a non-sticky window.
-
-    " Prevent FZF commands from opening in none modifiable buffers
+    " Function to prevent FZF commands from opening in functional buffers
+    "
+    " See: https://github.com/junegunn/fzf/issues/453
     function! FZFOpen(cmd)
-        " If more than 1 window, and buffer is not modifiable or file type is
-        " NERD tree or Quickfix type.
-        if winnr('$') > 1 && (!&modifiable || &ft == 'nerdtree' || &ft == 'qf')
-            " Move one window to the right, then up.
-            wincmd l
-            wincmd k
+        " Define the functional buffer types that we want to not clobber
+        let functional_buf_types = ['quickfix', 'help', 'nofile', 'terminal']
+
+        " If more than 1 window, and buffer type is not one of the functional types
+        if winnr('$') > 1 && (index(functional_buf_types, &bt) >= 0)
+            " Find all 'normal' (not functional) buffer windows
+            let norm_wins = filter(range(1, winnr('$')),
+                        \ 'index(functional_buf_types, getbufvar(winbufnr(v:val), "&bt")) == -1')
+
+            " Grab the first one that we can use
+            let norm_win = !empty(norm_wins) ? norm_wins[0] : 0
+
+            " Move to that window
+            exe norm_win . 'winc w'
         endif
+
+        " Execute the passed command
         exe a:cmd
     endfunction
+
 
     " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
     nnoremap <C-f> :call FZFOpen(":Files")<CR> 
     nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
     nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
     nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
-
 
 " The Silver Searcher (ag) Configuration.
 
@@ -539,14 +559,15 @@ set undofile
             omap ac <Plug>(coc-classobj-a)
 
             " Remap <C-f> and <C-b> for scroll float windows/popups.
-            if has('nvim-0.4.0') || has('patch-8.2.0750')
-              nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-              nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-              inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-              inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-              vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-              vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-            endif
+            " TODO: currently conflicts with vim fzf
+            " if has('nvim-0.4.0') || has('patch-8.2.0750')
+            "   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+            "   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+            "   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+            "   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+            "   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+            "   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+            " endif
 
             " Use CTRL-S for selections ranges.
             " Requires 'textDocument/selectionRange' support of language server.

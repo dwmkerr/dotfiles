@@ -1,11 +1,3 @@
-# todo
-
-- Note; javascript projects can get CoC support by adding a jsconfig.json file as per https://code.visualstudio.com/docs/languages/jsconfig
-
-:CocInstall coc-tsserver
-- neovim
-
-
 # dotfiles
 
 This repository contains all of my configuration for MacOS and Linux, with a focus on terminal, editor, shell, programming environments etc. This repository can easily be forked to allow you to create and customise your own machine setup.
@@ -399,4 +391,5 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 - [ ] fix: long urls in tmux work if they span lines - *unless* they are in `vim`
 - [ ] vi: decide on vi/nvim
 - [ ] Note; javascript projects can get CoC support by adding a jsconfig.json file as per https://code.visualstudio.com/docs/languages/jsconfig then :CocInstall coc-tsserver
+- [ ] Note; golang projects can get CoC support by adding :CocInstall coc-go
 - [ ] update all to neovim

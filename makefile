@@ -9,7 +9,8 @@ link:
 	ln -sf ${PWD}/tmux/tmux.conf ~/.tmux.conf
 	ln -sf ${PWD}/ack/ackrc ~/.ackrc
 	ln -sf ${PWD}/zsh/zshrc ~/.zshrc
-	ln -sf ${PWD}/ag/agignore ~/.agignore
+	ln -sf ${PWD}/ag/ignore ~/.ignore
+	ln -sf ${PWD}/VSCode/settings.json  '~/Library/Application Support/Code/User/settings.json'
 
 # Backup private config files (ssh keys etc).
 .PHONY: private-files-backup

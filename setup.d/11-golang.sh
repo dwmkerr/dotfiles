@@ -1,5 +1,5 @@
 # Setup parameters.
-golangver="1.19.1"
+golangver="1.20.1"
 gopath="$HOME/go"
 
 if [[ "$os" == "osx" ]]; then

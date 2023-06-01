@@ -12,7 +12,6 @@ function stop_timer() {
     milliseconds=$((( $timestamp_stop- $timestamp_start ) / 1000000))
     echo $milliseconds
 }
-    
 
 # Loop through each profile file, source if the user confirms, time result.
 for file in $HOME/.shell.d/*; do

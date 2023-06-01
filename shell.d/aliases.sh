@@ -25,3 +25,6 @@ alias vimnilla='vi -u NONE'
 
 # Open bash without loading and config.
 alias bashnilla='bash --noprofile --norc'
+
+# Quick links to locations.
+alias gorepos='cd ~/repos'
