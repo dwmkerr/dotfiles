@@ -26,28 +26,28 @@ Some key features are:
 
 <!-- vim-markdown-toc GFM -->
 
-* [Introduction](#introduction)
-* [Quick Start](#quick-start)
-* [SSH Keys, GPG Keys and Private Files](#ssh-keys-gpg-keys-and-private-files)
-    * [Backing Up Private Files](#backing-up-private-files)
-    * [Restoring Private Files](#restoring-private-files)
-    * [Configuring Backup and Restore](#configuring-backup-and-restore)
-* [MacOS - Manual Steps](#macos---manual-steps)
-    * [iTerm2 Configuration](#iterm2-configuration)
-* [Features](#features)
-* [Developer Guide](#developer-guide)
-* [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
-* [Shell Prompt Theme](#shell-prompt-theme)
-* [Shell Scripts and Aliases](#shell-scripts-and-aliases)
-    * [Shell Commands](#shell-commands)
-    * [Shell Scripts](#shell-scripts)
-* [Cheat Sheet - TMux](#cheat-sheet---tmux)
-* [Cheat Sheet - Vim](#cheat-sheet---vim)
-    * [Vim Tab Completion](#vim-tab-completion)
-* [Cheat Sheet - Shell](#cheat-sheet---shell)
-* [Tooling Choices](#tooling-choices)
-    * [Vim](#vim)
-* [TODO](#todo)
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+- [SSH Keys, GPG Keys and Private Files](#ssh-keys-gpg-keys-and-private-files)
+    - [Backing Up Private Files](#backing-up-private-files)
+    - [Restoring Private Files](#restoring-private-files)
+    - [Configuring Backup and Restore](#configuring-backup-and-restore)
+- [MacOS - Manual Steps](#macos---manual-steps)
+    - [iTerm2 Configuration](#iterm2-configuration)
+- [Features](#features)
+- [Developer Guide](#developer-guide)
+- [Ubuntu Terminal Configuration](#ubuntu-terminal-configuration)
+- [Shell Prompt Theme](#shell-prompt-theme)
+- [Shell Scripts and Aliases](#shell-scripts-and-aliases)
+    - [Shell Commands](#shell-commands)
+    - [Shell Scripts](#shell-scripts)
+- [Cheat Sheet - TMux](#cheat-sheet---tmux)
+- [Cheat Sheet - Vim](#cheat-sheet---vim)
+    - [Vim Tab Completion](#vim-tab-completion)
+- [Cheat Sheet - Shell](#cheat-sheet---shell)
+- [Tooling Choices](#tooling-choices)
+    - [Vim](#vim)
+- [TODO](#todo)
 
 <!-- vim-markdown-toc -->
 
@@ -338,8 +338,9 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 | `sk`                                 | Splitjoin up (i.e. join a line upwards).                                |
 | `:Tabularize /=`                     | Line up selection, using '='                                            |
 | **Navigation**                       |                                                                         |
+| `gd`                                 | Where possible, will go to a local definition. Supercharged by vim-coc. |
+| `gf`                                 | Open file under cursor.                                                 |
 | `gx`                                 | Open link or address under cursor.                                      |
-| `gd`                                 | where possible, will go to a local definition.                          |
 | **Spelling**                         |                                                                         |
 | `]s` and `[s`                        | Next/Previous spelling error.                                           |
 | `z=` and `zg`                        | Check dictionary / add to dictionary.                                   |
