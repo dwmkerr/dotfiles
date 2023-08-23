@@ -24,6 +24,8 @@ if ask "$os: Enable 'tap-to-click'?" N; then
     sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     echo "'tap-to-click' enabled - this will be applied on restart..."
+    echo "WARNING: cannot automate tap to click setup"
+    echo "         use 'Preferences > Trackpad' to set maually"
 fi    
 
 if ask "$os: Set wallpaper?" N; then
