@@ -6,10 +6,14 @@ if [[ "$os" == "osx" ]]; then
         if ask "$os: HomeBrew is not installed. Install it?" Y; then
             echo "$os: Installing HomeBrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> $HOME/.zprofile
             # If there was an error, it might be this issue:
             echo "If you see an error above, run:"
             echo "  brew doctor"
-        fi    
+            echo "You will need to restart your shell now:"
+            echo "  exec -l $SHELL"
+            exit 0
+        fi
     fi
     if ask "$os: Update HomeBrew?" Y; then
         echo "$os: Updating brew..."
