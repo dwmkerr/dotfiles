@@ -45,7 +45,7 @@ fi
 # Get the current computer name and ask if the user wants to change it.
 computer_name=$(scutil --get ComputerName)
 if ask "$os: Computer name is '${computer_name}', would you like to change it?" N; then
-    porintf "Enter the new computer name: "
+    printf "Enter the new computer name: "
     read new_computer_name
     scutil --set ComputerName "${new_computer_name}"
 fi
