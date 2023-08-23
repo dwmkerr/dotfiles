@@ -55,7 +55,7 @@ fi
 # Get the current host name and ask if the user wants to change it.
 host_name=$(scutil --get HostName)
 if ask "$os: Host name is '${host_name}', would you like to change it?" N; then
-    porintf "Enter the new host name (no spaces): "
+    printf "Enter the new host name (no spaces): "
     read new_host_name
     scutil --set HostName "${new_host_name}"
 fi
@@ -63,7 +63,7 @@ fi
 # Get the current local host name and ask if the user wants to change it.
 local_host_name=$(scutil --get LocalHostName)
 if ask "$os: Local Host name is '${local_host_name}', would you like to change it?" N; then
-    porintf "Enter the new local host name (no spaces): "
+    printf "Enter the new local host name (no spaces): "
     read new_local_host_name
     scutil --set LocalHostName "${new_local_host_name}"
 fi
