@@ -1,10 +1,16 @@
 # Setup Java.
-if ask "$os: Setup Java 8?" Y; then
+# Check installed versions with:
+# /usr/libexec/java_home -V
+# Set a version with:
+# export JAVA_HOME=$(/usr/libexec/java_home -v 19)
+
+java_version="19"
+if ask "$os: Setup Java ${java_version}?" Y; then
     if [[ "$os" == "osx" ]]; then
-        # Note that Java 8 is not the latest version, but some tools like the
-        # Android SDK don't support version 9 at the time of writing. So install
-        # Java 8 by preference.
-        brew cask install adoptopenjdk/openjdk/adoptopenjdk8
+        # 'temurin' is the new name for Adopt OpenJDK.
+        brew tap homebrew/cask-versions
+        brew install --cask "temurin${java_version}"
+
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: TODO"
     fi

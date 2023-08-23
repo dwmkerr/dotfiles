@@ -11,3 +11,14 @@ elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Installing Go $golangver with snap..."
     sudo snap install --classic --channel="${golangver}/stable" go
 fi
+
+if ask "$os: Install protocol compiler (protoc)?" Y; then
+    if [[ "$os" == "osx" ]]; then
+        brew install protobuf
+        protoc --version
+    elif [[ "$os" == "ubuntu" ]]; then
+        apt install -y protobuf-compiler
+        protoc --version
+    fi
+fi
+
