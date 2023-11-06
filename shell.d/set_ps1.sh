@@ -137,7 +137,7 @@ set_ps1() {
 # - An indicator of the number of stashed items, if any.
 _git_info() {
     # Don't write anything if we're not in a folder tracked by git.
-    if ! [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == "true" ]
+    if ! [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
     then
         return
     fi
