@@ -117,6 +117,11 @@ set_ps1() {
             PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)"$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
         ;;
 
+        dwmkerr_context)
+            # Same as 'dwmkerr' but with the 'context' app information.
+            PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info) \$(_context_info)"$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
+        ;;
+
 
         # Add your own themes here!
 
@@ -129,6 +134,22 @@ set_ps1() {
 
     # If we are in Z-Shell convert the PS1 to use Z-Shell format.
     [ -n "$ZSH_VERSION" ] && PS1=$(_to_zsh "$PS1")
+}
+
+# Build a string that shows:
+# - The current context name (if it exists)
+isFunction() { declare -Ff "$1" >/dev/null; }
+function _context_info() {
+    isFunction "context" || return
+    local fg_yellow=$(tput setaf 3)
+    local bold=$(tput bold)
+    local dim=$(tput dim)
+    local reset=$(tput sgr0)
+    local _current_context=$(context get)
+    local _debug="${DEBUG_CONTEXT}"
+    export DEBUG_CONTEXT=0
+    echo "${fg_yellow}context ${bold}${fg_yellow}${_current_context}${reset}"
+    export DEBUG_CONTEXT="${_debug}"
 }
 
 # Build a string that shows:

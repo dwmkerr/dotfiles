@@ -19,6 +19,9 @@ esac
 EDITOR=vi
 VISUAL=vi
 
+# Setup the path. Add sbin.
+export PATH="/usr/local/sbin:$PATH"
+
 # Import everything from the .shell.d folder.
 for file in $HOME/.shell.d/*; do
     [ -e "$file" ] || continue
