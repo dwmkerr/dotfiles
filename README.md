@@ -43,6 +43,11 @@ Some key features are:
     - [Shell Scripts](#shell-scripts)
 - [Cheat Sheet - TMux](#cheat-sheet---tmux)
 - [Cheat Sheet - Vim](#cheat-sheet---vim)
+- [Effective Vim](#effective-vim)
+    - [The Golden Rule](#the-golden-rule)
+    - [COC](#coc)
+    - [JavaScript, TypeScript, React](#javascript-typescript-react)
+    - [Split-Join](#split-join)
     - [Vim Tab Completion](#vim-tab-completion)
 - [Cheat Sheet - Shell](#cheat-sheet---shell)
 - [Tooling Choices](#tooling-choices)
@@ -322,44 +327,70 @@ The following shell commands are setup:
 
 Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x` rather than `<Leader>x` for brevity. I still need to port the above to the structure below.
 
-| Command                              | Usage                                                                   |
-|--------------------------------------|-------------------------------------------------------------------------|
-| **Custom Commands**                  |                                                                         |
-| `<leader>r`                          | Open current file in NERDTree.                                          |
-| `<leader>w`                          | Write buffer.                                                           |
-| `<leader>\\`                         | Open buffer in new tab.                                                 |
-| `<leader>d`                          | Open word under cursor in Dash.                                         |
-| `<leader>t`                          | Show current buffer in NERDTree.                                        |
-| `<leader>f`                          | Toggle focus mode.                                                      |
-| **Other Commands**                   |                                                                         |
-| `\[<Space>`                          | blank line above                                                        |
-| `]<Space>`                           | blank line below                                                        |
-| `sj`                                 | Splitjoin down (i.e. split a line downwards).                           |
-| `sk`                                 | Splitjoin up (i.e. join a line upwards).                                |
-| `:Tabularize /=`                     | Line up selection, using '='                                            |
-| **Navigation**                       |                                                                         |
-| `gd`                                 | Where possible, will go to a local definition. Supercharged by vim-coc. |
-| `gf`                                 | Open file under cursor.                                                 |
-| `gx`                                 | Open link or address under cursor.                                      |
-| **Spelling**                         |                                                                         |
-| `]s` and `[s`                        | Next/Previous spelling error.                                           |
-| `z=` and `zg`                        | Check dictionary / add to dictionary.                                   |
-| **Markdown**                         | Provided by `vim-markdown`                                              |
-| `]]` and `[[`                        | Next and previous headers.                                              |
-| `gx`                                 | Open link in standard editor.                                           |
-| **Focus**                            | From `vim-goyo` and `vim-limelight`                                     |
-| `:Goyo`                              | Enter focus mode.                                                       |
-| `:Limelight 0.8` and `:Limelight!`   | Go into limelight, 80% ultra focus, and toggle limelight.               |
-| `let g:limelight_paragraph_span = 1` | Span more paragraphs in limelight.                                      |
-| **Markdown Tables**                  |                                                                         |
-| `\tm`                                | Enter/Exit 'table mode', which will dynamically format markdown tables. |
-| `ci｜`                               | Example of the `｜` motion for cells - i.e. 'change-in-cell'.           |
+| Command                              | Usage                                                                                                                             |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| **Custom Commands**                  |                                                                                                                                   |
+| `<leader>r`                          | Open current file in NERDTree.                                                                                                    |
+| `<leader>w`                          | Write buffer.                                                                                                                     |
+| `<leader>\\`                         | Open buffer in new tab.                                                                                                           |
+| `<leader>d`                          | Open word under cursor in Dash.                                                                                                   |
+| `<leader>t`                          | Show current buffer in NERDTree.                                                                                                  |
+| `<leader>f`                          | Toggle focus mode.                                                                                                                |
+| **Other Commands**                   |                                                                                                                                   |
+| `\[<Space>`                          | blank line above                                                                                                                  |
+| `]<Space>`                           | blank line below                                                                                                                  |
+| `sj`                                 | Splitjoin down (i.e. split a line downwards).                                                                                     |
+| `sk`                                 | Splitjoin up (i.e. join a line upwards).                                                                                          |
+| `:Tabularize /=`                     | Line up selection, using '='                                                                                                      |
+| **Navigation**                       |                                                                                                                                   |
+| `gd`                                 | Where possible, will go to a local definition. Supercharged by vim-coc.                                                           |
+| `gd`                                 | https://vi.stackexchange.com/questions/42414/for-vim-and-specifically-coc-vim-is-it-idomatic-to-use-gd-to-open-a-link/42415#42415 |
+| `gf`                                 | Open file under cursor.                                                                                                           |
+| `gx`                                 | Open link or address under cursor.                                                                                                |
+| **Spelling**                         |                                                                                                                                   |
+| `]s` and `[s`                        | Next/Previous spelling error.                                                                                                     |
+| `z=` and `zg`                        | Check dictionary / add to dictionary.                                                                                             |
+| **Markdown**                         | Provided by `vim-markdown`                                                                                                        |
+| `]]` and `[[`                        | Next and previous headers.                                                                                                        |
+| `gx`                                 | Open link in standard editor.                                                                                                     |
+| **Focus**                            | From `vim-goyo` and `vim-limelight`                                                                                               |
+| `:Goyo`                              | Enter focus mode.                                                                                                                 |
+| `:Limelight 0.8` and `:Limelight!`   | Go into limelight, 80% ultra focus, and toggle limelight.                                                                         |
+| `let g:limelight_paragraph_span = 1` | Span more paragraphs in limelight.                                                                                                |
+| **Markdown Tables**                  |                                                                                                                                   |
+| `\tm`                                | Enter/Exit 'table mode', which will dynamically format markdown tables.                                                           |
+| `ci｜`                               | Example of the `｜` motion for cells - i.e. 'change-in-cell'.                                                                     |
 
 Note: including the vertical pipe `|` in the table above would cause rendering issues. So instead, the unicode character `｜` is used to illustrate the commands. Do not use the unicode character, use the normal ASCII 0x7C character.
 
 Other useful stuff:
 
 - By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
+
+## Effective Vim
+
+Here's some of the stuff I find most useful.
+
+### The Golden Rule
+
+If you repeat yourself or do dumb formatting crap, find the idiomatically correct way to do something or use a plugin. Always look up native ways first.
+
+### COC
+
+I've barely scratched the surface and will force myself to learn more.
+
+### JavaScript, TypeScript, React
+
+I use `vim-polyglot` and `vim-coc` with `vim-tsserver` - this seems to cover most of my needs without any additional plugins.
+
+**Potential Improvements**
+
+- I'm looking into `coc-prettier` etc to make sure that auto formatting will happen if/when needed when typing, rather than blindly on save
+- Eliminate unneeded plugins and conf
+
+### Split-Join
+
+I find the `sj` and `sk` commands invaluable, until something like this becomes native it's a super useful plugin.
 
 ### Vim Tab Completion
 
