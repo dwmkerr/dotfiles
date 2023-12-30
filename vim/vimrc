@@ -419,6 +419,7 @@ noremap <leader><leader> :tabnew %<cr>
 
 
     " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
+    " TODO fzf is not using ag it seems.
     nnoremap <C-f> :call FZFOpen(":Files")<CR> 
     nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
     nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
