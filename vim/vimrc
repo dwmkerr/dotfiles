@@ -13,7 +13,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 
 Plug 'fatih/vim-go'        " Brutal Golang features
-Plug 'kien/ctrlp.vim'      " Ctrl-P to open anything.
 Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plug 'w0rp/ale'            " Asynchronous Linting Engine.
 Plug 'vim-airline/vim-airline'    " A useful statusbar.
@@ -28,9 +27,9 @@ Plug 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
 Plug 'tpope/vim-fugitive'  " Git support.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}   " Modern, LSP-based autocompletion.
 
-" FZF Vim Integration.
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" FZF Vim Integration. fzf-lua replaces vim.fzf.
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+Plug 'nvim-tree/nvim-web-devicons' " icon support for vim.fzf
 
 " Plugins for languages.
 " NOTE: many of these now are probably handled by vim-polyglot, so if having
@@ -161,25 +160,10 @@ set dir=~/tmp
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
 
-" Plugin: ctrlp configuration.
-
-
-    " Ignore some common files for ctrlp, also ignore gitignore.
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-
-    let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-    " Now that we have common files ignored, enable searching dotfiles.
-    let g:ctrlp_show_hidden = 1
-
 " Plugin: NerdTree settings
 
     " Toggle NerdTree with Ctrl+N
     map <C-n> :NERDTreeToggle<CR>
-
-    " Open NerdTree automatically on startup.
-    " Also focus the *previous* window, i.e. the main window!
-    " autocmd vimenter * NERDTree | wincmd p
 
     " Show or hide hidden files.
     let NERDTreeShowHidden=1
@@ -329,11 +313,6 @@ set wildmenu
     autocmd BufNewFile,BufRead *.yml.tpl set syntax=yaml
     autocmd BufNewFile,BufRead *.yaml.tpl set syntax=yaml
 
-" Custom Commands
-
-" Refresh nerdtree and ctrlp.
-nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
-
 " Ctrl+c exits in the same way as Esc (including sending InsertLeave)
 :imap jj <Esc>
 :ino <C-c> <Esc>
@@ -386,47 +365,79 @@ noremap <leader><leader> :tabnew %<cr>
     " Use prettier for JS/CSS.
     let g:ale_fixers = {
     \   'javascript': ['prettier'],
+    \   'javascriptreact': ['eslint'],
+    \   'typescript': ['eslint'],
+    \   'typescriptreact': ['eslint'],
     \   'css': ['prettier'],
     \}
 
     " Reduce the risk of bad commits by linting on save.
     " Note: disabled as it's quite aggressive with golang.
-    let g:ale_fix_on_save = 0
+    " Note: re-enabling to test on typescript
+    let g:ale_fix_on_save = 1
 
+" fzf-lua configuration.
+lua <<EOF
+    if vim.fn.executable("rg") ~= 1 then
+        vim.notify("Please install 'ripgrep' for faster searching...", vim.log.levels.WARN)
+    end
+    vim.api.nvim_set_keymap("n", "<C-space>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
+
+    require("fzf-lua").utils.info(
+      "|<C-space> buffers|<C-p> files|<C-g> grep|<C-l> live grep|<C-k> builtin|<F1> help|")
+
+    --  Set fzf-lua options.
+    local fzf = require('fzf-lua')
+    -- e.g:
+    -- fzf.setup({
+    --  files = {
+    --    rg_opts = "--color=always --smart-case -g '!{.git,node_modules}/'",
+    --  },
+    --})
+EOF
+
+
+" TODO: likely to be replaced by vim-lua
 " FZF (Fuzzy Find) configuration.
 
-    " Note: see GitHub issue: https://github.com/junegunn/fzf/issues/453
-    " Function to prevent FZF commands from opening in functional buffers
-    "
-    " See: https://github.com/junegunn/fzf/issues/453
-    function! FZFOpen(cmd)
-        " Define the functional buffer types that we want to not clobber
-        let functional_buf_types = ['quickfix', 'help', 'nofile', 'terminal']
+    " TODO: see if the below is still needed with fzf-lua
+    
+    " " Note: see GitHub issue: https://github.com/junegunn/fzf/issues/453
+    " " Function to prevent FZF commands from opening in functional buffers
+    " "
+    " " See: https://github.com/junegunn/fzf/issues/453
+    " function! FZFOpen(cmd)
+    "     " Define the functional buffer types that we want to not clobber
+    "     let functional_buf_types = ['quickfix', 'help', 'nofile', 'terminal']
 
-        " If more than 1 window, and buffer type is not one of the functional types
-        if winnr('$') > 1 && (index(functional_buf_types, &bt) >= 0)
-            " Find all 'normal' (not functional) buffer windows
-            let norm_wins = filter(range(1, winnr('$')),
-                        \ 'index(functional_buf_types, getbufvar(winbufnr(v:val), "&bt")) == -1')
+    "     " If more than 1 window, and buffer type is not one of the functional types
+    "     if winnr('$') > 1 && (index(functional_buf_types, &bt) >= 0)
+    "         " Find all 'normal' (not functional) buffer windows
+    "         let norm_wins = filter(range(1, winnr('$')),
+    "                     \ 'index(functional_buf_types, getbufvar(winbufnr(v:val), "&bt")) == -1')
 
-            " Grab the first one that we can use
-            let norm_win = !empty(norm_wins) ? norm_wins[0] : 0
+    "         " Grab the first one that we can use
+    "         let norm_win = !empty(norm_wins) ? norm_wins[0] : 0
 
-            " Move to that window
-            exe norm_win . 'winc w'
-        endif
+    "         " Move to that window
+    "         exe norm_win . 'winc w'
+    "     endif
 
-        " Execute the passed command
-        exe a:cmd
-    endfunction
-
+    "     " Execute the passed command
+    "     exe a:cmd
+    " endfunction
 
     " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
     " TODO fzf is not using ag it seems.
-    nnoremap <C-f> :call FZFOpen(":Files")<CR> 
-    nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
-    nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
-    nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
+    " nnoremap <C-f> :call FZFOpen(":Files")<CR> 
+    " nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
+    " nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
+    " nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
 
 " The Silver Searcher (ag) Configuration.
 
@@ -434,11 +445,6 @@ noremap <leader><leader> :tabnew %<cr>
     if executable('ag')
         " For grep, use ag.
         set grepprg=ag\ --nogroup\ --nocolor
-
-        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore.
-        " Fast enough we don't even need to cache.
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g --path-to-ignore ~/.ignore""'
-        let g:ctrlp_use_caching = 0
     endif
 
 " Ack Plugin Configuration
@@ -516,7 +522,7 @@ set undofile
               if CocAction('hasProvider', 'hover')
                 call CocActionAsync('doHover')
               else
-                call feedkeys('K', 'in')
+                call feedkeys('K', 'in')P
               endif
             endfunction
 
@@ -610,7 +616,7 @@ set undofile
             " Resume latest coc list.
             nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-map <leader>f :Goyo<cr>
+map <leader>F :Goyo<cr>
 
 function! s:goyo_enter()
   " Zoom in and hide tmux status if we are in tmux.

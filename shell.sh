@@ -73,7 +73,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 export TERM="xterm-256color"
 alias tmux="tmux -2"
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then export TERM=gnome-256color
+if [[ $COLORTERM == gnome-* && $TERM == xterm ]]  && infocmp gnome-256color >/dev/null 2>&1; then export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then export TERM=xterm-256color
 fi
 
@@ -82,8 +82,21 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# We *are* interactive, so if we are not already in tmux, start it.
-[[ -z "$TMUX" ]] && exec tmux
+# Start tmux - as long as it is not already started and as long as we are not in
+# a vscode terminal. By this point in the script we know we are in an
+# interactive shell.
+# https://askubuntu.com/questions/1021553/can-i-check-if-the-terminal-was-started-by-visual-studio-code
+# Similar for Android:
+# https://youtrack.jetbrains.com/articles/IDEA-A-19/Shell-Environment-Loading
+IS_IN_IDE=0
+if [[ "$TERM_PROGRAM" == "vscode" || -n "$INTELLIJ_ENVIRONMENT_READER" ]]; then
+    IS_IN_IDE=1
+fi
+if [ "${IS_IN_IDE}" != "1" ]; then
+    # We *are* interactive, and we are not in an IDE, so if we are not already
+    # in tmux, start it.
+    [ -z "$TMUX" ] && { tmux attach || exec tmux new-session && exit;}
+fi
 
 # Load auto-completions depending on our shell.
 if [ -n "$BASH_VERSION" ]; then
@@ -96,6 +109,12 @@ elif [ -n "$ZSH_VERSION" ]; then
     # Source zsh auto-completions.
     fpath=($HOME/.zsh/completion $fpath)
     autoload -Uz compinit && compinit -i
+fi
+
+# If it exists, source my work in progress 'context' project.
+context_path="${HOME}/repos/github/dwmkerr/context/context.sh"
+if [ -e "${context_path}" ]; then
+    source "${context_path}"
 fi
 
 # Set my preferred prompt.
