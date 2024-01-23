@@ -45,8 +45,11 @@ Some key features are:
 - [Cheat Sheet - Vim](#cheat-sheet---vim)
 - [Effective Vim](#effective-vim)
     - [The Golden Rule](#the-golden-rule)
+    - [NerdTree](#nerdtree)
+    - [fzf-lua](#fzf-lua)
     - [COC](#coc)
     - [JavaScript, TypeScript, React](#javascript-typescript-react)
+    - [Fuzzy Find](#fuzzy-find)
     - [Split-Join](#split-join)
     - [Vim Tab Completion](#vim-tab-completion)
 - [Cheat Sheet - Shell](#cheat-sheet---shell)
@@ -330,12 +333,12 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 | Command                              | Usage                                                                                                                             |
 |--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | **Custom Commands**                  |                                                                                                                                   |
-| `<leader>r`                          | Open current file in NERDTree.                                                                                                    |
+| `<leader>t`                          | Open current file in NERDTree.                                                                                                    |
 | `<leader>w`                          | Write buffer.                                                                                                                     |
 | `<leader>\\`                         | Open buffer in new tab.                                                                                                           |
 | `<leader>d`                          | Open word under cursor in Dash.                                                                                                   |
 | `<leader>t`                          | Show current buffer in NERDTree.                                                                                                  |
-| `<leader>f`                          | Toggle focus mode.                                                                                                                |
+| `<leader>F`                          | Toggle focus mode.                                                                                                                |
 | **Other Commands**                   |                                                                                                                                   |
 | `\[<Space>`                          | blank line above                                                                                                                  |
 | `]<Space>`                           | blank line below                                                                                                                  |
@@ -375,9 +378,26 @@ Here's some of the stuff I find most useful.
 
 If you repeat yourself or do dumb formatting crap, find the idiomatically correct way to do something or use a plugin. Always look up native ways first.
 
+### NerdTree
+
+- `C-n` to toggle/focus the tree
+- `R` in the tree to refresh
+- `<leader>t` to 'tree' the current file, i.e. show the current buffer in NerdTree.
+
+### fzf-lua
+
+- `<leader>space` buffers
+- `<leader>f` files
+- `<leader>g` ripgrep (works amazingly)
+
 ### COC
 
 I've barely scratched the surface and will force myself to learn more.
+
+- `<leader>rn` rename
+- `gd` go to definition, `gr` go to references
+- `<leader>A` show code actions, e.g. import missing reference
+- `<leader>qf` apply default code action, e.g. import missing reference
 
 ### JavaScript, TypeScript, React
 
@@ -387,6 +407,19 @@ I use `vim-polyglot` and `vim-coc` with `vim-tsserver` - this seems to cover mos
 
 - I'm looking into `coc-prettier` etc to make sure that auto formatting will happen if/when needed when typing, rather than blindly on save
 - Eliminate unneeded plugins and conf
+
+### Fuzzy Find
+
+I'm currently using [`fzf-lua`](https://github.com/ibhagwan/fzf-lua) after spending a few years on [`fzf.vim`](https://github.com/junegunn/fzf.vim). It seems lightening fast but a little harder to decipher some of the documentation. The main customisations andre:
+
+WIP
+
+
+fd is required to be installed
+something like this with 'fd_opts' would allow for excluding node modules etc
+:lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list'} })
+
+
 
 ### Split-Join
 
@@ -414,6 +447,7 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 
 ## TODO
 
+- [ ] feat: install patched nerdfont https://github.com/ryanoasis/nerd-fonts/releases
 - [ ] Autocomplete for docker/k8s is still not properly setup.
 - [ ] osx - mas (mac app store CLI: brew)
 - [ ] osx - set icon
