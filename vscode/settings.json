@@ -1,0 +1,35 @@
+{
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "csharp.referencesCodeLens.enabled": false,
+  //  For Vim mode, use smart relative line numbers, meaning it is relative
+  //  on insert mode. This matches my vim config.
+  "vim.smartRelativeLine": true,
+
+  //  For Vim mode, yank/paste to and from the system clipboard.
+  "vim.useSystemClipboard": true,
+
+  //  On all platforms, let our terminal know that we are running in VS Code.
+  //  This will stop tmux running (see dotfiles/shell.sh).
+  //  Note this 'should' be set by VSCode but isn't set early enough:
+  //  https://askubuntu.com/questions/1021554/can-i-check-if-the-terminal-was-started-by-visual-studio-code
+  "terminal.integrated.env.osx": {
+    "TERM_PROGRAM": "vscode"
+  },
+  "terminal.integrated.env.windows": {
+    "TERM_PROGRAM": "vscode"
+  },
+  "terminal.integrated.env.linux": {
+    "TERM_PROGRAM": "vscode"
+  },
+  "debug.onTaskErrors": "showErrors",
+  "go.toolsManagement.autoUpdate": true,
+  "vim.commandLineModeKeyBindings": [],
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  "window.zoomLevel": 2,
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

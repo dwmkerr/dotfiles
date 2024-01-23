@@ -434,7 +434,7 @@ EOF
 
     " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
     " TODO fzf is not using ag it seems.
-    " nnoremap <C-f> :call FZFOpen(":Files")<CR> 
+    " nnoremap <C-f> :call FZFOpen(":Files")<CR>
     " nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
     " nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
     " nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
@@ -522,7 +522,7 @@ set undofile
               if CocAction('hasProvider', 'hover')
                 call CocActionAsync('doHover')
               else
-                call feedkeys('K', 'in')P
+                call feedkeys('K', 'in')
               endif
             endfunction
 
