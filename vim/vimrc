@@ -376,6 +376,10 @@ noremap <leader><leader> :tabnew %<cr>
     " Note: re-enabling to test on typescript
     let g:ale_fix_on_save = 1
 
+" Plugin: JSDoc Settings
+  " Map '<Leader>-j' to jsdoc on function we are currently in.
+  nmap <silent> <Leader-j> ?function<cr>:noh<cr><Plug>(jsdoc)
+
 " fzf-lua configuration.
 lua <<EOF
     if vim.fn.executable("rg") ~= 1 then

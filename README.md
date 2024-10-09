@@ -339,6 +339,7 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 | `<leader>d`                          | Open word under cursor in Dash.                                                                                                   |
 | `<leader>t`                          | Show current buffer in NERDTree.                                                                                                  |
 | `<leader>F`                          | Toggle focus mode.                                                                                                                |
+| `<leader>j`                          | JSDoc for current function.                                                                                                       |
 | **Other Commands**                   |                                                                                                                                   |
 | `\[<Space>`                          | blank line above                                                                                                                  |
 | `]<Space>`                           | blank line below                                                                                                                  |
