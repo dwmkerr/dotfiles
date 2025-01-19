@@ -12,7 +12,7 @@ echo "os identified as: $os"
 
 # Ask whether a restore of private files is needed.
 if ask "$os: configure AWS_PROFILE and restore private files?" "N"; then
-    make restore-private-files
+    make private-files-restore
 fi
 
 # Update the remote.
