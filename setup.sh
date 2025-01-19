@@ -10,6 +10,16 @@ done
 os=$(get_os)
 echo "os identified as: $os"
 
+# Ask whether a restore of private files is needed.
+if ask "$os: configure AWS_PROFILE and restore private files?" "N"; then
+    make restore-private-files
+fi
+
+# Update the remote.
+if ask "$os: update dotfiles remote to ssh?" "N"; then
+    git remote set-url origin "git@github.com:dwmkerr/dotfiles.git"
+fi
+
 # Run each of the setup files.
 for file in ./setup.d/*; do
     # If we don't have a file (this happens when we find no results), then just

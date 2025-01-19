@@ -459,6 +459,7 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 
 ## TODO
 
+- [ ] fix: correct slow terminal startup
 - [ ] feat: install patched nerdfont https://github.com/ryanoasis/nerd-fonts/releases
 - [ ] Autocomplete for docker/k8s is still not properly setup.
 - [ ] osx - mas (mac app store CLI: brew)
