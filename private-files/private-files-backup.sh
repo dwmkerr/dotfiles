@@ -49,12 +49,13 @@ done
 echo -n "Export and backup GPG keys? [y/n]: "
 read yesno
     if [[ $yesno =~ ^[Yy] ]]; then
-    gpg --export-secret-keys --armor | aws s3 cp - "s3://${bucket}/gpg/secret-keys.asc"
+    gpg --export-secret-keys --armor | aws s3 cp --profile "${profile}" - "s3://${bucket}/gpg/secret-keys.asc"
+
 fi
 
 # Backup the GPG trust database.
 echo -n "Export and backup GPG trust database? [y/n]: "
 read yesno
     if [[ $yesno =~ ^[Yy] ]]; then
-    gpg --export-ownertrust | aws s3 cp - "s3://${bucket}/gpg/trust-database.txt"
+    gpg --export-ownertrust | aws s3 cp --profile "${profile}" - "s3://${bucket}/gpg/trust-database.txt"
 fi

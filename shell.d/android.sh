@@ -1,6 +1,7 @@
 #!/usr/bin/env bash 
+
 # If the Android SDK has been installed, set the SDK path.
-sdk_path="/usr/local/share/android-sdk"
+sdk_path="$HOME/Library/Android/sdk"
 if [[ -d "$sdk_path" ]]; then
     # This is the preferred environment variable for the SDK root.
     export ANDROID_SDK_ROOT="$sdk_path"
@@ -10,5 +11,5 @@ if [[ -d "$sdk_path" ]]; then
     export ANDROID_HOME="$sdk_path"
 
     # Make sure we set the correct emulator path first!
-    export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/tools:$PATH
+    export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$PATH
 fi

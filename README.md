@@ -43,8 +43,10 @@ Some key features are:
     - [Shell Scripts](#shell-scripts)
 - [Cheat Sheet - TMux](#cheat-sheet---tmux)
 - [Cheat Sheet - Vim](#cheat-sheet---vim)
+- [Effective Tmux](#effective-tmux)
 - [Effective Vim](#effective-vim)
     - [The Golden Rule](#the-golden-rule)
+    - [Process & Copy Buffer](#process--copy-buffer)
     - [NerdTree](#nerdtree)
     - [fzf-lua](#fzf-lua)
     - [COC](#coc)
@@ -304,26 +306,27 @@ The following shell commands are setup:
 
 ## Cheat Sheet - TMux
 
-| Command                                   | Usage                                                 |
-|-------------------------------------------|-------------------------------------------------------|
-| **Sessions**                              |                                                       |
-| `tmux detach -E 'bash --noprofile --norc` | Detach the current session and open a vanilla shell.  |
-|-------------------------------------------|-------------------------------------------------------|
+| Command                                   | Usage                                                            |
+|-------------------------------------------|------------------------------------------------------------------|
+| **Sessions**                              |                                                                  |
+| `tmux detach -E 'bash --noprofile --norc` | Detach the current session and open a vanilla shell.             |
+|-------------------------------------------|------------------------------------------------------------------|
 | `<leader> R`                              | Reload Tmux configuration (i.e. source the `~/.tmux.conf` file). |
-| `man tmux`                                | Get help on commands.                                 |
-| `<leader> ?`                              | Get help on commands.                                 |
-| `Ctrl + h/j/k/l`                          | Navigate splits (vim aware)                           |
-| `Meta + h/l`                              | Move through tabs.                                    |
-| `Ctrl + Meta + h/j/k/l`                   | Move through tabs.                                    |
-| `move-window -r`                          | Re-order the tab numbers (useful if there are gaps).  |
-| `<leader> / S`                            | Show Sessions with window preview, hit `x` to delete. |
-| `<leader> / $`                            | Rename session.                                       |
-| `new -s <name>`                           | New session with name.                                |
-| `<leader> / Ctrl+S`                       | Save Tmux Session                                     |
-| `<leader> / Ctrl+R`                       | Restore Tmux Session                                  |
-| `<leader> /`                              | Last split                                            |
-| `<leader> {`                              | Swap pane left                                        |
-| `<leader> }`                              | Swap pane right                                       |
+| `man tmux`                                | Get help on commands.                                            |
+| `<leader> ?`                              | Get help on commands.                                            |
+| `Ctrl + h/j/k/l`                          | Navigate splits (vim aware)                                      |
+| `Meta + h/l`                              | Move through tabs.                                               |
+| `Ctrl + Meta + h/j/k/l`                   | Move through tabs.                                               |
+| `move-window -r`                          | Re-order the tab numbers (useful if there are gaps).             |
+| `<leader> / S`                            | Show Sessions with window preview, hit `x` to delete.            |
+| `<leader> / $`                            | Rename session.                                                  |
+| `new -s <name>`                           | New session with name.                                           |
+| `<leader> / Ctrl+S`                       | Save Tmux Session                                                |
+| `<leader> / Ctrl+R`                       | Restore Tmux Session                                             |
+| `<leader> /`                              | Last split                                                       |
+| `<leader> {`                              | Swap pane left                                                   |
+| `<leader> }`                              | Swap pane right                                                  |
+| `<leader>. <session-name>:<pane number>`  | Move a pane to a session.                                        |
 
 
 ## Cheat Sheet - Vim
@@ -370,6 +373,13 @@ Other useful stuff:
 
 - By default vim doesn't treat `-` as part of a word (for motions, search, autocomplete, etc). Use `set iskeyword+=-` to change this. This is the changed in my `vimrc` but a useful one to remember.
 
+## Effective Tmux
+
+Most essential commands:
+
+- Option - h/l - move left/right between tabs
+
+
 ## Effective Vim
 
 Here's some of the stuff I find most useful.
@@ -377,6 +387,16 @@ Here's some of the stuff I find most useful.
 ### The Golden Rule
 
 If you repeat yourself or do dumb formatting crap, find the idiomatically correct way to do something or use a plugin. Always look up native ways first.
+
+### Process & Copy Buffer
+
+Grep all lines with `secret` and put on clipboard:
+
+```vim
+:!cat % | grep secret | pbcopy
+```
+
+This example could be used to grab all references to GitHub secrets from a buffer.
 
 ### NerdTree
 
@@ -411,15 +431,6 @@ I use `vim-polyglot` and `vim-coc` with `vim-tsserver` - this seems to cover mos
 ### Fuzzy Find
 
 I'm currently using [`fzf-lua`](https://github.com/ibhagwan/fzf-lua) after spending a few years on [`fzf.vim`](https://github.com/junegunn/fzf.vim). It seems lightening fast but a little harder to decipher some of the documentation. The main customisations andre:
-
-WIP
-
-
-fd is required to be installed
-something like this with 'fd_opts' would allow for excluding node modules etc
-:lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list'} })
-
-
 
 ### Split-Join
 

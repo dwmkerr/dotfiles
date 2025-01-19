@@ -36,13 +36,14 @@ Plug 'nvim-tree/nvim-web-devicons' " icon support for vim.fzf
 " weird language issues always check to see if we just need to remove an old
 " or conflicting plugin.
 Plug 'sheerun/vim-polyglot'     " JS/TS/JSX/TSX, plus zillions more.
-Plug 'jparise/vim-graphql'      " GraphQL
+" Plug 'jparise/vim-graphql'      " GraphQL - causes errors so disabled
 Plug 'PProvost/vim-ps1'         " PowerShell
 Plug 'elzr/vim-json'            " As above.
 Plug 'othree/html5.vim'         " HTML + SVG
 Plug 'hashivim/vim-terraform'   " Adds suppport for terraform files (in fact HCP etc)
 Plug 'cespare/vim-toml'         " TOML support
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' } " Python Docstrings
+Plug 'delphinus/vim-firestore'  " Firestore rules syntax
 
 " Plugins for JavaScript.
 " Create JSDoc comments.
@@ -98,11 +99,21 @@ set colorcolumn=80      " highlight column 80
 
 set hlsearch            " highlight matches
 
-" Break bad habits - no arrow keys!
+" Break bad habits - no arrow keys for cursor movement!
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+" But arrow keys are OK to move between or control buffers.
+map <right> :bn<cr>
+map <left> :bp<cr>
+map <up> :w<cr>
+map <down> :bd<cr>
+
+" Ctrl+c exits in the same way as Esc (including sending InsertLeave)
+:imap jj <Esc>
+:ino <C-c> <Esc>
 
 " Tell search and other tools to ignore files that we don't want to search.
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
@@ -250,6 +261,11 @@ set wildmenu
     au BufNewFile,BufRead Snapfile set ft=ruby
     au BufNewFile,BufRead Scanfile set ft=ruby
 
+" Nginx Language Settings
+
+    " *.conf already configured by default, adding *.template.conf
+    au BufRead,BufNewFile *.conf.template set ft=nginx
+
 " Go Language Settings
 
     " Lots of syntax highlighting!
@@ -313,10 +329,6 @@ set wildmenu
     autocmd BufNewFile,BufRead *.yml.tpl set syntax=yaml
     autocmd BufNewFile,BufRead *.yaml.tpl set syntax=yaml
 
-" Ctrl+c exits in the same way as Esc (including sending InsertLeave)
-:imap jj <Esc>
-:ino <C-c> <Esc>
-
 " Line Number Configuration
 
     " By default, use hybrid line numbers (i.e. relative numbers, with the
@@ -376,7 +388,15 @@ noremap <leader><leader> :tabnew %<cr>
     " Note: re-enabling to test on typescript
     let g:ale_fix_on_save = 1
 
+" Plugin: JSDoc Settings
+  " Map '<Leader>j' to jsdoc on function we are currently in.
+  nmap <silent> <Leader>j ?function<cr>:noh<cr><Plug>(jsdoc)
+
+" Trying to fix the 'vim-chunk' error...
+let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
+
 " fzf-lua configuration.
+" Heredoc highlighting
 lua <<EOF
     if vim.fn.executable("rg") ~= 1 then
         vim.notify("Please install 'ripgrep' for faster searching...", vim.log.levels.WARN)
@@ -384,12 +404,12 @@ lua <<EOF
     vim.api.nvim_set_keymap("n", "<C-space>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
     vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
     vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
+    vim.api.nvim_set_keymap("n", "<C-m>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
     vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
     vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
 
     require("fzf-lua").utils.info(
-      "|<C-space> buffers|<C-p> files|<C-g> grep|<C-l> live grep|<C-k> builtin|<F1> help|")
+      "|<C-space> buffers|<C-p> files|<C-g> grep|<C-m> live grep|<C-k> builtin|<F1> help|")
 
     --  Set fzf-lua options.
     local fzf = require('fzf-lua')
@@ -656,3 +676,4 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+

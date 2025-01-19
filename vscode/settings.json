@@ -1,6 +1,5 @@
 {
   "terminal.integrated.defaultProfile.osx": "zsh",
-  "csharp.referencesCodeLens.enabled": false,
   //  For Vim mode, use smart relative line numbers, meaning it is relative
   //  on insert mode. This matches my vim config.
   "vim.smartRelativeLine": true,
@@ -31,5 +30,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "dotnet.codeLens.enableReferencesCodeLens": false
 }
