@@ -28,3 +28,7 @@ private-files-restore: # Restore private config files (ssh keys etc).
 .PHONY: setup
 setup: # Setup the local machine.
 	./setup.sh
+
+.PHONY: test-shell.d
+test-shell.d: # Test and time the shell configuration file.
+	./scripts/test-shell.d.sh

@@ -11,7 +11,7 @@ if ask "$os: install or upgrade bash and bash-completion?" N; then
 fi
 
 # Check the shell, and make sure that we are sourcing the .shell.sh file.
-if ask "$os: Add .shell.sh to .bashrc?" Y; then
+if ask "$os: Add .shell.sh to .bashrc?" N; then
 
     # Create the .shell.sh script symlink as well as shell.d folder symlink.
 	ensure_symlink "$(pwd)/shell.sh" "$HOME/.shell.sh"
@@ -26,13 +26,13 @@ if ask "$os: Add .shell.sh to .bashrc?" Y; then
 
         # If the config file doesn't exist, offer to create it.
         if ! [ -r "${config_file}" ]; then
-            if ask "$os: shell config ${config_file} does not exist - create it now?" Y; then
+            if ask "$os: shell config ${config_file} does not exist - create it now?" N; then
                 touch "${config_file}"
             fi
         fi
 
         # Ask the user if they'd like to source the shell config.
-        if ask "$os: .shell.sh is not sourced in '${config_file}' add it?" Y; then
+        if ask "$os: .shell.sh is not sourced in '${config_file}' add it?" N; then
             echo "" >> "${config_file}"
             echo "# Source my personal (github.com/dwmkerr/dotfiles) configuration." >> "${config_file}"
             echo "${source_command}" >> "${config_file}"

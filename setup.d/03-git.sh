@@ -30,7 +30,7 @@ elif [[ "$os" == "ubuntu" ]]; then
 fi
 
 # Configure Git.
-if ask "$os: Configure git for dwmkerr user and GPG signing?" n; then
+if ask "$os: Configure git for dwmkerr user and GPG signing?" N; then
     git config --global user.name "Dave Kerr"
     git config --global user.email "dwmkerr@gmail.com"
     git config --global user.signingKey "35D965FB60ACC2E94E605038F780C45862199FEC"
