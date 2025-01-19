@@ -75,7 +75,7 @@ The following is set up:
 
 ## Quick Start
 
-The fastest way to setup a new machine:
+Run the commands below to quickly setup or update a machine. Note that the default behaviour in all cases is to _not_ make any changes unless the user explicitly confirms them.
 
 ```sh
 # MacOSX only - install command-line tools (so that we have git).
@@ -86,7 +86,8 @@ mkdir -p ~/repos/github/dwmkerr
 cd ~/repos/github/dwmkerr
 
 # Clone the dotfiles - note that a new machine will not have my SSH key
-# so this is over https.
+# so this is over https. Once the private files such as SSH keys are copied the
+# remote will be updated to use SSH.
 git clone https://github.com/dwmkerr/dotfiles.git
 cd dotfiles
 

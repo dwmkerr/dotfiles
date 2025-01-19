@@ -1,5 +1,10 @@
-# Creates symbolic links.
-.PHONY: link
+default: help
+
+.PHONY: help
+help: # Show help for each of the Makefile recipes.
+	@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+
+.PHONY: link # Creates symbolic links.
 link:
 	ln -sf ${PWD}/shell.sh ~/.shell.sh
 	ln -sf ${PWD}/shell.d ~/.shell.d
@@ -12,16 +17,14 @@ link:
 	ln -sf ${PWD}/ag/ignore ~/.ignore
 	ln -sf ${PWD}/VSCode/settings.json  '~/Library/Application Support/Code/User/settings.json'
 
-# Backup private config files (ssh keys etc).
-.PHONY: private-files-backup
+.PHONY: private-files-backup # Backup private config files (ssh keys etc).
 private-files-backup:
 	./private-files/private-files-backup.sh
 
-# Restore private config files (ssh keys etc).
-.PHONY: private-files-restore
+.PHONY: private-files-restore # Restore private config files (ssh keys etc).
 private-files-restore:
 	./private-files/private-files-restore.sh
 
-.PHONY: setup
+.PHONY: setup # Setup the local machine.
 setup:
 	./setup.sh
