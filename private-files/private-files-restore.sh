@@ -23,6 +23,15 @@ else
     aws configure --profile "${profile}"
 fi
 
+# Ensure the AWS profile exists - if it doesn't, configure it.
+if [[ $(aws configure --profile "${DOTFILES_PRIVATE_PROFILE}" list >> /dev/null 2>&1) -eq 0 ]]
+then
+    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" will be used.'
+else
+    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" does not exist, setting up now:'
+    aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
+fi
+
 # Alicloud CLI configuration and credentials.
 restore_safe "s3://${bucket}/aliyun/config.json" "$HOME/.aliyun/" 
 

@@ -22,6 +22,15 @@ else
     echo "AWS Profile "${profile}" does not exist, setting up now:"
     aws configure --profile "${profile}"
 fi
+
+# Ensure the AWS profile exists - if it doesn't, configure it.
+if [[ $(aws configure --profile "${DOTFILES_PRIVATE_PROFILE}" list >> /dev/null 2>&1) -eq 0 ]]; then
+    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" will be used.'
+else
+    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" does not exist, setting up now:'
+    aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
+fi
+
 # Alicloud CLI configuration and credentials.
 backup_safe ~/.aliyun/config.json "s3://${bucket}/aliyun/"
 
@@ -56,6 +65,6 @@ fi
 # Backup the GPG trust database.
 echo -n "Export and backup GPG trust database? [y/n]: "
 read yesno
-    if [[ $yesno =~ ^[Yy] ]]; then
+if [[ $yesno =~ ^[Yy] ]]; then
     gpg --export-ownertrust | aws s3 cp --profile "${profile}" - "s3://${bucket}/gpg/trust-database.txt"
 fi

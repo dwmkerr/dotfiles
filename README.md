@@ -133,9 +133,10 @@ DOTFILES_PRIVATE_PROFILE="dwmkerr" # Use whatever name makes sense for you!
 # Default is "dwmkerr-dotfiles-private".
 DOTFILES_PRIVATE_S3_BUCKET="dwmkerr-dotfiles-private"
 
-# Run backup/restore as normal...,
-make private-files-restore
-make private-files-backup
+# Run AWS configure to create the named profile - you will be asked to provide
+# an access key and secret. If this is not setup the backup/restore scripts will
+# prompt you to configure.
+aws configure --profile 
 
 # Backup private files:
 make private-files-backup
