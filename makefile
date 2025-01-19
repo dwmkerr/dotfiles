@@ -17,14 +17,14 @@ link:
 	ln -sf ${PWD}/ag/ignore ~/.ignore
 	ln -sf ${PWD}/VSCode/settings.json  '~/Library/Application Support/Code/User/settings.json'
 
-.PHONY: private-files-backup # Backup private config files (ssh keys etc).
-private-files-backup:
+.PHONY: private-files-backup
+private-files-backup: # Backup private config files (ssh keys etc).
 	./private-files/private-files-backup.sh
 
-.PHONY: private-files-restore # Restore private config files (ssh keys etc).
-private-files-restore:
+.PHONY: private-files-restore
+private-files-restore: # Restore private config files (ssh keys etc).
 	./private-files/private-files-restore.sh
 
-.PHONY: setup # Setup the local machine.
-setup:
+.PHONY: setup
+setup: # Setup the local machine.
 	./setup.sh
