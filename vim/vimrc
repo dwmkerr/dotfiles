@@ -392,10 +392,8 @@ noremap <leader><leader> :tabnew %<cr>
   " Map '<Leader>j' to jsdoc on function we are currently in.
   nmap <silent> <Leader>j ?function<cr>:noh<cr><Plug>(jsdoc)
 
-" Trying to fix the 'vim-chunk' error...
-let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
-
 " fzf-lua configuration.
+let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
 " Heredoc highlighting
 lua <<EOF
     if vim.fn.executable("rg") ~= 1 then
