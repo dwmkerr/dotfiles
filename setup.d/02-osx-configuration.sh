@@ -29,7 +29,7 @@ if ask "$os: Enable 'tap-to-click'?" N; then
 fi
 
 if ask "$os: Set default view to 'List'?" N; then
-    defaults write com.apple.finder FX PreferredViewStyle --string "Nlsv"; killall Finder
+    defaults write com.apple.finder FX PreferredViewStyle -string "Nlsv"; killall Finder
 fi
 
 if ask "$os: Set wallpaper?" N; then
