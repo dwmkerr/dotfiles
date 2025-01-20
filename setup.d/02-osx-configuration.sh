@@ -26,7 +26,13 @@ if ask "$os: Enable 'tap-to-click'?" N; then
     echo "'tap-to-click' enabled - this will be applied on restart..."
     echo "WARNING: cannot automate tap to click setup"
     echo "         use 'Preferences > Trackpad' to set maually"
-fi    
+fi
+
+if ask "$os: Set default view to 'List'?" N; then
+    defaults write com.apple.finder FX\
+        PreferredViewStyle -string "Nlsv"
+    killall Finder
+fi
 
 if ask "$os: Set wallpaper?" N; then
     osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$(pwd)/desktop/vim-shortcuts2560x1600.png\""
