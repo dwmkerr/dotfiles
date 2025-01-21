@@ -17,9 +17,9 @@ bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
 # Ensure the AWS profile exists - if it doesn't, configure it.
 if aws_profile_exists "${profile}"; then
-    echo "AWS Profile "${profile}" will be used."
+    echo 'AWS Profile "${profile}" will be used.'
 else
-    echo "AWS Profile "${profile}" does not exist, setting up now:"
+    echo 'AWS Profile "${profile}" does not exist, setting up now:'
     aws configure --profile "${profile}"
 fi
 
@@ -71,12 +71,12 @@ fi
 echo -n "Restore backup GPG keys? (Warning, will overwrite existing) [y/n]: "
 read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
-    aws s3 cp "s3://${bucket}/gpg/secret-keys.asc" - | gpg --import
+    aws s3 cp --profile "${profile}" "s3://${bucket}/gpg/secret-keys.asc" - | gpg --import
 fi
 
 # Restore GPG trust database.
 echo -n "Restore GPG trust database? (Warning, will overwrite existing) [y/n]: "
 read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
-    aws s3 cp "s3://${bucket}/gpg/trust-database.txt" - | gpg --import-ownertrust
+    aws s3 cp --profile "${profile}" "s3://${bucket}/gpg/trust-database.txt" - | gpg --import-ownertrust
 fi
