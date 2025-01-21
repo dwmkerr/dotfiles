@@ -48,7 +48,7 @@ read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
     dest="$HOME/.ssh/"
     mkdir -p "${dest}"
-    aws s3 sync "s3://${bucket}/ssh" "${dest}"
+    aws s3 --profile "${profile}" sync "s3://${bucket}/ssh" "${dest}"
 
     # Folders are owned by curent user, private keys are 600, public keys are 644.
     chmod 700 ~/.ssh
