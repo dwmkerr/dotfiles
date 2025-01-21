@@ -17,18 +17,18 @@ bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
 # Ensure the AWS profile exists - if it doesn't, configure it.
 if aws_profile_exists "${profile}"; then
-    echo 'AWS Profile "${profile}" will be used.'
+    echo "AWS Profile '${profile}' will be used."
 else
-    echo 'AWS Profile "${profile}" does not exist, setting up now:'
+    echo "AWS Profile '${profile}' does not exist, setting up now:"
     aws configure --profile "${profile}"
 fi
 
 # Ensure the AWS profile exists - if it doesn't, configure it.
 if [[ $(aws configure --profile "${DOTFILES_PRIVATE_PROFILE}" list >> /dev/null 2>&1) -eq 0 ]]
 then
-    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" will be used.'
+    echo "AWS Profile '${DOTFILES_PRIVATE_PROFILE}' will be used."
 else
-    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" does not exist, setting up now:'
+    echo "AWS Profile '${DOTFILES_PRIVATE_PROFILE}' does not exist, setting up now:"
     aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
 fi
 
