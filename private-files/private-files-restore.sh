@@ -53,7 +53,7 @@ if [[ $yesno =~ ^[Yy] ]]; then
     # Folders are owned by curent user, private keys are 600, public keys are 644.
     chmod 700 ~/.ssh
     find ~/.ssh -type f -exec chmod 0600 {} \;
-    find ~/.ssh -type f -exec chmod 0644 {} \;
+    find ~/.ssh/*.pub -type f -exec chmod 0644 {} \;
     find ~/.ssh -type d -exec chmod 0700 {} \;
 
 fi
