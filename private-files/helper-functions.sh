@@ -9,7 +9,7 @@ backup_safe() {
         echo -n "backup '$1' to '$2'? [y/n]: "
         read yesno
         if [[ $yesno =~ ^[Yy] ]]; then
-            aws s3 cp "$1" "$2" $3 --profile "${profile}"
+            aws s3 cp --profile "${profile}" "$1" "$2" $3
         fi
     fi
 }
@@ -21,7 +21,7 @@ restore_safe() {
     if [[ $yesno =~ ^[Yy] ]]; then
         mkdir -p "$(dirname $2)"
         echo "Preparing to run: aws s3 cp \"$1\" \"$2\" $3 --profile \"${profile}"
-        aws s3 cp "$1" "$2" $3 --profile "${profile}"
+        aws s3 cp --profile "${profile}" "$1" "$2" $3
     fi
 }
 
