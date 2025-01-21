@@ -113,7 +113,7 @@ You will be asked for confirmation before backing up any files.
 
 ### Restoring Private Files
 
-Assuming you have the AWS CLI installed, run the following commands to create a profile (you will need credentials, which should be in the password manager):
+Assuming you have the AWS CLI, GPG, and pinentry-mac installed (all of which are installed with `make setup`), run the following commands to create a profile (you will need credentials, which should be in the password manager):
 
 ```sh
 # Restore private files:
