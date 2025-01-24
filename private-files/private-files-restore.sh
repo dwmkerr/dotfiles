@@ -61,6 +61,12 @@ if [[ $yesno =~ ^[Yy] ]]; then
 
 fi
 
+# Warn about authorizing secret keys for SSO.
+echo "Warning: Any GitHub Organisations which require SSO will need to have"
+echo "their authorisation set up for your SSH keys. Configure this at:"
+echo "  https://github.com/settings/keys"
+echo ""
+
 # Restore GPG secret keys.
 echo -n "Restore backup GPG keys? (Warning, will overwrite existing) [y/n]: "
 read yesno
