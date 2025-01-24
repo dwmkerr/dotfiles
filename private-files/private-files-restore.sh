@@ -7,6 +7,9 @@ set -e
 # This script is used to restore private and sensitive files, such as ssh keys and
 # gpg keys, from an encrypted AWS S3 bucket.
 
+echo "WARNING: aws/gpg/pinentry-mac must be installed and configured..."
+echo "run 'make setup' first and install 'git + gpg' features"
+
 # Load the helper functions.
 helper_functions_path="$(dirname "$(readlink -f "$0")")/helper-functions.sh"
 source "${helper_functions_path}"
@@ -57,6 +60,12 @@ if [[ $yesno =~ ^[Yy] ]]; then
     find ~/.ssh -type d -exec chmod 0700 {} \;
 
 fi
+
+# Warn about authorizing secret keys for SSO.
+echo "Warning: Any GitHub Organisations which require SSO will need to have"
+echo "their authorisation set up for your SSH keys. Configure this at:"
+echo "  https://github.com/settings/keys"
+echo ""
 
 # Restore GPG secret keys.
 echo -n "Restore backup GPG keys? (Warning, will overwrite existing) [y/n]: "

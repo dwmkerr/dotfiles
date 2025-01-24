@@ -10,7 +10,7 @@ if [[ "$os" == "osx" ]]; then
     # Tell GPG to use pinentry-mac, and restart the agent. Create the gnupg
     # folder if we have to.
     mkdir -p ~/.gnupg
-    echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+    echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
     gpgconf --kill gpg-agent
 
     # Make sure we lock down the gpg config folder.
