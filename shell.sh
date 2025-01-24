@@ -88,16 +88,17 @@ export LANG=en_US.UTF-8
 # https://askubuntu.com/questions/1021553/can-i-check-if-the-terminal-was-started-by-visual-studio-code
 # Similar for Android:
 # https://youtrack.jetbrains.com/articles/IDEA-A-19/Shell-Environment-Loading
-IS_IN_IDE=0
-if [[ "$TERM_PROGRAM" == "vscode" || -n "$INTELLIJ_ENVIRONMENT_READER" ]]; then
-    IS_IN_IDE=1
+if [ -x "$(command -v "tmux")" ]; then
+    IS_IN_IDE=0
+    if [[ "$TERM_PROGRAM" == "vscode" || -n "$INTELLIJ_ENVIRONMENT_READER" ]]; then
+        IS_IN_IDE=1
+    fi
+    if [ "${IS_IN_IDE}" != "1" ]; then
+        # We *are* interactive, and we are not in an IDE, so if we are not already
+        # in tmux, start it.
+        [ -z "$TMUX" ] && { tmux attach || exec tmux new-session && exit;}
+    fi
 fi
-if [ "${IS_IN_IDE}" != "1" ]; then
-    # We *are* interactive, and we are not in an IDE, so if we are not already
-    # in tmux, start it.
-    [ -z "$TMUX" ] && { tmux attach || exec tmux new-session && exit;}
-fi
-
 # Load auto-completions depending on our shell.
 if [ -n "$BASH_VERSION" ]; then
     # Source auto-completions from the Mac and Linux locations.

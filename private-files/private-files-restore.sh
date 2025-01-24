@@ -7,6 +7,9 @@ set -e
 # This script is used to restore private and sensitive files, such as ssh keys and
 # gpg keys, from an encrypted AWS S3 bucket.
 
+echo "WARNING: aws/gpg/pinentry-mac must be installed and configured..."
+echo "run 'make setup' first and install 'git + gpg' features"
+
 # Load the helper functions.
 helper_functions_path="$(dirname "$(readlink -f "$0")")/helper-functions.sh"
 source "${helper_functions_path}"

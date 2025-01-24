@@ -4,6 +4,15 @@ if [[ "$os" != "osx" ]]; then
     return 0
 fi
 
+# Note that I no longer install the following apps - they are installed by the
+# enterprise profile:
+# - slack
+
+# Ask to install enterprise applications
+if ask "$os: List applications that must be manually installed??" N; then
+    echo "Slack"
+    echo "Docker Desktop: https://docs.docker.com/desktop/setup/install/mac-install/"
+
 apps=('bitwarden'
     'cyberduck'
     'docker'
@@ -21,15 +30,10 @@ apps=('bitwarden'
     'visual-studio-code'
     'vlc'
 )
-# Note that I no longer install the following apps - they are installed by the
-# enterprise profile:
-# - slack
 
-brew tap homebrew/cask
-brew tap homebrew/cask-fonts
-for app in "${apps[@]}"; do
-    if ask "$os: Install Application '${app}'?" N; then
-        brew install --cask ${app}
+for app in ${apps[@]}; do
+    if ask "$os: Install tool '${app}'?" N; then
+        brew install ${app}
     fi
 done
 
