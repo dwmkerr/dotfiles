@@ -65,14 +65,6 @@ Some key features are:
 
 The goal of this project is to provide a single command which will setup key features of the system. Each feature should be _orthogonal_ and not depend on other features.
 
-The following is set up:
-
-- `zsh` as the default shell
-- `tmux` for terminal multiplexing, with my preferred theme and settings
-- `vim` as the default editor, with my preferred theme and settings
-- `~/.shell-private.d` as a folder excluded from version control, the contents of which are always loaded on shell startup (ideal for project specific secrets etc)
-- `~/.shell` as a version controlled folder, the contents of which are always loaded on shell startup
-
 ## Quick Start
 
 Run the commands below to quickly setup or update a machine. Note that the default behaviour in all cases is to _not_ make any changes unless the user explicitly confirms them.
@@ -172,16 +164,6 @@ These steps are work in progress.
 
 0. Restore Parallels virtual machines from backup.
 0. Restore the `~/.private/` folder from a secure backup, to bring back project specific secrets.
-
-Some other tools I install which I have paid subscriptions for or are essentials:
-
-- Amplitube
-- Creative Cloud
-- Cyberduck
-- Dash
-- Epic Games Launcher
-- Guitar Pro 8
-
 
 ## Features
 
