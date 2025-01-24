@@ -455,3 +455,4 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 - [ ] Note; javascript projects can get CoC support by adding a jsconfig.json file as per https://code.visualstudio.com/docs/languages/jsconfig then :CocInstall coc-tsserver
 - [ ] Note; golang projects can get CoC support by adding :CocInstall coc-go
 - [ ] update all to neovim
+- [ ] todo: document shell shortcuts (repos/dwmkerr)

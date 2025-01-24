@@ -1,8 +1,7 @@
 # If NVM is not installed, install it.
 echo "$os: Checking for NVM..."
-nvm_installed=$(command -v nvm)
-if [[ ${nvm_installed} != 0 ]] ; then
-    if ask "$os: NVM is not installed. Install it?" Y; then
+if [ ! -x "$(command -v nvm)" ] ; then
+    if ask "$os: NVM is not installed. Install it?" N; then
         echo "$os: Installing NVM..."
         touch ~/.bash_profile
         # TODO: make sure this also does zsh
@@ -13,9 +12,9 @@ else
 fi
 
 # Install the current node lts.
-if ask "$os: install and use node lts as default?" n; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+if ask "$os: install and use node lts as default?" N; then
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
     nvm install 'lts/*'
     nvm alias default 'lts/*'
 fi
