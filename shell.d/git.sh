@@ -23,7 +23,3 @@ alias gbranchr='for k in `git branch -r | \
 
 # Push to origin. Use it all the time innit?
 alias gpo='git push --set-upstream origin $(git_current_branch)'
-
-
-
-

@@ -392,70 +392,34 @@ noremap <leader><leader> :tabnew %<cr>
   " Map '<Leader>j' to jsdoc on function we are currently in.
   nmap <silent> <Leader>j ?function<cr>:noh<cr><Plug>(jsdoc)
 
-" fzf-lua configuration.
-let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
-" Heredoc highlighting
-lua <<EOF
-    if vim.fn.executable("rg") ~= 1 then
-        vim.notify("Please install 'ripgrep' for faster searching...", vim.log.levels.WARN)
-    end
-    vim.api.nvim_set_keymap("n", "<C-space>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<C-m>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
-    vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
+" fzf-lua configuration. Only works for NeoVim.
+if has('nvim')
+    let g:vimsyn_embed = 'lPr'  " support embedded lua, python and ruby
+    " Heredoc highlighting
+    lua <<EOF
+        if vim.fn.executable("rg") ~= 1 then
+            vim.notify("Please install 'ripgrep' for faster searching...", vim.log.levels.WARN)
+        end
+        vim.api.nvim_set_keymap("n", "<C-space>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
+        vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
+        vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
+        vim.api.nvim_set_keymap("n", "<C-m>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
+        vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
+        vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
 
-    require("fzf-lua").utils.info(
-      "|<C-space> buffers|<C-p> files|<C-g> grep|<C-m> live grep|<C-k> builtin|<F1> help|")
+        require("fzf-lua").utils.info(
+        "|<C-space> buffers|<C-p> files|<C-g> grep|<C-m> live grep|<C-k> builtin|<F1> help|")
 
-    --  Set fzf-lua options.
-    local fzf = require('fzf-lua')
-    -- e.g:
-    -- fzf.setup({
-    --  files = {
-    --    rg_opts = "--color=always --smart-case -g '!{.git,node_modules}/'",
-    --  },
-    --})
+        --  Set fzf-lua options.
+        local fzf = require('fzf-lua')
+        -- e.g:
+        -- fzf.setup({
+        --  files = {
+        --    rg_opts = "--color=always --smart-case -g '!{.git,node_modules}/'",
+        --  },
+        --})
 EOF
-
-
-" TODO: likely to be replaced by vim-lua
-" FZF (Fuzzy Find) configuration.
-
-    " TODO: see if the below is still needed with fzf-lua
-    
-    " " Note: see GitHub issue: https://github.com/junegunn/fzf/issues/453
-    " " Function to prevent FZF commands from opening in functional buffers
-    " "
-    " " See: https://github.com/junegunn/fzf/issues/453
-    " function! FZFOpen(cmd)
-    "     " Define the functional buffer types that we want to not clobber
-    "     let functional_buf_types = ['quickfix', 'help', 'nofile', 'terminal']
-
-    "     " If more than 1 window, and buffer type is not one of the functional types
-    "     if winnr('$') > 1 && (index(functional_buf_types, &bt) >= 0)
-    "         " Find all 'normal' (not functional) buffer windows
-    "         let norm_wins = filter(range(1, winnr('$')),
-    "                     \ 'index(functional_buf_types, getbufvar(winbufnr(v:val), "&bt")) == -1')
-
-    "         " Grab the first one that we can use
-    "         let norm_win = !empty(norm_wins) ? norm_wins[0] : 0
-
-    "         " Move to that window
-    "         exe norm_win . 'winc w'
-    "     endif
-
-    "     " Execute the passed command
-    "     exe a:cmd
-    " endfunction
-
-    " Ctrl-F for find in files. Then some leader commands for finding in buffers etc.
-    " TODO fzf is not using ag it seems.
-    " nnoremap <C-f> :call FZFOpen(":Files")<CR>
-    " nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
-    " nnoremap <silent> <leader>~ :call FZFOpen(":Files ~")<CR>
-    " nnoremap <silent> <leader>h :call FZFOpen(":History")<CR>
+endif
 
 " The Silver Searcher (ag) Configuration.
 
