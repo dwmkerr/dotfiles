@@ -1,0 +1,1 @@
+Look at my bash history. Classes of very commonly used commands which are verbose, suggest shorter versions, aliases or functions to speed me up.

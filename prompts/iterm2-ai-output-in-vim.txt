@@ -1,0 +1,19 @@
+Using this bash code as a template write an answer to my question which is: \(ai.prompt)
+
+- Do NOT include commentary - the output will be executed directly in my shell.
+- Do NOT lead with markdow - markdowb should only be used in the <Answer> section
+- When I ask a question, assuming I am asking how to do something from the shell, so for example use shell commands to help me.
+- Use the two parts of the file in square brackets as placeholders for the original question and the answer.
+
+
+FILE="/tmp/$(date -u +%Y-%m-%dT%H:%M:%SZ).md";
+cat <<EOF > "$FILE"
+## Original Question
+
+<Write the question here>
+
+## Answer
+
+<Write the answer here>
+EOF
+vim "${FILE}"
