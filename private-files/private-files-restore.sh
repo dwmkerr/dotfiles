@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 shopt -s nullglob
 set -e
+source "./tools/ask.sh"
 
 # private-files-restore.sh
 #
@@ -79,4 +80,9 @@ echo -n "Restore GPG trust database? (Warning, will overwrite existing) [y/n]: "
 read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
     aws s3 cp --profile "${profile}" "s3://${bucket}/gpg/trust-database.txt" - | gpg --import-ownertrust
+fi
+
+# Restore Boxes config.
+if ask "Restore '~/boxes.json'" N; then
+    restore_safe "s3://${bucket}/boxes.json" ~/.boxes.json
 fi

@@ -154,6 +154,8 @@ Install the profile under `./terminal/dwmkerrj.json` which configures:
 
 Then for the global preferences, set:
 
+- General: AI - ([API Key](https://platform.openai.com/api-keys)
+- General: AI - set the prompt to a value from `prompts`. I find [`iterm2-ai-output-in-vim.txt`](./prompts/iterm2-ai-output-in-vim.txt) the best
 - General: Selection - (Enabled) Applications in terminal may access clipboard
 - General: Window (Disabled) Native full screen windows
 - Keys: HotKey - (Enabled) Show/hide all windows with a system-wide hotkey (⌥ +Space)
@@ -443,6 +445,9 @@ I was impressed enough with the comments on [this post](https://erikzaadi.com/20
 ## TODO
 
 - [ ] fix: correct slow terminal startup
+- [ ] feat: iTerm OpenAI
+- [ ] fix: check iTerm restore window size
+- [ ] fix: Bash Tab Completion: https://stackoverflow.com/questions/7179642/how-can-i-make-bash-tab-completion-behave-like-vim-tab-completion-and-cycle-thro
 - [ ] feat: install patched nerdfont https://github.com/ryanoasis/nerd-fonts/releases
 - [ ] Autocomplete for docker/k8s is still not properly setup.
 - [ ] osx - mas (mac app store CLI: brew)

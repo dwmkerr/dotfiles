@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 shopt -s nullglob
+set -e
+source "./tools/ask.sh"
 
 # private-files-backup.sh
 #
@@ -67,4 +69,9 @@ echo -n "Export and backup GPG trust database? [y/n]: "
 read yesno
 if [[ $yesno =~ ^[Yy] ]]; then
     gpg --export-ownertrust | aws s3 cp --profile "${profile}" - "s3://${bucket}/gpg/trust-database.txt"
+fi
+
+# Backup Boxes config.
+if ask "Backup '~/boxes.json'" N; then
+    backup_safe ~/.boxes.json "s3://${bucket}/boxes.json"
 fi

@@ -1,9 +1,25 @@
-#!/usr/bin/env bash
-
 # Wrap 'git' with 'hub' - if we have hub installed.
 if [ -x "$(command -v hub)" ]; then
     eval "$(hub alias -s)"
 fi
+
+
+# Basic alises based on the 'git' OMZ plugin.
+# For reference, see:
+#   https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
+git_current_branch() {
+    git branch --show-current
+}
+alias ga='git add'
+alias gf='git fetch'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gc='git commit --verbose'
+alias gst='git status'
+alias gcm='git checkout main || git checkout master'
+alias gpo='git push --set-upstream origin $(git_current_branch)'
+
+# My own personal git functions or shorthands.
 
 # Clone from GitHub.
 ghclone() {
@@ -23,3 +39,12 @@ alias gbranchr='for k in `git branch -r | \
 
 # Push to origin. Use it all the time innit?
 alias gpo='git push --set-upstream origin $(git_current_branch)'
+
+# Basic alises based on the 'git' OMZ plugin.
+alias ga='git add'
+alias gf='git fetch'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gc='git commit --verbose'
+alias gst='git status'
+alias gcm='git checkout main || git checkout master'
