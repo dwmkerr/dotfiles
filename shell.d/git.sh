@@ -41,6 +41,7 @@ alias gbranchr='for k in `git branch -r | \
 alias gpo='git push --set-upstream origin $(git_current_branch)'
 
 # Basic alises based on the 'git' OMZ plugin.
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 alias ga='git add'
 alias gf='git fetch'
 alias gco='git checkout'
@@ -48,3 +49,4 @@ alias gcb='git checkout -b'
 alias gc='git commit --verbose'
 alias gst='git status'
 alias gcm='git checkout main || git checkout master'
+alias gl='git pull'

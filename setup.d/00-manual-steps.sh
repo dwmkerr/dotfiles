@@ -12,3 +12,7 @@ if ask "$os: List applications that have paid subscriptions?" N; then
     echo "Epic Games Launcher"
     echo "Guitar Pro 8"
 fi
+
+if ask "$os: Show other manual steps?" N; then
+    echo "Visual Studio Code: Settings > Sync to restore settings"
+fi
