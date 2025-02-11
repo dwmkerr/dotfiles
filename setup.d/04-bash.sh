@@ -4,11 +4,11 @@ if ask "$os: install or upgrade bash and bash-completion?" N; then
         brew install bash bash-completion@2
 
         # Get the installed bash location and desired location.
-        bash_brew_path="$(brew --prefix bash)"
+        bash_brew_path="/opt/homebrew/bin/bash"
         bash_local_path="/usr/local/bin/bash"
 
         # Create /usr/local/bin/bash and add it to the allowed shells.
-        ln -sf "${bash_brew_path}" "${bash_local_path}"
+        sudo ln -sf "${bash_brew_path}" "${bash_local_path}"
         sudo sh -c "echo '${bash_local_path}' >> /etc/shells"
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: not yet implemented"
@@ -49,7 +49,7 @@ fi
 # shell.
 bash_local_path="/usr/local/bin/bash"
 if [ -e "${bash_local_path}" ]; then
-    if ask "$os: Change shell (cssh) to: '${bash_local_path}'?" N; then
+    if ask "$os: Change shell (chsh) to: '${bash_local_path}'?" N; then
         # Link the system bash to local bash.
         chsh -s "${bash_local_path}" 
     fi

@@ -4,7 +4,7 @@ if ask "$os: install or upgrade zsh?" N; then
         brew install zsh zsh-completions
 
         # Get the installed zsh location and desired location.
-        zsh_brew_path="$(brew --prefix zsh)"
+        bash_brew_path="/opt/homebrew/bin/zsh"
         zsh_local_path="/usr/local/bin/zsh"
 
         # Create /usr/local/bin/zsh and add it to the allowed shells.
@@ -54,7 +54,7 @@ fi
 # shell.
 zsh_local_path="/usr/local/bin/bash"
 if [ -e "${zsh_local_path}" ]; then
-    if ask "$os: Change shell (cssh) to: '${zsh_local_path}'?" N; then
+    if ask "$os: Change shell (chsh) to: '${zsh_local_path}'?" N; then
         # Link the system zsh to local zsh.
         chsh -s "${zsh_local_path}" 
     fi

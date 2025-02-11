@@ -19,8 +19,8 @@ esac
 EDITOR=vi
 VISUAL=vi
 
-# Setup the path. Add sbin.
-export PATH="/usr/local/sbin:$PATH"
+# Setup the path. Add local, sbin, brew.
+export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
 
 # If we have homebrew, update the PATH.
 if command -v brew 1>/dev/null 2>&1; then
