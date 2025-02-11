@@ -40,3 +40,18 @@ function mkd {
 function revcut {
   rev | cut "$@" | rev
 }
+
+# Toggle *.bak off or on a file.
+toggle_bak() {
+    if [ -f "$1" ]; then
+        if [[ $1 == *".bak" ]]; then
+            mv "$1" "${1%.bak}"
+            echo "$1 -> removed *.bak"
+        else
+            mv "$1" "$1.bak"
+            echo "$1 -> added *.bak"
+        fi
+    else
+        echo "file not found"
+    fi
+}

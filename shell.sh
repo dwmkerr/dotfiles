@@ -22,6 +22,13 @@ VISUAL=vi
 # Setup the path. Add local, sbin, brew.
 export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
 
+# Set the local shell.
+# Not good as it is not respecting what we use in setup.sh but still need a way
+# to make this work (or fix the symlink issue).
+if [ -e "/usr/local/bin/bash" ]; then
+    export SHELL="/usr/local/bin/bash"
+fi
+
 # If we have homebrew, update the PATH.
 if command -v brew 1>/dev/null 2>&1; then
     eval "$(/opt/homebrew/bin/brew shellenv)"

@@ -23,18 +23,19 @@ gpr() {
     branch=${branch##refs/heads/}
     branch=${branch:-HEAD}
 
-    # Pushing take a little while, so let the user know we're working.
+    # Pushing takes a little while, so let the user know we're working.
     printf "Opening pull request for ${green}${branch}${reset}...\n"
 
     # Push to origin, grabbing the output but then echoing it back.
-    push_output=`git push origin -u ${branch} 2>&1`
+    push_output=$(git push origin -u "${branch}" 2>&1)
     printf "\n${push_output}\n"
 
     # If there's anything which starts with http, it's a good guess it'll be a
     # link to GitHub/GitLab/Whatever. So open the first link found.
-    link=$(echo ${push_output} | grep -o 'http.*' | head -n1 | sed -e 's/[[:space:]]*$//')
-    if [ ${link} ]; then
+    link=$(echo "${push_output}" | grep -o 'http[^[:space:]]*' | head -n1)
+
+    if [ -n "${link}" ]; then
         printf "\nOpening: ${green}${link}${reset}...\n"
-        python -mwebbrowser ${link}
+        python3 -mwebbrowser "${link}"
     fi
 }

@@ -281,6 +281,7 @@ The following shell commands are setup:
 | [`mkd`](./shell.d/functions.sh)           | Make a directory, using `-p` and `cd` into it.                      |
 | [`restart_shell`](./shell.d/functions.sh) | Restart the current shell process, useful when profile changes.     |
 | [`revcut`](./shell.d/functions.sh)        | Cut, but in reverse (i.e. from the last to the first delimiter).    |
+| [`toggle_bak`](./shell.d/functions.sh)    | Toggle *.bak off or on a file (useful to disable config etc).    |
 | **Git Functions**                         |                                                                     |
 | [`ghclone`](./shell.d/git.sh)             | Clone from GitHub, e.g: `ghclone dwmkerr/effective-shell`.          |
 
