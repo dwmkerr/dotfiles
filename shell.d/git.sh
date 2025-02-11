@@ -10,14 +10,22 @@ fi
 git_current_branch() {
     git branch --show-current
 }
+# Basic alises based on the 'git' OMZ plugin.
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 alias ga='git add'
+alias gd='git diff'
 alias gf='git fetch'
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gc='git commit --verbose'
 alias gst='git status'
 alias gcm='git checkout main || git checkout master'
-alias gpo='git push --set-upstream origin $(git_current_branch)'
+alias gl='git pull'
+gpo() {
+    git push --set-upstream origin "$(git_current_branch)"
+}
+
+alias gpo='git push --set-upstream origin'
 
 # My own personal git functions or shorthands.
 
@@ -37,16 +45,3 @@ alias gbranchr='for k in `git branch -r | \
     do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | \
     head -n 1`\\t$k; done | sort -r'
 
-# Push to origin. Use it all the time innit?
-alias gpo='git push --set-upstream origin $(git_current_branch)'
-
-# Basic alises based on the 'git' OMZ plugin.
-# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
-alias ga='git add'
-alias gf='git fetch'
-alias gco='git checkout'
-alias gcb='git checkout -b'
-alias gc='git commit --verbose'
-alias gst='git status'
-alias gcm='git checkout main || git checkout master'
-alias gl='git pull'

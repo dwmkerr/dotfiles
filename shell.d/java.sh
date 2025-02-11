@@ -11,9 +11,12 @@ fi
 java_version="17"
 if [ -x "$(command -v "java")" ]; then
     if [ -f "/usr/libexec/java_home" ]; then
-        # If we have the java_home util (i.e. on a Mac) then use it...
-        export JAVA_HOME="$(/usr/libexec/java_home -v ${java_version})";
-        export PATH="${JAVA_HOME}/bin:$PATH";
+        # If we have the java_home util (i.e. on a Mac) then try it...
+        if /usr/libexec/java_home -v ${java_version} >/dev/null 2>&1; then
+            # We can get the desired Java Version, so set the path.
+            export JAVA_HOME="$(/usr/libexec/java_home -v ${java_version})";
+            export PATH="${JAVA_HOME}/bin:$PATH";
+        fi
     elif [ -f "$(which javac)" ]; then
         # ...otherwise try and work it out from the location of javac.
         export JAVA_HOME=$(dirname $(dirname $(readlink -e $(which javac))));

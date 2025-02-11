@@ -2,8 +2,14 @@
 if ask "$os: install or upgrade bash and bash-completion?" N; then
     if [[ "$os" == "osx" ]]; then
         brew install bash bash-completion@2
-        # Make sure the installed zsh path is allowed in the list of shells.
-        echo "$(which bash)" >> sudo tee -a /etc/shells
+
+        # Get the installed bash location and desired location.
+        bash_brew_path="/opt/homebrew/bin/bash"
+        bash_local_path="/usr/local/bin/bash"
+
+        # Create /usr/local/bin/bash and add it to the allowed shells.
+        sudo ln -sf "${bash_brew_path}" "${bash_local_path}"
+        sudo sh -c "echo '${bash_local_path}' >> /etc/shells"
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: not yet implemented"
         exit 1
@@ -36,5 +42,15 @@ if ask "$os: Add .shell.sh to .bashrc?" N; then
             echo "# Source my personal (github.com/dwmkerr/dotfiles) configuration." >> "${config_file}"
             echo "${source_command}" >> "${config_file}"
         fi
+    fi
+fi
+
+# If we have created a new local bash, offer the option to set the default
+# shell.
+bash_local_path="/usr/local/bin/bash"
+if [ -e "${bash_local_path}" ]; then
+    if ask "$os: Change shell (chsh) to: '${bash_local_path}'?" N; then
+        # Link the system bash to local bash.
+        chsh -s "${bash_local_path}" 
     fi
 fi

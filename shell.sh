@@ -19,8 +19,13 @@ esac
 EDITOR=vi
 VISUAL=vi
 
-# Setup the path. Add sbin.
-export PATH="/usr/local/sbin:$PATH"
+# Setup the path. Add local, sbin, brew.
+export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
+
+# If we have homebrew, update the PATH.
+if command -v brew 1>/dev/null 2>&1; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Import everything from the .shell.d folder.
 for file in $HOME/.shell.d/*; do
@@ -99,6 +104,7 @@ if [ -x "$(command -v "tmux")" ]; then
         [ -z "$TMUX" ] && { tmux attach || exec tmux new-session && exit;}
     fi
 fi
+
 # Load auto-completions depending on our shell.
 if [ -n "$BASH_VERSION" ]; then
     # Source auto-completions from the Mac and Linux locations.
