@@ -345,10 +345,11 @@
     "Green Component" : 0.75294119119644165
   },
   "Window Type" : 1,
+  "Smart Cursor Color" : true,
   "Smart Cursor Color (Dark)" : false,
   "BM Growl" : true,
   "Prompt Before Closing 2" : false,
-  "Command" : "\/bin\/bash",
+  "Command" : "\/opt\/homebrew\/Cellar\/bash\/5.2.37\/bin\/bash",
   "Smart Cursor Color (Light)" : false,
   "Use Bright Bold (Light)" : true,
   "Use Selected Text Color (Light)" : true,
@@ -419,7 +420,7 @@
 
   ],
   "Minimum Contrast (Dark)" : 0,
-  "Custom Command" : "Custom Shell",
+  "Custom Command" : "No",
   "Foreground Color (Light)" : {
     "Red Component" : 0.67058825492858887,
     "Color Space" : "sRGB",

@@ -116,9 +116,8 @@ fi
 if [ -n "$BASH_VERSION" ]; then
     # Source auto-completions from the Mac and Linux locations.
     # Note that this is based on Bash Completion 2, which requires Bash 4 or onwards.
-    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-    [[ -r "/usr/local/etc/shell.d/bash_completion.sh" ]] && . "/usr/local/etc/shell.d/bash_completion.sh"
-    if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
+    [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+    [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 elif [ -n "$ZSH_VERSION" ]; then
     # Source zsh auto-completions.
     fpath=($HOME/.zsh/completion $fpath)
