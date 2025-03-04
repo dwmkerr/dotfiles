@@ -55,6 +55,25 @@ release_as() {
     git commit --allow-empty -m "chore: release $1" -m "Release-As: $1"
 }
 
+
+ghopen() {
+  # Work out the repo/org from the folder we're in.
+  # (Probably could do it better from .git).
+  local org
+  org=$(basename "$(dirname "$PWD")")
+  local repo
+  repo=$(basename "$(pwd)")
+  url="https://github.com/$org/$repo"
+
+  # Print the url we'll open.
+  local green='\e[0;32m'
+  local reset='\e[0m'
+  printf "\nOpening: ${green}${url}${reset}...\n"
+
+  # And open it. Easy.
+  python3 -mwebbrowser "${url}"
+}
+
 aigac() {
     # Interactively stage changes.
     git add --patch
