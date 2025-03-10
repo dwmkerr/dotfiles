@@ -29,6 +29,7 @@ git_main_branch() {
 # Basic alises based on the 'git' OMZ plugin.
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 alias ga='git add'
+alias gb='git branch'
 alias gd='git diff'
 alias gf='git fetch'
 alias gco='git checkout'
@@ -55,7 +56,6 @@ release_as() {
     git commit --allow-empty -m "chore: release $1" -m "Release-As: $1"
 }
 
-
 ghopen() {
   # Work out the repo/org from the folder we're in.
   # (Probably could do it better from .git).
@@ -75,21 +75,32 @@ ghopen() {
 }
 
 aigac() {
-    # Interactively stage changes.
-    git add --patch
+  # Add untracked files but none of their content - so that 'git add --patch'
+  # lets us interactively stage new files as well as existing file changes.
+  git add -N .
+  git add --patch
 
-    # If there's no changes, bail.
-    if git diff --cached --quiet; then
-        echo "No changes staged for commit."
-        return 1
-    fi
+  # If there's no changes, bail.
+  if git diff --cached --quiet; then
+    echo "No changes staged for commit."
+    return 1
+  fi
 
-    # Generate the commit message using terminal-ai. Pipe it into 'git commit'
-    # by using the '-F -' (i.e. read from the stdin file). Make sure we edit it
-    # in the editor first with '-e'.
-    git diff --cached |\
-      ai -- 'summarise this git diff into a conventional commit, e.g. feat(feature): short description\n\nlong description' |\
-      git commit -e -F - 
+  # Generate the commit message using terminal-ai. Pipe it into 'git commit'
+  # by using the '-F -' (i.e. read from the stdin file). Make sure we edit it
+  # in the editor first with '-e'.
+  git diff --cached |\
+    ai -- 'summarise this git diff into a conventional commit, e.g. feat(feature): short description\n\nlong description' |\
+    git commit -e -F - 
+}
+
+aigc() {
+  # Generate the commit message using terminal-ai. Pipe it into 'git commit'
+  # by using the '-F -' (i.e. read from the stdin file). Make sure we edit it
+  # in the editor first with '-e'.
+  git diff --cached |\
+    ai -- 'summarise this git diff into a conventional commit, e.g. feat(feature): short description\n\nlong description' |\
+    git commit -e -F - 
 }
 
 # Not really a command, but a much nicer version of git branch.

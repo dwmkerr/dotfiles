@@ -12,6 +12,7 @@ fi
 if ask "$os: List applications that must be manually installed??" N; then
     echo "Slack"
     echo "Docker Desktop: https://docs.docker.com/desktop/setup/install/mac-install/"
+fi
 
 apps=('bitwarden'
     'cyberduck'
@@ -25,6 +26,7 @@ apps=('bitwarden'
     'spectacle'
     'spotmenu'
     'spotify'
+    'tlrc' # tldr (via brew)
     'vagrant'
     'virtualbox'
     'visual-studio-code'

@@ -2,7 +2,7 @@
   //  I never like my editor to format on save and perfer it to be a manual task
   //  or a hook. Ths disables auto-format on save for all file types (which also
   //  makes sure we don't get hands on saving).
-  "coc.preferences.formatOnSaveFiletypes": [],
+  //  "coc.preferences.formatOnSaveFiletypes": [],
 
   //  I've had tonnes of problems with Jedi for Python. Instead, use the MPLS
   //  which is the Microsoft Python Language Server. See:
