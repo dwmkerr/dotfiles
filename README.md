@@ -180,6 +180,8 @@ make private-files-backup
 make private-files-restore
 ```
 
+Shell configuration which is private can be kept in `~/.shell.private.d/` - this folder will be loaded by `~/.shell.sh` but not checked in.
+
 **Package Manager**
 
 - Installs or upgrades [Homebrew](https://brew.sh/) on OSX.

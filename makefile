@@ -8,6 +8,7 @@ help: # Show help for each of the Makefile recipes.
 link:
 	ln -sf ${PWD}/shell.sh ~/.shell.sh
 	ln -sf ${PWD}/shell.d ~/.shell.d
+	ln -sf ${PWD}/shell.private.d ~/.shell.private.d
 	ln -sf ${PWD}/vim/vimrc ~/.vimrc
 	ln -sf ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
 	ln -sf ${PWD}/vim/coc-settings.json ~/.config/nvim/coc-settings.json

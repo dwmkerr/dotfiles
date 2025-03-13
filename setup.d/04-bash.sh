@@ -9,7 +9,20 @@ if ask "$os: install or upgrade bash and bash-completion?" N; then
 
         # Create /usr/local/bin/bash and add it to the allowed shells.
         sudo ln -sf "${bash_brew_path}" "${bash_local_path}"
-        sudo sh -c "echo '${bash_local_path}' >> /etc/shells"
+        echo "${bash_local_path}" | sudo tee -a /etc/shells
+        sudo chsh -s "${bash_local_path}"
+
+        # Regardless of whether we have a ~/.bash_profile or not, make sure it
+        # exists and sources bashrc - some tools like 'conda' will create the
+        # profile file, and if it doesn't have this code in it will not source
+        # my dotfiles.
+        cat << 'EOF' >> ~/.bash_profile
+
+# Source .bashrc - this'll then source my dotfiles.
+if [ -f ~/.bashrc ]; then
+  source ~/.bashrc
+fi
+EOF
     elif [[ "$os" == "ubuntu" ]]; then
         echo "$os: not yet implemented"
         exit 1

@@ -40,6 +40,14 @@ for file in $HOME/.shell.d/*; do
     source "$file"
 done
 
+# Import everything from the .shell.private.d folder.
+if [ -d $HOME/.shell.private.d ]; then
+    for file in $HOME/.shell.private.d/*; do
+        [ -e "$file" ] || continue
+        source "$file"
+    done
+fi
+
 # If we have a .private folder, source everything in it. This is useful for
 # automatically loading things like project specific secrets.
 if [[ -d $HOME/.shell-private.d ]]; then

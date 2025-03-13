@@ -46,7 +46,7 @@ fi
 
 # Install Coc Configuration.
 if ask "$os: Install COC Settings?" N; then
-   ln -sf "${PWD}/vim/coc-settings.json" "${HOME}/.vim/coc-settings.json"
-	ln -sf "${PWD}/vim/coc-settings.json" "${HOME}/.config/nvim/coc-settings.json"
+    ln -sf "${PWD}/vim/coc-settings.json" "${HOME}/.vim/coc-settings.json"
+    ln -sf "${PWD}/vim/coc-settings.json" "${HOME}/.config/nvim/coc-settings.json"
     echo "Don't forget :CocInstall coc-pyright"
 fi

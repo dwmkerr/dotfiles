@@ -7,5 +7,11 @@
   //  I've had tonnes of problems with Jedi for Python. Instead, use the MPLS
   //  which is the Microsoft Python Language Server. See:
   //    https://github.com/neoclide/coc-python#get-start
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+
+  //  I love the python hints but they're weird in vim as it looks like you've
+  //  entered them yourself, so disable for now.
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.variableTypes": false,
+  "pyright.inlayHints.parameterTypes": false
 }

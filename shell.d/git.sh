@@ -36,7 +36,8 @@ alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gc='git commit --verbose'
 alias gst='git status'
-alias gcm='git checkout $(git_main_branch)'
+alias gsm='git switch main'
+alias gcm='git checkout main'
 alias gl='git pull'
 
 # Push to origin.
