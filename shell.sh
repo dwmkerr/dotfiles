@@ -34,8 +34,12 @@ if command -v brew 1>/dev/null 2>&1; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Import everything from the .shell.d folder.
+# Import everything from the .shell.d and .shell.functions.d folder.
 for file in $HOME/.shell.d/*; do
+    [ -e "$file" ] || continue
+    source "$file"
+done
+for file in $HOME/.shell.functions.d/*; do
     [ -e "$file" ] || continue
     source "$file"
 done
