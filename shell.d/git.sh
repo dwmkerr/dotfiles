@@ -37,6 +37,7 @@ alias gcb='git checkout -b'
 alias gc='git commit --verbose'
 alias gst='git status'
 alias gsm='git switch main'
+alias gsml='git switch main && git pull'
 alias gcm='git checkout main'
 alias gl='git pull'
 

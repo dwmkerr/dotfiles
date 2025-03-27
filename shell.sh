@@ -1,13 +1,7 @@
-# IMPORTANT:
-#
-# There is no shebang in this script. This will be sourced from the user's
-# current shell. So we might be using bash, zsh, etc. If we use an explicit
-# shebang, we can guarantee the shell which will interpret the script, but
-# cannot conditionally set up the user's _current_ shell.
-#
-# See the section near the end where we are sourcing auto-complete settings for
-# an example of why this matters. If we use a shebang in this script, we'll only
-# ever source auto-completions for the shell in the shebang.
+# shell.sh
+# 
+# Setup shell enviroment suitable for Bash and Zsh.
+# This file should be sourced at the end of ~/.bashrc or ~/.zshrc
 
 # If we are not running interactively do not continue loading this file.
 case $- in
@@ -16,11 +10,11 @@ case $- in
 esac
 
 # Set our preferred editor (both visual and line mode to be safe).
-EDITOR=vi
-VISUAL=vi
+export EDITOR="vi"
+export VISUAL="vi"
 
-# Setup the path. Add local, sbin, brew.
-export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
+# Setup the path. Add local bin folders.
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Set the local shell.
 # Not good as it is not respecting what we use in setup.sh but still need a way
@@ -30,36 +24,7 @@ if [ -e "/usr/local/bin/bash" ]; then
 fi
 
 # If we have homebrew, update the PATH.
-if command -v brew 1>/dev/null 2>&1; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-# Import everything from the .shell.d and .shell.functions.d folder.
-for file in $HOME/.shell.d/*; do
-    [ -e "$file" ] || continue
-    source "$file"
-done
-for file in $HOME/.shell.functions.d/*; do
-    [ -e "$file" ] || continue
-    source "$file"
-done
-
-# Import everything from the .shell.private.d folder.
-if [ -d $HOME/.shell.private.d ]; then
-    for file in $HOME/.shell.private.d/*; do
-        [ -e "$file" ] || continue
-        source "$file"
-    done
-fi
-
-# If we have a .private folder, source everything in it. This is useful for
-# automatically loading things like project specific secrets.
-if [[ -d $HOME/.shell-private.d ]]; then
-    for private in $HOME/.shell-private.d/*; do
-        [ -e "$private" ] || continue
-        source "$private"
-    done
-fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set a shell option but don't fail if it doesn't exist!
 safe_set() { shopt -s "$1" >/dev/null 2>&1 || true; }
@@ -134,6 +99,33 @@ elif [ -n "$ZSH_VERSION" ]; then
     # Source zsh auto-completions.
     fpath=($HOME/.zsh/completion $fpath)
     autoload -Uz compinit && compinit -i
+fi
+
+# Import all shell functions and shell.d files.
+for file in $HOME/.shell.functions.d/*; do
+    [ -e "$file" ] || continue
+    source "$file"
+done
+for file in $HOME/.shell.d/*; do
+    [ -e "$file" ] || continue
+    source "$file"
+done
+
+# Import everything from the .shell.private.d folder.
+if [ -d $HOME/.shell.private.d ]; then
+    for file in $HOME/.shell.private.d/*; do
+        [ -e "$file" ] || continue
+        source "$file"
+    done
+fi
+
+# If we have a .private folder, source everything in it. This is useful for
+# automatically loading things like project specific secrets.
+if [[ -d $HOME/.shell-private.d ]]; then
+    for private in $HOME/.shell-private.d/*; do
+        [ -e "$private" ] || continue
+        source "$private"
+    done
 fi
 
 # If it exists, source my work in progress 'context' project.

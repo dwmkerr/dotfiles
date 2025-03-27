@@ -26,6 +26,8 @@ D() {
 
 # Restart the shell.
 function restart_shell() {
+  # Might be needed as we do a lot to mess with our path.
+  export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
   exec -l $SHELL
 }
 

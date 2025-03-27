@@ -114,7 +114,7 @@ set_ps1() {
         dwmkerr)
             # The current folder, up to 3 items shown, the git info, then the prompt.
             # Starts with a leading newline to space out commands.
-            PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)"$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
+            PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)\$(_python_info) "$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
         ;;
 
         dwmkerr_context)
@@ -199,6 +199,19 @@ _pwd_max_folders() {
     # of the directories, up to the max folders value.
     echo "${PWD/#$HOME/~}" | rev | cut -d'/' -f1-${max_folders} | rev
 }
+
+_python_info() {
+    local fg_magenta=$(tput setaf 5)   # \033[35m
+    local reset=$(tput sgr0)
+    local python_env_output=$(python_env)
+    if [ -n "$python_env_output" ]; then
+        # Wrap the output in yellow only when used in the prompt.
+        echo " ${fg_magenta}${python_env_output}${reset}"
+    else
+        echo ""
+    fi
+}
+
 
 # Convert a Bash PS1 string to a ZSH PS1 string.
 _to_zsh() {

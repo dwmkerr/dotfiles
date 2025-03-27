@@ -25,3 +25,6 @@ alias vimnilla='vi -u NONE'
 
 # Open bash without loading and config.
 alias bashnilla='bash --noprofile --norc'
+
+# Grep should use color if it can.
+alias grep='grep --color=auto'
