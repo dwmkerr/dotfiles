@@ -117,6 +117,12 @@ set_ps1() {
             PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)\$(_python_info) "$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
         ;;
 
+        dwmkerr_simple)
+            # The current folder, up to 3 items shown.
+            # Simplified, good for demos.
+            PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] "$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
+        ;;
+
         dwmkerr_context)
             # Same as 'dwmkerr' but with the 'context' app information.
             PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info) \$(_context_info)"$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
