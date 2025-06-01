@@ -26,8 +26,8 @@ cast_to_svg_gif() {
 
 record() {
   # Show the help.
-  if [ $# -le 2 ]; then
-    echo "Usage: record <directory> <output> <ps1?> <profile?> <title?>"
+  if [ "$1" == "-h" ]; then
+    echo "Usage: record <directory> <output> <ps1> <profile> <title>"
     echo "  directory: the directory to move to and start the recording in"
     echo "  output   : the output filename, e.g: 'demo' (will be saved in <directory>) "
     echo "  ps1      : (optional) the ps1 name to use (default 'dwmkerr')"
@@ -37,8 +37,8 @@ record() {
   fi
 
   # Grab the parameters.
-  local dir="$1"
-  local outfile="$2"
+  local dir="${1:-$PWD}"
+  local outfile="${2:-recording}"
   local ps1="${3:-dwmkerr}"
   local title="${4:-Terminal AI}"
   local profile="${5:-dwmkerr-recording}"
@@ -64,6 +64,7 @@ tell application "iTerm"
         write text "clear"
         write text "cd ${dir}"
         write text "set_ps1 ${ps1}"
+        write text "source ./init.sh"
         write text "asciinema rec --overwrite --title '${title}' ${dir}/${outfile}.cast && echo 'done'"
         write text "echo 'complete'"
     end tell

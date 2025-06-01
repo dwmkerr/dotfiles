@@ -12,6 +12,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 
+" Neovim lspconfig for all of the LSP goodness.
+Plug 'neovim/nvim-lspconfig'
+
 Plug 'fatih/vim-go'        " Brutal Golang features
 Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
 Plug 'w0rp/ale'            " Asynchronous Linting Engine.
@@ -111,9 +114,19 @@ map <left> :bp<cr>
 map <up> :w<cr>
 map <down> :bd<cr>
 
+" My favourite leader mappings.
+
+" <Leader>x closes all but the current buffer.
+nnoremap <leader>x :%bd\|e#\|bd#<cr>
+
 " Ctrl+c exits in the same way as Esc (including sending InsertLeave)
 :imap jj <Esc>
 :ino <C-c> <Esc>
+
+" Map leader s to save.
+nnoremap <leader>s :w<cr>
+inoremap <leader>s <C-c>:w<cr>
+
 
 " Tell search and other tools to ignore files that we don't want to search.
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
@@ -322,6 +335,8 @@ set wildmenu
     " be more strict with code!
     let g:ale_python_mypy_options = '--no-strict-optional'
 
+    autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'pyproject.toml', 'setup.cfg']
+
 " Template settings
 
     " When we have templates, try and use the 'base' type for the syntax, e.g.
@@ -348,10 +363,6 @@ set wildmenu
         autocmd InsertLeave * :set number relativenumber
     augroup end
 
-" Map leader s to save.
-nnoremap <leader>s :w<cr>
-inoremap <leader>s <C-c>:w<cr>
-
 " Splitjoin Plugin
 " Remember it like this: 's' for 'split', j splits down, k up.
 nmap sj :SplitjoinSplit<cr>
@@ -373,6 +384,11 @@ noremap <leader><leader> :tabnew %<cr>
 
     " When a 'prettierrc' config is present, use it:
     " https://prettier.io/docs/en/vim.html#alehttpsgithubcomdense-analysisale
+
+    " Enable ALE for Python files using flake8.
+    let g:ale_linters = {
+        \   'python': ['flake8'],
+        \}
 
     " Use prettier for JS/CSS.
     let g:ale_fixers = {
@@ -639,3 +655,27 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+" Toggle line numbers - useful in Nerdtree
+" The autocmd overrides nerdtree defaults - we use number in insert mode and
+" rel otherwise.
+autocmd FileType nerdtree setlocal number relativenumber
+let g:last_number_mode = {}
+function! ToggleLineNumbers()
+  if &number || &relativenumber
+    " Save current mode globally
+    let g:last_number_mode = {
+          \ 'number': &number,
+          \ 'relativenumber': &relativenumber
+          \ }
+    set nonumber norelativenumber
+  else
+    " Restore last known mode, or fall back to number only
+    if !empty(g:last_number_mode)
+      execute g:last_number_mode.number         ? 'set number'         : 'set nonumber'
+      execute g:last_number_mode.relativenumber ? 'set relativenumber' : 'set norelativenumber'
+    else
+      set number
+    endif
+  endif
+endfunction
+nnoremap <leader>l :call ToggleLineNumbers()<CR>

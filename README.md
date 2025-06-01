@@ -46,6 +46,7 @@ Some key features are:
 - [Effective Tmux](#effective-tmux)
 - [Effective Vim](#effective-vim)
     - [The Golden Rule](#the-golden-rule)
+    - [Workspaces](#workspaces)
     - [Process & Copy Buffer](#process--copy-buffer)
     - [NerdTree](#nerdtree)
     - [fzf-lua](#fzf-lua)
@@ -376,6 +377,22 @@ Here's some of the stuff I find most useful.
 ### The Golden Rule
 
 If you repeat yourself or do dumb formatting crap, find the idiomatically correct way to do something or use a plugin. Always look up native ways first.
+
+### Workspaces
+
+If you have a monorepo with folders like `backend` and `frontend`, you need Vim to understand that each is a 'workspace'. This is handled with config like:
+
+```vim
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'pyproject.toml', 'setup.cfg']
+```
+
+Check with:
+
+```vim
+:CocList folders
+```
+
+See: https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders
 
 ### Process & Copy Buffer
 
