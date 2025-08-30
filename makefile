@@ -27,6 +27,10 @@ private-files-backup: # Backup private config files (ssh keys etc).
 private-files-restore: # Restore private config files (ssh keys etc).
 	./private-files/private-files-restore.sh
 
+.PHONY: install-binaries
+install-binaries: # Install dotfiles binaries to /usr/local/bin.
+	./scripts/install-binaries.sh
+
 .PHONY: setup
 setup: # Setup the local machine.
 	./setup.sh
