@@ -18,6 +18,8 @@ link: # Creates symbolic links.
 	ln -sf ${PWD}/zsh/zshrc ~/.zshrc
 	ln -sf ${PWD}/ag/ignore ~/.ignore
 	ln -sf ${PWD}/VSCode/settings.json  '~/Library/Application Support/Code/User/settings.json'
+	mkdir -p ~/.claude
+	ln -sf ${PWD}/.claude/CLAUDE.md ~/.claude/CLAUDE.md
 
 .PHONY: private-files-backup
 private-files-backup: # Backup private config files (ssh keys etc).
