@@ -17,7 +17,9 @@ link: # Creates symbolic links.
 	ln -sf ${PWD}/ack/ackrc ~/.ackrc
 	ln -sf ${PWD}/zsh/zshrc ~/.zshrc
 	ln -sf ${PWD}/ag/ignore ~/.ignore
-	ln -sf ${PWD}/VSCode/settings.json  '~/Library/Application Support/Code/User/settings.json'
+	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sf ${PWD}/VSCode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
+	mkdir -p ~/.claude
+	ln -sf ${PWD}/.claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
 
 .PHONY: private-files-backup
 private-files-backup: # Backup private config files (ssh keys etc).
