@@ -363,6 +363,9 @@ set wildmenu
         autocmd InsertLeave * :set number relativenumber
     augroup end
 
+" Resize splits when terminal size changes (e.g., tmux zoom)
+autocmd VimResized * wincmd =
+
 " Splitjoin Plugin
 " Remember it like this: 's' for 'split', j splits down, k up.
 nmap sj :SplitjoinSplit<cr>
