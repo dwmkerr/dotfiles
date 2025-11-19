@@ -239,6 +239,12 @@ This also installs common CLI applications, such as `tree`, as well as GNU tools
 
 `ag` is setup and will use a global ignore file at `~/.ignore`. `vim-ack` also uses this file.
 
+**Claude Code**
+
+Configuration for Claude Code CLI is managed via symlinks. Settings are stored in `claude/settings.json` and linked to `~/.claude/settings.json`.
+
+To view or edit Claude Code settings, use the `/config` command within Claude Code.
+
 ## Developer Guide
 
 There's not much to say really, just follow the principles below:
@@ -329,7 +335,10 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 | `<leader>t`                          | Open current file in NERDTree.                                                                                                    |
 | `<leader>w`                          | Write buffer.                                                                                                                     |
 | `<leader>\\`                         | Open buffer in new tab.                                                                                                           |
-| `<leader>d`                          | Open word under cursor in Dash.                                                                                                   |
+| `<leader>d`                          | Open diffview (git diff viewer).                                                                                                  |
+| `<leader>D`                          | Open file history for all files.                                                                                                  |
+| `<leader>dh`                         | Open file history for current file.                                                                                               |
+| `<leader>dc`                         | Close diffview.                                                                                                                   |
 | `<leader>t`                          | Show current buffer in NERDTree.                                                                                                  |
 | `<leader>F`                          | Toggle focus mode.                                                                                                                |
 | **Other Commands**                   |                                                                                                                                   |

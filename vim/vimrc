@@ -25,9 +25,9 @@ Plug 'tpope/vim-repeat'    " Allow the 'dot' for repeating even for plugins.
 Plug 'mileszs/ack.vim'     " Ack support.
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'rizzatti/dash.vim'   " Dash support.
 Plug 'dhruvasagar/vim-table-mode' " Easily format tables on the fly with vim.
 Plug 'tpope/vim-fugitive'  " Git support.
+Plug 'sindrets/diffview.nvim'  " Enhanced git diff viewer.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}   " Modern, LSP-based autocompletion.
 
 " FZF Vim Integration. fzf-lua replaces vim.fzf.
@@ -454,8 +454,11 @@ endif
     " open the first result automatically".
     :noremap <Leader>a :Ack!
 
-" Leader d to open in Dash.
-:nmap <silent> <leader>d <Plug>DashSearch
+" Diffview mappings
+:nmap <silent> <leader>d :DiffviewOpen<CR>
+:nmap <silent> <leader>D :DiffviewFileHistory<CR>
+:nmap <silent> <leader>dh :DiffviewFileHistory %<CR>
+:nmap <silent> <leader>dc :DiffviewClose<CR>
 
 " Use persistent undo.
 if !isdirectory($HOME."/.vim/undo")
@@ -679,3 +682,6 @@ function! ToggleLineNumbers()
   endif
 endfunction
 nnoremap <leader>l :call ToggleLineNumbers()<CR>
+
+" Kubectl: Apply current buffer to kubectl
+command! KubectlApply :w !kubectl apply -f -
