@@ -43,7 +43,7 @@ When creating pull requests, use this simple format:
 
 ## Supported Commit Types
 - `feat`: New features
-- `fix`: Bug fixes
+- `fix`: Bug fixes  
 - `docs`: Documentation changes
 - `chore`: Maintenance tasks
 - `refactor`: Code refactoring
