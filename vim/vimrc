@@ -163,6 +163,12 @@ set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
     " let g:onedark_terminal_italics=1
     colorscheme onedark
 
+" Subtle diff highlighting (faint green/red backgrounds for diffview)
+highlight DiffAdd    guibg=#2d3b2d guifg=NONE
+highlight DiffDelete guibg=#3b2d2d guifg=#5c6370
+highlight DiffChange guibg=#2d3b3b guifg=NONE
+highlight DiffText   guibg=#3b5b3b guifg=NONE
+
 " Cursor Configuration
    set guicursor=n-c-v:block-nCursor,i-ci:ver100-iCursor-blinkon200-blinkoff150
 
@@ -437,6 +443,11 @@ if has('nvim')
         --    rg_opts = "--color=always --smart-case -g '!{.git,node_modules}/'",
         --  },
         --})
+
+        -- Diffview: enable enhanced diff highlighting
+        require("diffview").setup({
+            enhanced_diff_hl = true,
+        })
 EOF
 endif
 
