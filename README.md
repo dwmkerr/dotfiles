@@ -241,9 +241,39 @@ This also installs common CLI applications, such as `tree`, as well as GNU tools
 
 **Claude Code**
 
-Configuration for Claude Code CLI is managed via symlinks. Settings are stored in `claude/settings.json` and linked to `~/.claude/settings.json`.
+Configuration for Claude Code CLI is managed via symlinks:
+- `claude/CLAUDE.md` → `~/.claude/CLAUDE.md`
+- `claude/settings.json` → `~/.claude/settings.json`
+- `claude/statusline.sh` → `~/.claude/statusline.sh`
 
 To view or edit Claude Code settings, use the `/config` command within Claude Code.
+
+### Preferred Plugins
+
+After setup, install preferred marketplace plugins:
+
+```bash
+# Add marketplaces
+/plugin marketplace add dwmkerr/dwmkerr-plugins
+/plugin marketplace add anthropics/skills
+/plugin marketplace add context-engineering-marketplace
+/plugin marketplace add claude-toolkit
+
+# Install plugins
+/plugin install dwmkerr@dwmkerr-plugins
+/plugin install anthropics@skills
+/plugin install context-engineering-fundamentals@context-engineering-marketplace
+/plugin install skills@claude-toolkit
+```
+
+| Marketplace | Plugin | Description |
+|-------------|--------|-------------|
+| `dwmkerr-plugins` | `dwmkerr` | Personal agents & skills (research, writing, typescript) |
+| `anthropics/skills` | `anthropics` | Official Anthropic skills (docx, pptx, xlsx, pdf) |
+| `context-engineering-marketplace` | `context-engineering-fundamentals` | Context engineering patterns |
+| `claude-toolkit` | `skills` | Claude toolkit utilities |
+
+Discovery: [VoltAgent/awesome-claude-skills](https://github.com/VoltAgent/awesome-claude-skills)
 
 ## Developer Guide
 
