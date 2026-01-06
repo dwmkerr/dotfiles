@@ -1,5 +1,15 @@
 # CLAUDE.md
 
+# GitHub Repository Access
+
+**CRITICAL**: WebFetch is blocked for GitHub URLs. To explore any GitHub repository:
+
+```bash
+git clone --depth 1 https://github.com/<owner>/<repo> /tmp/<repo>
+```
+
+Then read files from `/tmp/<repo>`. Always use `/tmp` for temporary clones.
+
 # Comments Guidelines
 
 **NEVER add breadcrumb comments** that simply describe what the code does or what it was changed from. Instead, use comments to explain WHY the current approach was chosen.

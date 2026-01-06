@@ -16,7 +16,7 @@ Plug 'rakr/vim-one'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'fatih/vim-go'        " Brutal Golang features
-Plug 'scrooloose/nerdtree' " NerdTree is a tree view for vim.
+Plug 'nvim-tree/nvim-tree.lua' " File explorer tree for neovim.
 Plug 'w0rp/ale'            " Asynchronous Linting Engine.
 Plug 'vim-airline/vim-airline'    " A useful statusbar.
 Plug 'sjl/vitality.vim'    " Nicer cursor, tmux interactions.
@@ -184,28 +184,53 @@ set dir=~/tmp
 " Wildmenu settings, provides much nicer tab completion for commands.
 set wildmenu
 
-" Plugin: NerdTree settings
+" Plugin: nvim-tree settings (requires neovim)
+if has('nvim')
+lua << EOF
+    local ok, nvim_tree = pcall(require, "nvim-tree")
+    if ok then
+        nvim_tree.setup({
+            filters = {
+                dotfiles = false,  -- show hidden files
+                custom = { "^.git$", "^node_modules$", "^.nyc_output$" },
+            },
+            view = {
+                number = true,
+                relativenumber = true,
+            },
+            renderer = {
+                icons = {
+                    show = {
+                        git = false,
+                        folder = false,
+                        file = false,
+                        folder_arrow = true,
+                    },
+                },
+            },
+            update_focused_file = {
+                enable = true,
+            },
+            filesystem_watchers = {
+                enable = true,  -- auto-refresh on file changes
+            },
+        })
+    end
 
-    " Toggle NerdTree with Ctrl+N
-    map <C-n> :NERDTreeToggle<CR>
+    -- Toggle nvim-tree with Ctrl+N
+    vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { silent = true })
 
-    " Show or hide hidden files.
-    let NERDTreeShowHidden=1
-
-    " But still ignore some normally not needed files.
-    let g:NERDTreeIgnore=['\.git$[[dir]]', 'node_modules$[[dir]]', '\.nyc_output$[[dir]]']
-
-    " Ignore the files in our 'wildignore' settings (see higher up in the file).
-    let NERDTreeRespectWildIgnore=1
-
-    " Show the current file in NERDTree.
-    map <leader>t :NERDTreeFind<cr>
+    -- Show current file in nvim-tree
+    vim.keymap.set("n", "<leader>t", "<cmd>NvimTreeFindFile<CR>", { silent = true })
+EOF
+endif
 
 " Plugin: Airline Settings
 
     " Show the buffers in the tabline.
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#neomake#enabled = 0
+    let g:airline_theme = 'onedark'
 
 " Language Settings
 
@@ -662,10 +687,7 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-" Toggle line numbers - useful in Nerdtree
-" The autocmd overrides nerdtree defaults - we use number in insert mode and
-" rel otherwise.
-autocmd FileType nerdtree setlocal number relativenumber
+" Toggle line numbers
 let g:last_number_mode = {}
 function! ToggleLineNumbers()
   if &number || &relativenumber
