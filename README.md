@@ -255,7 +255,8 @@ After setup, install preferred marketplace plugins:
 ```bash
 # Add marketplaces
 /plugin marketplace add dwmkerr/dwmkerr-plugins
-/plugin marketplace add anthropics/skills
+/plugin marketplace add anthropics/skills]
+# https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering
 /plugin marketplace add context-engineering-marketplace
 /plugin marketplace add claude-toolkit
 
