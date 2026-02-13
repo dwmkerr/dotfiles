@@ -276,6 +276,22 @@ After setup, install preferred marketplace plugins:
 
 Discovery: [VoltAgent/awesome-claude-skills](https://github.com/VoltAgent/awesome-claude-skills)
 
+### MCP Servers
+
+Common MCP (Model Context Protocol) servers:
+
+```bash
+# Context7 - Up-to-date documentation for libraries
+claude mcp add --transport http context7 https://mcp.context7.com/mcp
+
+# If you have a Context7 API key:
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+```
+
+| Server | Description |
+|--------|-------------|
+| [Context7](https://github.com/upstash/context7) | Fetches up-to-date documentation for libraries |
+
 ## Developer Guide
 
 There's not much to say really, just follow the principles below:
