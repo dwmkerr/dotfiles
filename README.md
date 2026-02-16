@@ -257,6 +257,8 @@ Configuration for Claude Code CLI is managed via symlinks:
 
 To view or edit Claude Code settings, use the `/config` command within Claude Code.
 
+For detailed setup guidance, see: [trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)
+
 ### Preferred Plugins
 
 After setup, install preferred marketplace plugins:
