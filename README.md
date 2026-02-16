@@ -27,6 +27,7 @@ Some key features are:
 <!-- vim-markdown-toc GFM -->
 
 - [Introduction](#introduction)
+- [Detailed Documentation](#detailed-documentation)
 - [Quick Start](#quick-start)
 - [SSH Keys, GPG Keys and Private Files](#ssh-keys-gpg-keys-and-private-files)
     - [Backing Up Private Files](#backing-up-private-files)
@@ -65,6 +66,14 @@ Some key features are:
 ## Introduction
 
 The goal of this project is to provide a single command which will setup key features of the system. Each feature should be _orthogonal_ and not depend on other features.
+
+## Detailed Documentation
+
+Additional detailed guides and configuration are available:
+
+- [Transcription](./transcription/README.md) - Voice-to-text transcription setup and tools
+- [Terminal](./terminal/README.md) - Terminal themes and configuration
+- [Desktop](./desktop/README.md) - Desktop environment setup
 
 ## Quick Start
 

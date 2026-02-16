@@ -3,8 +3,9 @@
 # Read JSON input from stdin
 input=$(cat)
 
-# Extract current directory using jq
+# Extract current directory and model name using jq
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+MODEL_NAME=$(echo "$input" | jq -r '.model.display_name')
 
 # Colors using ANSI codes directly
 reset=$'\e[0m'
@@ -12,6 +13,7 @@ bold=$'\e[1m'
 fg_blue=$'\e[34m'
 fg_green=$'\e[32m'
 fg_grey=$'\e[90m'
+fg_purple=$'\e[35m'
 # Context colors based on usage thresholds
 ctx_green=$'\e[92m'      # 0-30% used
 ctx_yellow=$'\e[93m'     # 30-50% used
@@ -54,5 +56,11 @@ if [ "$usage" != "null" ] && [ "$context_size" != "null" ] && [ "$context_size" 
     context_display=" ${fg_grey}|${reset} ${ctx_color}${remaining}%${reset} ${fg_grey}context left${reset}"
 fi
 
+# Build model display
+model_display=""
+if [ -n "$MODEL_NAME" ] && [ "$MODEL_NAME" != "null" ]; then
+    model_display=" ${fg_grey}|${reset} ${fg_purple}${MODEL_NAME}${reset}"
+fi
+
 # Output the status line
-echo "${bold}${fg_blue}${pwd_display}${reset}${git_info} ${fg_grey}? for help${reset}${context_display}"
+echo "${bold}${fg_blue}${pwd_display}${reset}${git_info} ${fg_grey}? for help${reset}${context_display}${model_display}"
