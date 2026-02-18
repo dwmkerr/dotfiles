@@ -1,0 +1,63 @@
+# Claude Code
+
+Configuration and setup for [Claude Code](https://claude.ai/code) CLI.
+
+## Configuration
+
+Configuration files are managed via symlinks from this directory:
+
+- `claude/CLAUDE.md` → `~/.claude/CLAUDE.md`
+- `claude/settings.json` → `~/.claude/settings.json`
+- `claude/statusline.sh` → `~/.claude/statusline.sh`
+
+To view or edit settings, use the `/config` command within Claude Code.
+
+For detailed setup guidance, see: [trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)
+
+## Preferred Plugins
+
+After setup, install preferred marketplace plugins:
+
+```bash
+# Add marketplaces
+/plugin marketplace add dwmkerr/dwmkerr-plugins
+/plugin marketplace add anthropics/skills]
+# https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering
+/plugin marketplace add context-engineering-marketplace
+/plugin marketplace add claude-toolkit
+
+# Install plugins
+/plugin install dwmkerr@dwmkerr-plugins
+/plugin install anthropics@skills
+/plugin install context-engineering-fundamentals@context-engineering-marketplace
+/plugin install skills@claude-toolkit
+```
+
+| Marketplace | Plugin | Description |
+|-------------|--------|-------------|
+| `dwmkerr-plugins` | `dwmkerr` | Personal agents & skills (research, writing, typescript) |
+| `anthropics/skills` | `anthropics` | Official Anthropic skills (docx, pptx, xlsx, pdf) |
+| `context-engineering-marketplace` | `context-engineering-fundamentals` | Context engineering patterns |
+| `claude-toolkit` | `skills` | Claude toolkit utilities |
+
+Discovery: [VoltAgent/awesome-claude-skills](https://github.com/VoltAgent/awesome-claude-skills)
+
+## MCP Servers
+
+Common MCP (Model Context Protocol) servers:
+
+```bash
+# Context7 - Up-to-date documentation for libraries
+claude mcp add --transport http context7 https://mcp.context7.com/mcp
+
+# If you have a Context7 API key:
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+
+# Notion - Access Notion workspace
+claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
+```
+
+| Server | Description |
+|--------|-------------|
+| [Context7](https://github.com/upstash/context7) | Fetches up-to-date documentation for libraries |
+| [Notion](https://mcp.notion.com) | Access Notion workspace |
