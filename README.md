@@ -295,11 +295,15 @@ claude mcp add --transport http context7 https://mcp.context7.com/mcp
 
 # If you have a Context7 API key:
 claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+
+# Notion - Access Notion workspace
+claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
 ```
 
 | Server | Description |
 |--------|-------------|
 | [Context7](https://github.com/upstash/context7) | Fetches up-to-date documentation for libraries |
+| [Notion](https://mcp.notion.com) | Access Notion workspace |
 
 ## Developer Guide
 
