@@ -66,6 +66,14 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
 
 [LM Studio](https://lmstudio.ai) runs local models offline via the `lms` CLI (see [`shell.d/lmstudio.sh`](../shell.d/lmstudio.sh)).
 
+```sh
+# Install
+brew install --cask lm-studio
+
+# Open GUI
+open -a "LM Studio"
+```
+
 **Recommended model:** [Qwen3-Coder-Next](https://huggingface.co/qwen/qwen3-coder-next) — 80B MoE with only 3B active parameters, optimised for Apple Silicon via MLX. ~45GB download.
 
 ```sh
