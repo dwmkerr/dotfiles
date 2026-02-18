@@ -66,23 +66,23 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
 
 [LM Studio](https://lmstudio.ai) runs local models offline via the `lms` CLI (see [`shell.d/lmstudio.sh`](../shell.d/lmstudio.sh)).
 
-**Recommended model:** [Qwen3-Coder-Next](https://huggingface.co/qwen/qwen3-coder-next) — 80B MoE with only 3B active parameters, optimised for Apple Silicon via MLX.
-
-Choose quantization based on available RAM:
-
-| Quantization | RAM Required | Quality |
-|--------------|-------------|---------|
-| `MLX-8bit` | ~24GB+ | Best |
-| `MLX-6bit` | ~18GB+ | Good |
-| `MLX-4bit` | ~12GB+ | Acceptable |
+**Recommended model:** [Qwen3-Coder-Next](https://huggingface.co/qwen/qwen3-coder-next) — 80B MoE with only 3B active parameters, optimised for Apple Silicon via MLX. ~45GB download.
 
 ```sh
-# Download (replace 8bit with 6bit or 4bit based on your RAM)
-lms get lmstudio-community/Qwen3-Coder-Next-MLX-8bit -y
+# Login first
+lms login
 
-# Load with full GPU and generous context window
-lms load lmstudio-community/Qwen3-Coder-Next-MLX-8bit --context-length 32768 --gpu max -y
+# Download - auto-selects best MLX quantization for your hardware
+lms get "Qwen3-Coder-Next" --mlx -y
+
+# Check the downloaded model name
+lms ls
+
+# Load with full GPU and generous context window (use name from lms ls)
+lms load qwen/qwen3-coder-next --context-length 32768 --gpu max -y
 
 # Start the local server (exposes OpenAI-compatible API on localhost:1234)
 lms server start
 ```
+
+> If the download times out, open LM Studio to resume it.
