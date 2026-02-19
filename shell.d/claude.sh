@@ -1,3 +1,5 @@
+# Inspired by https://github.com/trailofbits/claude-code-config
+
 alias claude-yolo="claude --dangerously-skip-permissions"
 
 # Run Claude Code against local LM Studio server
