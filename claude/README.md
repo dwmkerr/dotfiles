@@ -86,11 +86,29 @@ lms get "Qwen3-Coder-Next" --mlx -y
 # Check the downloaded model name
 lms ls
 
-# Load with full GPU and generous context window (use name from lms ls)
-lms load qwen/qwen3-coder-next --context-length 32768 --gpu max -y
+# Load with full GPU and large context window (use name from lms ls)
+lms load qwen/qwen3-coder-next --context-length 131072 --gpu max -y
 
 # Start the local server (exposes OpenAI-compatible API on localhost:1234)
 lms server start
 ```
 
 > If the download times out, open LM Studio to resume it.
+
+### Troubleshooting
+
+**"The number of tokens to keep from the initial prompt is greater than the context length"** — Claude Code's system prompt is large. Try reducing it:
+
+```sh
+# Disable auto-loaded tools first
+claude-local --strict-mcp-config
+
+# If still failing, also strip skills and use a minimal system prompt
+claude-local --strict-mcp-config --disable-slash-commands --system-prompt "You are a helpful coding assistant."
+```
+
+**"request.thinking.type: Invalid discriminator value. Expected 'enabled' | 'disabled'"** — Disable extended thinking:
+
+```sh
+claude-local --settings '{"alwaysThinkingEnabled": false}'
+```
