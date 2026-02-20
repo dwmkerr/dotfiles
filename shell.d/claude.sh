@@ -4,19 +4,23 @@ alias claude-yolo="claude --dangerously-skip-permissions"
 
 # Run Claude Code against local LM Studio server
 claude-local() {
+    echo "checking LM Studio server..."
     if ! curl -s http://localhost:1234/v1/models > /dev/null 2>&1; then
         echo "Error: LM Studio server is not running on localhost:1234" >&2
         echo "Start it with: lms server start" >&2
         return 1
     fi
 
+    echo "finding local models..."
     local model
-    model=$(curl -s http://localhost:1234/v1/models | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+    model=$(curl -s http://localhost:1234/v1/models | jq -r '.data[0].id // empty')
     if [ -z "$model" ]; then
         echo "Error: No models loaded in LM Studio" >&2
         echo "Load a model with: lms load <model>" >&2
         echo "List downloaded models: lms ls" >&2
         return 1
+    else
+        echo "using model: ${model}"
     fi
 
     ANTHROPIC_BASE_URL=http://localhost:1234 \
