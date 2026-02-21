@@ -24,7 +24,14 @@
       "Bash(~/.lmstudio/bin/lms search:*)",
       "Bash(~/.lmstudio/bin/lms:*)",
       "WebFetch(domain:github.com)",
-      "Skill(toolkit:claude-code-statusline-development)"
+      "Skill(toolkit:claude-code-statusline-development)",
+      "mcp__shellwright__shell_start",
+      "mcp__shellwright__shell_send",
+      "mcp__shellwright__shell_read",
+      "mcp__shellwright__shell_screenshot",
+      "mcp__shellwright__shell_stop",
+      "mcp__shellwright__shell_record_start",
+      "mcp__shellwright__shell_record_stop"
     ]
   },
   "statusLine": {
