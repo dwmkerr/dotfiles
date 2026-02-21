@@ -10,35 +10,68 @@ Configuration files are managed via symlinks from this directory:
 - `claude/settings.json` → `~/.claude/settings.json`
 - `claude/statusline.sh` → `~/.claude/statusline.sh`
 
+Run `make link` to create or refresh symlinks. Claude Code writes through symlinks safely.
+
 To view or edit settings, use the `/config` command within Claude Code.
 
 For detailed setup guidance, see: [trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)
 
-## Preferred Plugins
+### Settings layers
 
-After setup, install preferred marketplace plugins:
+Claude Code merges settings from three layers:
+
+| Layer | File | Version-controlled | Contents |
+|-------|------|--------------------|----------|
+| Global | `~/.claude/settings.json` (symlink → repo) | Yes | Plugins, universal permissions, statusline, env vars, feature flags |
+| Global local | `~/.claude/settings.local.json` | No | Machine-specific permissions (e.g. notion, python), sensitive config |
+| Project local | `.claude/settings.local.json` | No | Project-specific permissions |
+
+**Rule of thumb:** if a permission is safe everywhere, put it in `settings.json`. If it's machine/account-specific, use `settings.local.json`. If it's destructive or project-specific, use the project-level file.
+
+## Plugins
+
+Enabled plugins are stored in `settings.json`. To set up from scratch:
 
 ```bash
-# Add marketplaces
-/plugin marketplace add dwmkerr/dwmkerr-plugins
-/plugin marketplace add anthropics/skills]
-# https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering
+# Context engineering patterns
 /plugin marketplace add context-engineering-marketplace
-/plugin marketplace add claude-toolkit
-
-# Install plugins
-/plugin install dwmkerr@dwmkerr-plugins
-/plugin install anthropics@skills
 /plugin install context-engineering-fundamentals@context-engineering-marketplace
-/plugin install skills@claude-toolkit
-```
 
-| Marketplace | Plugin | Description |
-|-------------|--------|-------------|
-| `dwmkerr-plugins` | `dwmkerr` | Personal agents & skills (research, writing, typescript) |
-| `anthropics/skills` | `anthropics` | Official Anthropic skills (docx, pptx, xlsx, pdf) |
-| `context-engineering-marketplace` | `context-engineering-fundamentals` | Context engineering patterns |
-| `claude-toolkit` | `skills` | Claude toolkit utilities |
+# Claude toolkit - utilities and skills
+/plugin marketplace add claude-toolkit
+/plugin install skills@claude-toolkit
+/plugin install toolkit@claude-toolkit
+/plugin install dwmkerr@claude-toolkit
+
+# Personal agents (research, writing, typescript) and protocols
+/plugin marketplace add dwmkerr-claude-toolkit
+/plugin install dwmkerr-toolkit@dwmkerr-claude-toolkit
+/plugin install protocols@dwmkerr-claude-toolkit
+
+# Ark platform agents
+/plugin marketplace add agents-at-scale-ark
+/plugin install ark@agents-at-scale-ark
+
+# AI26 tools (PDF conversion)
+/plugin marketplace add ai26
+/plugin install ai26@ai26
+
+# Document skills (docx, pptx, xlsx, pdf)
+/plugin marketplace add anthropic-agent-skills
+/plugin install document-skills@anthropic-agent-skills
+
+# TDD, debugging, brainstorming, git worktrees
+/plugin marketplace add claude-plugins-official
+/plugin install superpowers@claude-plugins-official
+
+# CX tools (git, issues, testing)
+/plugin marketplace add ccp
+/plugin install cx@ccp
+
+# Problem-solving pipeline
+/plugin marketplace add pspipe
+/plugin install ps@pspipe
+```
 
 Discovery: [VoltAgent/awesome-claude-skills](https://github.com/VoltAgent/awesome-claude-skills)
 
@@ -61,6 +94,18 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
 |--------|-------------|
 | [Context7](https://github.com/upstash/context7) | Fetches up-to-date documentation for libraries |
 | [Notion](https://mcp.notion.com) | Access Notion workspace |
+
+## Shell Autocomplete
+
+Tab completion for the `claude` CLI (flags, subcommands, model names, etc.). Works in bash and zsh.
+
+**Already using these dotfiles?** It's sourced automatically from [`shell.d/claude-autocomplete.sh`](../shell.d/claude-autocomplete.sh).
+
+**Standalone install** — add to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+source <(curl -fsSL https://raw.githubusercontent.com/dwmkerr/dotfiles/main/shell.d/claude-autocomplete.sh)
+```
 
 ## Offline Coding with LM Studio
 

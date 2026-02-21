@@ -6,22 +6,22 @@ help: # Show help for each of the Makefile recipes.
 
 .PHONY: link
 link: # Creates symbolic links.
-	ln -sf ${PWD}/shell.sh ~/.shell.sh
-	ln -sf ${PWD}/shell.d ~/.shell.d
-	ln -sf ${PWD}/shell.functions.d ~/.shell.functions.d
-	ln -sf ${PWD}/shell.private.d ~/.shell.private.d
-	ln -sf ${PWD}/vim/vimrc ~/.vimrc
-	ln -sf ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
-	ln -sf ${PWD}/vim/coc-settings.json ~/.config/nvim/coc-settings.json
-	ln -sf ${PWD}/tmux/tmux.conf ~/.tmux.conf
-	ln -sf ${PWD}/ack/ackrc ~/.ackrc
-	ln -sf ${PWD}/zsh/zshrc ~/.zshrc
-	ln -sf ${PWD}/ag/ignore ~/.ignore
-	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sf ${PWD}/VSCode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
+	ln -sfn ${PWD}/shell.sh ~/.shell.sh
+	ln -sfn ${PWD}/shell.d ~/.shell.d
+	ln -sfn ${PWD}/shell.functions.d ~/.shell.functions.d
+	ln -sfn ${PWD}/shell.private.d ~/.shell.private.d
+	ln -sfn ${PWD}/vim/vimrc ~/.vimrc
+	ln -sfn ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
+	ln -sfn ${PWD}/vim/coc-settings.json ~/.config/nvim/coc-settings.json
+	ln -sfn ${PWD}/tmux/tmux.conf ~/.tmux.conf
+	ln -sfn ${PWD}/ack/ackrc ~/.ackrc
+	ln -sfn ${PWD}/zsh/zshrc ~/.zshrc
+	ln -sfn ${PWD}/ag/ignore ~/.ignore
+	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/VSCode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
 	mkdir -p ~/.claude
-	ln -sf ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
-	ln -sf ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
-	ln -sf ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
+	ln -sfn ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
+	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
+	ln -sfn ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
 
 .PHONY: private-files-backup
 private-files-backup: # Backup private config files (ssh keys etc).

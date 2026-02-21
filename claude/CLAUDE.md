@@ -1,14 +1,27 @@
 # CLAUDE.md
 
-# GitHub Repository Access
+# Temporary Files
 
-**CRITICAL**: WebFetch is blocked for GitHub URLs. To explore any GitHub repository:
+When working in a git repo, use `./scratch/` for temporary files (cloned repos, test outputs, scratch work). This keeps them discoverable and easy to clean up. No special permissions are needed — just ensure it's gitignored:
 
 ```bash
-git clone --depth 1 https://github.com/<owner>/<repo> /tmp/<repo>
+mkdir -p ./scratch
+grep -qxF 'scratch/' .gitignore 2>/dev/null || echo 'scratch/' >> .gitignore
 ```
 
-Then read files from `/tmp/<repo>`. Always use `/tmp` for temporary clones.
+When not in a git repo, use `/tmp` instead.
+
+# GitHub Repository Access
+
+WebFetch cannot easily access GitHub repository content. Clone the repo instead:
+
+```bash
+# In a git repo — use scratch
+git clone --depth 1 https://github.com/<owner>/<repo> ./scratch/<repo>
+
+# Outside a git repo — use /tmp
+git clone --depth 1 https://github.com/<owner>/<repo> /tmp/<repo>
+```
 
 # Comments Guidelines
 
