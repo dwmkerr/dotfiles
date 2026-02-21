@@ -4,18 +4,55 @@
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
   },
   "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git clone:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr create:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(brew info:*)",
+      "Bash(CLAUDECODE=\"\" command claude --help)",
+      "Bash(lms search:*)",
+      "Bash(~/.lmstudio/bin/lms search:*)",
+      "Bash(~/.lmstudio/bin/lms:*)",
+      "WebFetch(domain:github.com)",
+      "Skill(toolkit:claude-code-statusline-development)",
+      "mcp__shellwright__shell_start",
+      "mcp__shellwright__shell_send",
+      "mcp__shellwright__shell_read",
+      "mcp__shellwright__shell_screenshot",
+      "mcp__shellwright__shell_stop",
+      "mcp__shellwright__shell_record_start",
+      "mcp__shellwright__shell_record_stop"
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
   "enabledPlugins": {
-    "dwmkerr@dwmkerr-plugins": true,
     "context-engineering-fundamentals@context-engineering-marketplace": true,
-    "skills@claude-toolkit": true
+    "skills@claude-toolkit": true,
+    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
+    "ark@agents-at-scale-ark": true,
+    "toolkit@claude-toolkit": true,
+    "ai26@ai26": true,
+    "document-skills@anthropic-agent-skills": true,
+    "dwmkerr@claude-toolkit": true,
+    "superpowers@claude-plugins-official": true,
+    "protocols@dwmkerr-claude-toolkit": true,
+    "cx@ccp": true,
+    "ps@pspipe": true
   },
   "alwaysThinkingEnabled": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754110186081
-  }
+  "skipDangerousModePermissionPrompt": true
 }
