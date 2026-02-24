@@ -59,6 +59,7 @@ Some key features are:
 - [Cheat Sheet - Shell](#cheat-sheet---shell)
 - [Tooling Choices](#tooling-choices)
     - [Vim](#vim)
+- [Contributors](#contributors)
 - [TODO](#todo)
 
 <!-- vim-markdown-toc -->
@@ -478,6 +479,46 @@ These are just some common commands I often forget:
 *Why Vim Plug over Vundle?*
 
 I was impressed enough with the comments on [this post](https://erikzaadi.com/2016/02/11/moving-from-vundle-to-vim-plug/) to make the switch, particularly as [coc](https://github.com/neoclide/coc.nvim) doesn't support Vundle, meaning I had to give Plug a try.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%">
+        <a href="https://github.com/dwmkerr">
+          <img src="https://avatars.githubusercontent.com/u/1271997?v=4" width="100px;" alt="Dave Kerr"/><br />
+          <sub><b>Dave Kerr</b></sub>
+        </a><br />
+        <a href="https://github.com/dwmkerr/dotfiles/commits?author=dwmkerr" title="Code">💻</a>
+        <a href="https://github.com/dwmkerr/dotfiles/commits?author=dwmkerr" title="Documentation">📖</a>
+        <a href="#ideas-dwmkerr" title="Ideas, Planning, & Feedback">🤔</a>
+      </td>
+      <td align="center" valign="top" width="14.28%">
+        <a href="https://github.com/LoKolbasz">
+          <img src="https://avatars.githubusercontent.com/LoKolbasz" width="100px;" alt="LoKolbasz"/><br />
+          <sub><b>LoKolbasz</b></sub>
+        </a><br />
+        <a href="#ideas-LoKolbasz" title="Ideas, Planning, & Feedback">🤔</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## TODO
 

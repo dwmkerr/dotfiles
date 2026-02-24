@@ -1,0 +1,35 @@
+{
+  "projectName": "dotfiles",
+  "projectOwner": "dwmkerr",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributorsPerLine": 7,
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors-)",
+  "contributors": [
+    {
+      "login": "dwmkerr",
+      "name": "Dave Kerr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1271997?v=4",
+      "profile": "https://github.com/dwmkerr",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
+    },
+    {
+      "login": "LoKolbasz",
+      "name": "LoKolbasz",
+      "avatar_url": "https://avatars.githubusercontent.com/LoKolbasz",
+      "profile": "https://github.com/LoKolbasz",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ]
+}
