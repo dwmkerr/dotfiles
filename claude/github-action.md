@@ -60,10 +60,6 @@ Standard GitHub notifications apply:
 - **Email** notifications
 - **Slack** via GitHub's Slack integration
 
-## Allowed tools
-
-The workflow restricts Bash to safe commands (`git`, `npm test`, `npm run build`, `make`). Edit the `allowed_tools` field in the workflow to expand this.
-
 ## Cost
 
 Typical usage: $0.05-$0.50 per invocation, $10-50/month depending on volume.
