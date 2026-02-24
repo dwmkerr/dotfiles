@@ -7,23 +7,20 @@ on:
     types: [opened, labeled]
   pull_request_review_comment:
     types: [created]
-  pull_request:
-    types: [opened, synchronize]
 
 jobs:
   claude:
-    # Trigger on @claude mentions or the 'claude' label
     if: |
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'issues' && github.event.action == 'labeled' && github.event.label.name == 'claude') ||
       (github.event_name == 'issues' && github.event.action == 'opened' && contains(github.event.issue.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude'))
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,4 +28,4 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          allowed_tools: "Bash(git status),Bash(git diff),Bash(git log),Bash(npm test),Bash(npm run build),Bash(make *)"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
