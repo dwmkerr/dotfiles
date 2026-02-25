@@ -4,7 +4,7 @@ Configuration and setup for [Claude Code](https://claude.ai/code) CLI.
 
 ## GitHub Action
 
-Claude Code can run on GitHub issues and PRs via the official `claude-code-action`. Mention `@claude` in an issue or PR comment to trigger it. See [github-action.md](./github-action.md) for setup and usage.
+Claude Code can run on GitHub issues and PRs via the official `claude-code-action`. Mention `@claude` in an issue or PR comment to trigger it. See [docs/claude-code-github](../docs/claude-code-github/README.md) for setup, template workflow, and credential strategy.
 
 ## Configuration
 
