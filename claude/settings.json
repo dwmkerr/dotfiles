@@ -53,6 +53,38 @@
     "cx@ccp": true,
     "ps@pspipe": true
   },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/tmux-notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/tmux-notify.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/tmux-notify.sh clear"
+          }
+        ]
+      }
+    ]
+  },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true
 }
