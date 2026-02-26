@@ -22,6 +22,8 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
 	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
 	ln -sfn ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
+	mkdir -p ~/.claude/hooks
+	ln -sfn ${PWD}/claude/hooks/tmux-notify.sh ~/.claude/hooks/tmux-notify.sh || echo "error: can't link tmux-notify.sh"
 
 .PHONY: private-files-backup
 private-files-backup: # Backup private config files (ssh keys etc).

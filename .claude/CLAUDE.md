@@ -52,6 +52,12 @@ When creating pull requests, use this simple format:
 - `build`: Build system changes
 - `perf`: Performance improvements
 
+# Tmux Notifications
+
+Claude Code hooks send a terminal bell on `Stop` and `Notification` events via `~/.claude/hooks/tmux-notify.sh`. This highlights the window tab (red), pane background, and appends 🔔 to the session name. Notifications auto-clear on pane focus, session switch, or next prompt submit.
+
+To disable: remove the `hooks` block from `claude/settings.json` and the tmux hooks from `tmux/tmux.conf` (the `set-hook` lines and `monitor-bell`).
+
 # Writing Style
 
 - **be concise and direct** - Remove unnecessary adjectives and verbose descriptions
