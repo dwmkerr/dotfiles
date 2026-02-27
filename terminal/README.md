@@ -4,6 +4,10 @@ For terminal colours, I like [atom-one-dark-terminal](https://github.com/nathanb
 
 The repo has been cloned here for quick access, but should be updated from time to time.
 
+## iTerm2 profiles
+
+Profiles in `iTerm2/` are managed as dynamic profiles. Each JSON file defines a single profile. See the main README for install instructions and `identities/README.md` for identity-specific profiles.
+
 ## OBS Terminal Recording Setup
 
 1. **OBS**: Create scene → Add "Window Capture" source → Select Terminal window

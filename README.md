@@ -158,19 +158,33 @@ The following steps have not yet been automated:
 
 ### iTerm2 Configuration
 
-Install the profile under `./terminal/dwmkerrj.json` which configures:
+Profiles are in `terminal/iTerm2/` and loaded as [dynamic profiles](https://iterm2.com/documentation-dynamic-profiles.html):
 
-- The [One Dark Theme](https://github.com/one-dark/iterm-one-dark-theme)
-- The Window to be automatically maximised to full screen
-- The Left Alt key to map to `Esc+`
+| Profile | Purpose |
+|---------|---------|
+| `dwmkerr` | Default terminal |
+| `dwmkerr-recording` | No transparency, for screen recordings |
+| `dwmkerr-agent` | Agent identity, dark purple background, isolated tmux |
+| `gdog` | gdog identity, dark teal background, isolated tmux |
 
-Then for the global preferences, set:
+Install all profiles:
 
-- General: AI - ([API Key](https://platform.openai.com/api-keys)
-- General: AI - set the prompt to a value from `prompts`. I find [`iterm2-ai-output-in-vim.txt`](./prompts/iterm2-ai-output-in-vim.txt) the best
+```bash
+for f in terminal/iTerm2/*.json; do
+    name=$(basename "$f" .json)
+    guid=$(uuidgen)
+    jq --arg guid "$guid" '{"Profiles": [. | .Guid = $guid]}' "$f" \
+        > ~/Library/Application\ Support/iTerm2/DynamicProfiles/"$name".json
+done
+```
+
+See `identities/README.md` for identity setup details.
+
+Global preferences:
+
 - General: Selection - (Enabled) Applications in terminal may access clipboard
 - General: Window (Disabled) Native full screen windows
-- Keys: HotKey - (Enabled) Show/hide all windows with a system-wide hotkey (⌥ +Space)
+- Keys: HotKey - (Enabled) Show/hide all windows with a system-wide hotkey (Alt+Space)
 
 ---
 

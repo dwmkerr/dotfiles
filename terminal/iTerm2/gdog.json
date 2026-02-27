@@ -1,0 +1,813 @@
+{
+  "Ansi 7 Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Brighten Bold Text (Light)": true,
+  "Ansi 15 Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 2 Color (Light)": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Bold Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 1 Color (Dark)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Use Bright Bold": true,
+  "Ansi 9 Color (Light)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Ansi 8 Color (Dark)": {
+    "Red Component": 0.46274510025978088,
+    "Color Space": "sRGB",
+    "Blue Component": 0.46274510025978088,
+    "Alpha Component": 1,
+    "Green Component": 0.46274510025978088
+  },
+  "Use Bright Bold (Dark)": true,
+  "Background Color": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Ansi 8 Color": {
+    "Red Component": 0.46274510025978088,
+    "Color Space": "sRGB",
+    "Blue Component": 0.46274510025978088,
+    "Alpha Component": 1,
+    "Green Component": 0.46274510025978088
+  },
+  "Columns": 80,
+  "Right Option Key Sends": 0,
+  "Ansi 4 Color (Light)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Blinking Cursor": false,
+  "Cursor Boost": 0.01,
+  "Selected Text Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Selected Text Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 3 Color (Dark)": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Keyboard Map": {
+    "0xf700-0x260000": {
+      "Text": "[1;6A",
+      "Action": 10
+    },
+    "0x37-0x40000": {
+      "Text": "0x1f",
+      "Action": 11
+    },
+    "0x32-0x40000": {
+      "Text": "0x00",
+      "Action": 11
+    },
+    "0xf709-0x20000": {
+      "Text": "[17;2~",
+      "Action": 10
+    },
+    "0xf70c-0x20000": {
+      "Text": "[20;2~",
+      "Action": 10
+    },
+    "0xf729-0x20000": {
+      "Text": "[1;2H",
+      "Action": 10
+    },
+    "0xf72b-0x40000": {
+      "Text": "[1;5F",
+      "Action": 10
+    },
+    "0xf705-0x20000": {
+      "Text": "[1;2Q",
+      "Action": 10
+    },
+    "0xf703-0x260000": {
+      "Text": "[1;6C",
+      "Action": 10
+    },
+    "0xf700-0x220000": {
+      "Text": "[1;2A",
+      "Action": 10
+    },
+    "0xf701-0x280000": {
+      "Text": "0x1b 0x1b 0x5b 0x42",
+      "Action": 11
+    },
+    "0x38-0x40000": {
+      "Text": "0x7f",
+      "Action": 11
+    },
+    "0x33-0x40000": {
+      "Text": "0x1b",
+      "Action": 11
+    },
+    "0xf703-0x220000": {
+      "Text": "[1;2C",
+      "Action": 10
+    },
+    "0xf701-0x240000": {
+      "Text": "[1;5B",
+      "Action": 10
+    },
+    "0xf70d-0x20000": {
+      "Text": "[21;2~",
+      "Action": 10
+    },
+    "0xf702-0x260000": {
+      "Text": "[1;6D",
+      "Action": 10
+    },
+    "0xf729-0x40000": {
+      "Text": "[1;5H",
+      "Action": 10
+    },
+    "0xf706-0x20000": {
+      "Text": "[1;2R",
+      "Action": 10
+    },
+    "0x34-0x40000": {
+      "Text": "0x1c",
+      "Action": 11
+    },
+    "0xf700-0x280000": {
+      "Text": "0x1b 0x1b 0x5b 0x41",
+      "Action": 11
+    },
+    "0x2d-0x40000": {
+      "Text": "0x1f",
+      "Action": 11
+    },
+    "0xf70e-0x20000": {
+      "Text": "[23;2~",
+      "Action": 10
+    },
+    "0xf702-0x220000": {
+      "Text": "[1;2D",
+      "Action": 10
+    },
+    "0xf703-0x280000": {
+      "Text": "0x1b 0x1b 0x5b 0x43",
+      "Action": 11
+    },
+    "0xf700-0x240000": {
+      "Text": "[1;5A",
+      "Action": 10
+    },
+    "0xf707-0x20000": {
+      "Text": "[1;2S",
+      "Action": 10
+    },
+    "0xf70a-0x20000": {
+      "Text": "[18;2~",
+      "Action": 10
+    },
+    "0x35-0x40000": {
+      "Text": "0x1d",
+      "Action": 11
+    },
+    "0xf70f-0x20000": {
+      "Text": "[24;2~",
+      "Action": 10
+    },
+    "0xf703-0x240000": {
+      "Text": "[1;5C",
+      "Action": 10
+    },
+    "0xf701-0x260000": {
+      "Text": "[1;6B",
+      "Action": 10
+    },
+    "0xf702-0x280000": {
+      "Text": "0x1b 0x1b 0x5b 0x44",
+      "Action": 11
+    },
+    "0xf72b-0x20000": {
+      "Text": "[1;2F",
+      "Action": 10
+    },
+    "0x36-0x40000": {
+      "Text": "0x1e",
+      "Action": 11
+    },
+    "0xf708-0x20000": {
+      "Text": "[15;2~",
+      "Action": 10
+    },
+    "0xf701-0x220000": {
+      "Text": "[1;2B",
+      "Action": 10
+    },
+    "0xf70b-0x20000": {
+      "Text": "[19;2~",
+      "Action": 10
+    },
+    "0xf702-0x240000": {
+      "Text": "[1;5D",
+      "Action": 10
+    },
+    "0xf704-0x20000": {
+      "Text": "[1;2P",
+      "Action": 10
+    }
+  },
+  "Visual Bell": true,
+  "Cursor Text Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Scrollback Lines": 1000,
+  "Selection Color (Light)": {
+    "Red Component": 0.19607843458652496,
+    "Color Space": "sRGB",
+    "Blue Component": 0.26666668057441711,
+    "Alpha Component": 1,
+    "Green Component": 0.21960784494876862
+  },
+  "Ansi 0 Color": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Match Background Color (Dark)": {
+    "Red Component": 1,
+    "Color Space": "P3",
+    "Blue Component": 0,
+    "Alpha Component": 1,
+    "Green Component": 1
+  },
+  "Ansi 11 Color (Light)": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Ansi 5 Color (Dark)": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Cursor Text Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Silence Bell": false,
+  "Rows": 25,
+  "Guid": "F281C7FD-54E4-4B61-84C1-AF5E2069602B",
+  "Ansi 14 Color (Dark)": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Use Cursor Guide (Dark)": false,
+  "Ansi 15 Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 0 Color (Dark)": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Ambiguous Double Width": false,
+  "Option Key Sends": 2,
+  "Ansi 3 Color": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Window Type": 1,
+  "Smart Cursor Color": true,
+  "Smart Cursor Color (Dark)": false,
+  "BM Growl": true,
+  "Prompt Before Closing 2": false,
+  "Command": "/opt/homebrew/Cellar/bash/5.2.37/bin/bash",
+  "Initial Text": "identity gdog && tmux -L gdog new-session -A -s gdog",
+  "Smart Cursor Color (Light)": false,
+  "Use Bright Bold (Light)": true,
+  "Use Selected Text Color (Light)": true,
+  "Selected Text Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 14 Color (Light)": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Cursor Guide Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 0.17647058823529413,
+    "Green Component": 0.69803923368453979
+  },
+  "Send Code When Idle": false,
+  "Ansi 6 Color": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Jobs to Ignore": [
+    "rlogin",
+    "ssh",
+    "slogin",
+    "telnet"
+  ],
+  "Badge Color (Dark)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 0.5,
+    "Green Component": 0.42352941632270813
+  },
+  "Use Underline Color (Light)": false,
+  "Cursor Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Vertical Spacing": 1,
+  "Minimum Contrast (Light)": 0,
+  "Disable Window Resizing": true,
+  "Use Selected Text Color (Dark)": true,
+  "Close Sessions On End": true,
+  "Selection Color (Dark)": {
+    "Red Component": 0.19607843458652496,
+    "Color Space": "sRGB",
+    "Blue Component": 0.26666668057441711,
+    "Alpha Component": 1,
+    "Green Component": 0.21960784494876862
+  },
+  "Default Bookmark": "No",
+  "Bound Hosts": [],
+  "Minimum Contrast (Dark)": 0,
+  "Custom Command": "No",
+  "Foreground Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 9 Color": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Background Color (Dark)": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Ansi 14 Color": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Flashing Bell": false,
+  "Use Italic Font": true,
+  "Ansi 13 Color (Dark)": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Cursor Guide Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 0.17647058823529413,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 12 Color": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Ansi 10 Color (Light)": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Non-ASCII Anti Aliased": true,
+  "Ansi 10 Color": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Foreground Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Link Color (Light)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Description": "gdog identity - dark teal background",
+  "Match Background Color": {
+    "Red Component": 1,
+    "Color Space": "P3",
+    "Blue Component": 0,
+    "Alpha Component": 1,
+    "Green Component": 1
+  },
+  "Ansi 7 Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Sync Title": false,
+  "Ansi 1 Color": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Name": "gdog",
+  "Use Tab Color (Dark)": false,
+  "Load Shell Integration Automatically": true,
+  "Transparency": 0.43588169642857144,
+  "Horizontal Spacing": 1,
+  "Cursor Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 2 Color (Dark)": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Ansi 9 Color (Dark)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Badge Color": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 0.5,
+    "Green Component": 0.42352941632270813
+  },
+  "Ansi 13 Color (Light)": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Idle Code": 0,
+  "Ansi 4 Color": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Cursor Boost (Dark)": 0,
+  "Bold Color (Dark)": {
+    "Red Component": 0.61316013336181641,
+    "Color Space": "P3",
+    "Blue Component": 0.66503292322158813,
+    "Alpha Component": 1,
+    "Green Component": 0.66404390335083008
+  },
+  "Brighten Bold Text": true,
+  "Screen": -1,
+  "Ansi 4 Color (Dark)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Cursor Text Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Selection Color": {
+    "Red Component": 0.19607843458652496,
+    "Color Space": "sRGB",
+    "Blue Component": 0.26666668057441711,
+    "Alpha Component": 1,
+    "Green Component": 0.21960784494876862
+  },
+  "Use Non-ASCII Font": false,
+  "Badge Color (Light)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 0.5,
+    "Green Component": 0.42352941632270813
+  },
+  "Character Encoding": 4,
+  "Ansi 11 Color (Dark)": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Brighten Bold Text (Dark)": true,
+  "Use Underline Color (Dark)": false,
+  "Bold Color (Light)": {
+    "Red Component": 0.61316013336181641,
+    "Color Space": "P3",
+    "Blue Component": 0.66503292322158813,
+    "Alpha Component": 1,
+    "Green Component": 0.66404390335083008
+  },
+  "Ansi 12 Color (Dark)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Faint Text Alpha (Dark)": 0.5,
+  "Ansi 7 Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 6 Color (Dark)": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Non Ascii Font": "Monaco 12",
+  "Cursor Guide Color": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 0.17647058823529413,
+    "Green Component": 0.69803923368453979
+  },
+  "Use Cursor Guide (Light)": false,
+  "Custom Directory": "Recycle",
+  "Working Directory": "/Users/dwmkerr",
+  "ASCII Anti Aliased": true,
+  "Shortcut": "",
+  "Mouse Reporting": true,
+  "Tags": [],
+  "Cursor Boost (Light)": 0,
+  "Use Tab Color (Light)": false,
+  "Match Background Color (Light)": {
+    "Red Component": 1,
+    "Color Space": "P3",
+    "Blue Component": 0,
+    "Alpha Component": 1,
+    "Green Component": 1
+  },
+  "Ansi 6 Color (Light)": {
+    "Red Component": 0.33725491166114807,
+    "Color Space": "sRGB",
+    "Blue Component": 0.7607843279838562,
+    "Alpha Component": 1,
+    "Green Component": 0.7137255072593689
+  },
+  "Background Image Location": "",
+  "Ansi 1 Color (Light)": {
+    "Red Component": 0.87843137979507446,
+    "Color Space": "sRGB",
+    "Blue Component": 0.45882353186607361,
+    "Alpha Component": 1,
+    "Green Component": 0.42352941632270813
+  },
+  "Use Bold Font": true,
+  "Ansi 2 Color": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Normal Font": "MonacoNF 12",
+  "Ansi 12 Color (Light)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Unlimited Scrollback": false,
+  "Ansi 8 Color (Light)": {
+    "Red Component": 0.46274510025978088,
+    "Color Space": "sRGB",
+    "Blue Component": 0.46274510025978088,
+    "Alpha Component": 1,
+    "Green Component": 0.46274510025978088
+  },
+  "Ansi 10 Color (Dark)": {
+    "Red Component": 0.59607845544815063,
+    "Color Space": "sRGB",
+    "Blue Component": 0.47450980544090271,
+    "Alpha Component": 1,
+    "Green Component": 0.76470589637756348
+  },
+  "Ansi 3 Color (Light)": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Cursor Color (Light)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Ansi 15 Color": {
+    "Red Component": 0.84172910451889038,
+    "Color Space": "P3",
+    "Blue Component": 0.88270664215087891,
+    "Alpha Component": 1,
+    "Green Component": 0.85327869653701782
+  },
+  "Blur": false,
+  "Faint Text Alpha (Light)": 0.5,
+  "Use Separate Colors for Light and Dark Mode": false,
+  "Background Color (Light)": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Terminal Type": "xterm-256color",
+  "Ansi 13 Color": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Ansi 5 Color (Light)": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Foreground Color (Dark)": {
+    "Red Component": 0.67058825492858887,
+    "Color Space": "sRGB",
+    "Blue Component": 0.74901962280273438,
+    "Alpha Component": 1,
+    "Green Component": 0.69803923368453979
+  },
+  "Link Color": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Link Color (Dark)": {
+    "Red Component": 0.3803921639919281,
+    "Color Space": "sRGB",
+    "Blue Component": 0.93725490570068359,
+    "Alpha Component": 1,
+    "Green Component": 0.68627452850341797
+  },
+  "Ansi 11 Color": {
+    "Red Component": 0.89803922176361084,
+    "Color Space": "sRGB",
+    "Blue Component": 0.48235294222831726,
+    "Alpha Component": 1,
+    "Green Component": 0.75294119119644165
+  },
+  "Ansi 5 Color": {
+    "Red Component": 0.7764706015586853,
+    "Color Space": "sRGB",
+    "Blue Component": 0.86666667461395264,
+    "Alpha Component": 1,
+    "Green Component": 0.47058823704719543
+  },
+  "Ansi 0 Color (Light)": {
+    "Red Component": 0.12,
+    "Color Space": "sRGB",
+    "Blue Component": 0.21,
+    "Alpha Component": 1,
+    "Green Component": 0.14
+  },
+  "Environment": {
+    "DOTFILES_IDENTITY": "gdog"
+  }
+}

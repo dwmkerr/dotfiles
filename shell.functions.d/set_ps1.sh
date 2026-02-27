@@ -114,7 +114,7 @@ set_ps1() {
         dwmkerr)
             # The current folder, up to 3 items shown, the git info, then the prompt.
             # Starts with a leading newline to space out commands.
-            PS1=$'\n'"\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)\$(_python_info) "$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
+            PS1=$'\n'"\$(type _identity_info &>/dev/null && _identity_info)\[${bold}${fg_blue}\$(_pwd_max_folders 3)${reset}\] \$(_git_info)\$(_python_info) "$'\n'"\[${bold}${fg_white}\]\\$\[${reset}\] "
         ;;
 
         dwmkerr_simple)

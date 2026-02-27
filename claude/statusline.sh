@@ -42,18 +42,25 @@ if [ "$usage" != "null" ] && [ "$context_size" != "null" ] && [ "$context_size" 
     used_percent=$((current_tokens * 100 / context_size))
     remaining=$((100 - used_percent))
 
-    # Color based on used%: 0-30 green, 30-50 amber, 50-60 red, 60+ dark red
+    # Color based on used%: 0-30 green, 30-50 amber, 50-60 red, 60-80 dark red, 80+ fire
     if [ "$used_percent" -lt 30 ]; then
         ctx_color="${ctx_green}"
+        ctx_icon=""
     elif [ "$used_percent" -lt 50 ]; then
         ctx_color="${ctx_yellow}"
+        ctx_icon=""
     elif [ "$used_percent" -lt 60 ]; then
         ctx_color="${ctx_red}"
+        ctx_icon=""
+    elif [ "$used_percent" -lt 80 ]; then
+        ctx_color="${ctx_darkred}"
+        ctx_icon=""
     else
         ctx_color="${ctx_darkred}"
+        ctx_icon="🔥"
     fi
 
-    context_display=" ${fg_grey}|${reset} ${ctx_color}${remaining}%${reset} ${fg_grey}context left${reset}"
+    context_display=" ${fg_grey}|${reset} ${ctx_color}${ctx_icon}${remaining}%${reset} ${fg_grey}context left${reset}"
 fi
 
 # Build model display
@@ -62,5 +69,20 @@ if [ -n "$MODEL_NAME" ] && [ "$MODEL_NAME" != "null" ]; then
     model_display=" ${fg_grey}|${reset} ${fg_purple}${MODEL_NAME}${reset}"
 fi
 
+# Identity badge (only for non-default identities)
+identity_display=""
+if [ -n "$DOTFILES_IDENTITY" ] && [ "$DOTFILES_IDENTITY" != "dwmkerr" ]; then
+    fg_id_color=$'\e[32m'
+    case "${IDENTITY_COLOR:-}" in
+        red)     fg_id_color=$'\e[31m' ;;
+        green)   fg_id_color=$'\e[32m' ;;
+        yellow)  fg_id_color=$'\e[33m' ;;
+        blue)    fg_id_color=$'\e[34m' ;;
+        magenta) fg_id_color=$'\e[35m' ;;
+        cyan)    fg_id_color=$'\e[36m' ;;
+    esac
+    identity_display="${bold}${fg_id_color}${DOTFILES_IDENTITY}${reset} "
+fi
+
 # Output the status line
-echo "${bold}${fg_blue}${pwd_display}${reset}${git_info} ${fg_grey}? for help${reset}${context_display}${model_display}"
+echo "${identity_display}${bold}${fg_blue}${pwd_display}${reset}${git_info} ${fg_grey}? for help${reset}${context_display}${model_display}"
