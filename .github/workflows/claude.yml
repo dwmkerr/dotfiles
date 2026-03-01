@@ -1,33 +1,17 @@
-name: Claude Code
+name: Agent Actions
 
 on:
   issue_comment:
     types: [created]
-  issues:
-    types: [opened, labeled]
   pull_request_review_comment:
     types: [created]
+  pull_request_review:
+    types: [submitted]
+  issues:
+    types: [opened, labeled]
 
 jobs:
   claude:
-    if: |
-      github.event.sender.login == 'dwmkerr' && (
-        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-        (github.event_name == 'issues' && github.event.action == 'labeled' && github.event.label.name == 'claude') ||
-        (github.event_name == 'issues' && github.event.action == 'opened' && contains(github.event.issue.body, '@claude')) ||
-        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
-      )
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-      - uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    uses: dwmkerr/agent-actions/.github/workflows/claude.yml@main
+    secrets:
+      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}

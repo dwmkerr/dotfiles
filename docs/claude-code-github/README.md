@@ -4,31 +4,37 @@ Run Claude Code on GitHub issues and PRs. Mention `@claude` or add the `claude` 
 
 ## Quick Start
 
-1. Copy `claude.yml` to `.github/workflows/claude.yml` in your repo
-2. Edit the `sender.login` allowlist to include your team
-3. Ensure the `ANTHROPIC_API_KEY` secret is available (org-level or repo-level)
+Use [dwmkerr/agent-actions](https://github.com/dwmkerr/agent-actions) — a centralized reusable workflow that handles triggers, actor allowlists, concurrency, and timeouts.
 
-## Template Workflow
+1. Run `setup-agent-actions` in your repo (or copy the caller template manually)
+2. Ensure the `ANTHROPIC_API_KEY` secret is available (org-level or repo-level)
 
-The [`claude.yml`](./claude.yml) template includes:
+The `setup-agent-actions` shell function (from this dotfiles repo) creates the caller workflow automatically:
 
-- **Actor allowlist** — only specified GitHub users can trigger Claude (prevents strangers burning your API key on public repos)
-- **Trigger events** — issue comments, PR review comments, PR reviews, and the `claude` label
-- **Permissions** — write access to contents, issues, and pull requests
+```bash
+setup-agent-actions              # current directory
+setup-agent-actions ~/repos/foo  # specific repo
+```
 
-### Adding team members
+## How It Works
 
-Add more users to the `sender.login` check:
+```
+your-repo/.github/workflows/agent-actions.yml  (thin caller, ~15 lines)
+    └── calls → dwmkerr/agent-actions/.github/workflows/claude.yml  (all config)
+                    └── runs → anthropics/claude-code-action@v1
+```
+
+Configuration (trigger phrase, timeout, allowed users) lives in agent-actions. Override per-repo if needed:
 
 ```yaml
-if: |
-  (
-    github.event.sender.login == 'dwmkerr' ||
-    github.event.sender.login == 'teammate1' ||
-    github.event.sender.login == 'teammate2'
-  ) && (
-    ...
-  )
+jobs:
+  claude:
+    uses: dwmkerr/agent-actions/.github/workflows/claude.yml@main
+    secrets:
+      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    with:
+      allowed_users: "dwmkerr,teammate1"
+      timeout_minutes: 45
 ```
 
 ## Credential Strategy
@@ -57,16 +63,8 @@ Useful for repos that need a different key or rate limit.
 
 For enterprise setups, use GitHub OIDC to get temporary AWS credentials and call Bedrock. No stored secrets needed. Requires an AWS IAM role configured to trust GitHub OIDC — see the [cxpipe repo](https://github.com/anthropics/cxpipe) for a production example.
 
-## Repos Using This
-
-| Repo | Actor allowlist |
-|------|-----------------|
-| `dwmkerr/dotfiles` | `dwmkerr` |
-| `dwmkerr/tips-openspec` | none (needs update) |
-| `dwmkerr/agents-at-scale-ark` | `dwmkerr`, `Nab-0`, `cm94242` |
-
 ## Security Notes
 
-- **Always use an actor allowlist on public repos** — without it, anyone can trigger the action and consume your API key
+- **Actor allowlist is handled centrally** — defaults to `dwmkerr`, override via `allowed_users` input
 - The `GITHUB_TOKEN` is automatically scoped to the repo and requires no setup
 - `id-token: write` is included for future OIDC support but is not used with API key auth

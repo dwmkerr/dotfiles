@@ -25,6 +25,12 @@ link: # Creates symbolic links.
 	mkdir -p ~/.claude/hooks
 	ln -sfn ${PWD}/claude/hooks/tmux-notify.sh ~/.claude/hooks/tmux-notify.sh || echo "error: can't link tmux-notify.sh"
 
+.PHONY: iterm-profiles
+iterm-profiles: # Install iTerm2 dynamic profiles.
+	@mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
+	@jq -s '{"Profiles": .}' terminal/iTerm2/*.json > ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
+	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
+
 .PHONY: private-files-backup
 private-files-backup: # Backup private config files (ssh keys etc).
 	./private-files/private-files-backup.sh

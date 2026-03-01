@@ -1,7 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
-    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "includeCoAuthoredBy": false,
   "permissions": {
@@ -14,7 +15,9 @@
       "Bash(git merge:*)",
       "Bash(git clone:*)",
       "Bash(gh issue view:*)",
+      "Bash(gh repo view:*)",
       "Bash(gh pr create:*)",
+      "Bash(gh search:*)",
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(curl:*)",
@@ -23,7 +26,7 @@
       "Bash(lms search:*)",
       "Bash(~/.lmstudio/bin/lms search:*)",
       "Bash(~/.lmstudio/bin/lms:*)",
-      "WebFetch(domain:github.com)",
+      "WebFetch",
       "Skill(toolkit:claude-code-statusline-development)",
       "mcp__shellwright__shell_start",
       "mcp__shellwright__shell_send",
@@ -42,14 +45,14 @@
   "enabledPlugins": {
     "context-engineering-fundamentals@context-engineering-marketplace": true,
     "skills@claude-toolkit": true,
-    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
+    "dwmkerr-private-toolkit@dwmkerr-private-toolkit": true,
     "ark@agents-at-scale-ark": true,
     "toolkit@claude-toolkit": true,
     "ai26@ai26": true,
     "document-skills@anthropic-agent-skills": true,
     "dwmkerr@claude-toolkit": true,
     "superpowers@claude-plugins-official": true,
-    "protocols@dwmkerr-claude-toolkit": true,
+    "protocols@claude-toolkit": true,
     "cx@ccp": true,
     "ps@pspipe": true
   },
