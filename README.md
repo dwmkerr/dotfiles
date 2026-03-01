@@ -165,17 +165,11 @@ Profiles are in `terminal/iTerm2/` and loaded as [dynamic profiles](https://iter
 | `dwmkerr` | Default terminal |
 | `dwmkerr-recording` | No transparency, for screen recordings |
 | `dwmkerr-agent` | Agent identity, dark purple background, isolated tmux |
-| `gdog` | gdog identity, dark teal background, isolated tmux |
 
-Install all profiles:
+Install profiles:
 
 ```bash
-for f in terminal/iTerm2/*.json; do
-    name=$(basename "$f" .json)
-    guid=$(uuidgen)
-    jq --arg guid "$guid" '{"Profiles": [. | .Guid = $guid]}' "$f" \
-        > ~/Library/Application\ Support/iTerm2/DynamicProfiles/"$name".json
-done
+make iterm-profiles
 ```
 
 See `identities/README.md` for identity setup details.

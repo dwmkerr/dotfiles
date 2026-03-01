@@ -69,9 +69,9 @@ if [ -n "$MODEL_NAME" ] && [ "$MODEL_NAME" != "null" ]; then
     model_display=" ${fg_grey}|${reset} ${fg_purple}${MODEL_NAME}${reset}"
 fi
 
-# Identity badge (only for non-default identities)
+# Identity badge
 identity_display=""
-if [ -n "$DOTFILES_IDENTITY" ] && [ "$DOTFILES_IDENTITY" != "dwmkerr" ]; then
+if [ -n "$DOTFILES_IDENTITY" ]; then
     fg_id_color=$'\e[32m'
     case "${IDENTITY_COLOR:-}" in
         red)     fg_id_color=$'\e[31m' ;;
