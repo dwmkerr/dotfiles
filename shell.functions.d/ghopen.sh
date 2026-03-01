@@ -1,20 +1,24 @@
 ghopen() {
-    # Get the origin for the current repo.
-    local origin=$(git remote get-url origin 2> /dev/null)
+    local origin
+    origin=$(git remote get-url origin 2>/dev/null)
 
-    # Bail if we're not in a github repo.
-    if [[ ($? -ne 0) || ("${origin}" != *github*) ]]; then
+    if [[ $? -ne 0 || "${origin}" != *github* ]]; then
         echo "current dir '$(basename "${PWD}")' is not in a github repo..."
-        return
+        return 1
     fi
 
-    # The origin probably looks like this:
-    # git@github.com:dwmkerr/effective-shell.git
-    # The org/repo is everything after the colon and before '.git'.
-    local org_repo=$(echo "${origin%.git}" | cut -f2 -d:)
-    local url="http://github.com/${org_repo}"
+    local org_repo
+    if [[ "${origin}" == git@* ]]; then
+        # SSH: git@github.com:dwmkerr/dotfiles.git
+        org_repo="${origin#*:}"
+    else
+        # HTTPS: https://github.com/dwmkerr/dotfiles.git
+        org_repo="${origin#*github.com/}"
+    fi
+    org_repo="${org_repo%.git}"
 
-    # Let the user know what we're opening, formatting org/repo in green, open.
+    local url="https://github.com/${org_repo}"
+
     echo -e "opening github.com/\e[32m${org_repo}\e[0m"
     python3 -c "import webbrowser; webbrowser.open_new_tab('${url}')"
 }

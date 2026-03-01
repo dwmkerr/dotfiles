@@ -58,24 +58,6 @@ release_as() {
     git commit --allow-empty -m "chore: release $1" -m "Release-As: $1"
 }
 
-ghopen() {
-  # Work out the repo/org from the folder we're in.
-  # (Probably could do it better from .git).
-  local org
-  org=$(basename "$(dirname "$PWD")")
-  local repo
-  repo=$(basename "$(pwd)")
-  url="https://github.com/$org/$repo"
-
-  # Print the url we'll open.
-  local green='\e[0;32m'
-  local reset='\e[0m'
-  printf "\nOpening: ${green}${url}${reset}...\n"
-
-  # And open it. Easy.
-  python3 -mwebbrowser "${url}"
-}
-
 # Not really a command, but a much nicer version of git branch.
 # Source: https://stackoverflow.com/questions/2514172/listing-each-branch-and-its-lastevisions-date-in-git
 alias gbranch='for k in `git branch -l | \
