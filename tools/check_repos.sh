@@ -5,7 +5,7 @@ set -e
 #
 check_repos() {
     SEARCH_DIR="${1:-.}"
-    echo "seaching '${SEARCH_DIR}' for '${GIT_DIR}'..."
+    echo "searching '${SEARCH_DIR}' for git repos..."
 
     # Use 'find' to locate all '.git' directories; for each, process the parent folder.
     while IFS= read -r -d '' GIT_DIR; do

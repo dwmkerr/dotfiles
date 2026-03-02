@@ -20,7 +20,7 @@ restore_safe() {
     read yesno
     if [[ $yesno =~ ^[Yy] ]]; then
         mkdir -p "$(dirname $2)"
-        echo "Preparing to run: aws s3 cp \"$1\" \"$2\" $3 --profile \"${profile}"
+        echo "Preparing to run: aws s3 cp \"$1\" \"$2\" $3 --profile \"${profile}\""
         aws s3 cp --profile "${profile}" "$1" "$2" $3
     fi
 }

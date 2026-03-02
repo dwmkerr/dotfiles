@@ -16,6 +16,6 @@ ensure_symlink() {
         ln -sf "$target_path" "$symlink_path"
     elif [[ ! "$(readlink $symlink_path)" = "$target_path" ]]; then
         rm -rf "$symlink_path"
-        ln -sf "$target_path"
+        ln -sf "$target_path" "$symlink_path"
     fi
 }
