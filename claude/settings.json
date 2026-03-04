@@ -27,6 +27,7 @@
       "Bash(~/.lmstudio/bin/lms search:*)",
       "Bash(~/.lmstudio/bin/lms:*)",
       "WebFetch",
+      "WebSearch",
       "Skill(toolkit:claude-code-statusline-development)",
       "mcp__shellwright__shell_start",
       "mcp__shellwright__shell_send",
@@ -34,28 +35,15 @@
       "mcp__shellwright__shell_screenshot",
       "mcp__shellwright__shell_stop",
       "mcp__shellwright__shell_record_start",
-      "mcp__shellwright__shell_record_stop"
+      "mcp__shellwright__shell_record_stop",
+      "mcp__notion__notion-search",
+      "mcp__notion__notion-fetch",
+      "mcp__notion__notion-get-comments",
+      "mcp__notion__notion-get-teams",
+      "mcp__notion__notion-get-users"
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "context-engineering-fundamentals@context-engineering-marketplace": true,
-    "skills@claude-toolkit": true,
-    "dwmkerr-private-toolkit@dwmkerr-private-toolkit": true,
-    "ark@agents-at-scale-ark": true,
-    "toolkit@claude-toolkit": true,
-    "ai26@ai26": true,
-    "document-skills@anthropic-agent-skills": true,
-    "dwmkerr@claude-toolkit": true,
-    "superpowers@claude-plugins-official": true,
-    "protocols@claude-toolkit": true,
-    "cx@ccp": true,
-    "ps@pspipe": true
-  },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -87,6 +75,25 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "context-engineering-fundamentals@context-engineering-marketplace": true,
+    "ark@agents-at-scale-ark": true,
+    "toolkit@claude-toolkit": true,
+    "ai26@ai26": true,
+    "document-skills@anthropic-agent-skills": true,
+    "dwmkerr@claude-toolkit": true,
+    "superpowers@claude-plugins-official": true,
+    "cx@ccp": true,
+    "ps@pspipe": true,
+    "protocols@dwmkerr-claude-toolkit": true,
+    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
+    "protocols@claude-toolkit": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true
