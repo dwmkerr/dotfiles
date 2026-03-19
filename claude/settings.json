@@ -6,6 +6,9 @@
   },
   "includeCoAuthoredBy": false,
   "permissions": {
+    "additionalDirectories": [
+      "~/repos"
+    ],
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
@@ -14,10 +17,21 @@
       "Bash(git checkout:*)",
       "Bash(git merge:*)",
       "Bash(git clone:*)",
+      "Bash(git fetch:*)",
       "Bash(gh issue view:*)",
       "Bash(gh repo view:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
       "Bash(gh pr create:*)",
       "Bash(gh search:*)",
+      "Grep",
+      "Glob",
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(curl:*)",
@@ -43,19 +57,8 @@
       "mcp__notion__notion-get-users"
     ]
   },
-  "model": "opus[1m]",
   "hooks": {
     "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/tmux-notify.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
       {
         "hooks": [
           {
@@ -93,7 +96,8 @@
     "ps@pspipe": true,
     "protocols@dwmkerr-claude-toolkit": true,
     "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
-    "protocols@claude-toolkit": true
+    "protocols@claude-toolkit": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true
