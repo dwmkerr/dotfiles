@@ -6,9 +6,6 @@
   },
   "includeCoAuthoredBy": false,
   "permissions": {
-    "additionalDirectories": [
-      "~/repos"
-    ],
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
@@ -55,6 +52,9 @@
       "mcp__notion__notion-get-comments",
       "mcp__notion__notion-get-teams",
       "mcp__notion__notion-get-users"
+    ],
+    "additionalDirectories": [
+      "~/repos"
     ]
   },
   "hooks": {
@@ -97,7 +97,16 @@
     "protocols@dwmkerr-claude-toolkit": true,
     "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
     "protocols@claude-toolkit": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "git-workforest@git-workforest": true
+  },
+  "extraKnownMarketplaces": {
+    "git-workforest": {
+      "source": {
+        "source": "github",
+        "repo": "dwmkerr/git-workforest"
+      }
+    }
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true

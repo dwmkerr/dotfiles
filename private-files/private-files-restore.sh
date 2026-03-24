@@ -82,6 +82,15 @@ if [[ $yesno =~ ^[Yy] ]]; then
     aws s3 cp --profile "${profile}" "s3://${bucket}/gpg/trust-database.txt" - | gpg --import-ownertrust
 fi
 
+# Restore identity files (git/GitHub per-terminal identities).
+echo -n "Restore identity files? (Warning, will overwrite existing) [y/n]: "
+read yesno
+if [[ $yesno =~ ^[Yy] ]]; then
+    dest="$HOME/.shell.private.d/"
+    mkdir -p "${dest}"
+    aws s3 sync --profile "${profile}" "s3://${bucket}/identities" "${dest}" --exclude "*" --include "*.identity"
+fi
+
 # Restore Boxes config.
 if ask "Restore '~/boxes.json'" N; then
     restore_safe "s3://${bucket}/boxes.json" ~/.boxes.json

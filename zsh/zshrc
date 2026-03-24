@@ -12,3 +12,5 @@
 
 # Source my personal (github.com/dwmkerr/dotfiles) configuration.
 [ -r ~/.shell.sh ] && source ~/.shell.sh
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

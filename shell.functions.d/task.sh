@@ -7,6 +7,32 @@ task() {
     echo "  ${name}                list tasks"
     echo "  ${name} -r <pattern>   resume a task in a new tmux window"
     echo "  ${name} -d <pattern>   delete a task and its folder"
+    echo "  ${name} --complete     archive the current task folder"
+    return 0
+  fi
+
+  # --- Complete (archive) current task ---
+  if [[ "$1" == "--complete" ]]; then
+    local current_dir="$PWD"
+    local current_name="$(basename "$current_dir")"
+    local parent_dir="$(dirname "$current_dir")"
+
+    # Verify we're in a task folder under ~/tasks.
+    if [[ "$parent_dir" != "$HOME/tasks" ]] || [[ "$current_name" != task-* ]]; then
+      echo "error: not in a task folder (~/tasks/task-*)"
+      return 1
+    fi
+
+    local archive_dir="$HOME/tasks/zz-archive"
+    mkdir -p "$archive_dir"
+    mv "$current_dir" "$archive_dir/"
+    echo -e "archived \e[1;32m${current_name}\e[0m → zz-archive/"
+
+    if [[ -n "${TMUX}" ]]; then
+      tmux kill-window
+    else
+      cd ~/tasks
+    fi
     return 0
   fi
 
@@ -136,7 +162,7 @@ _task_completions() {
   done
 
   if [ -n "${ZSH_VERSION:-}" ]; then
-    local flags=('-h' '-r' '-d')
+    local flags=('-h' '-r' '-d' '--complete')
     case "${words[2]}" in
       -r|-d) compadd -- "${tasks[@]}" ;;
       *)     compadd -- "${flags[@]}" "${tasks[@]}" ;;
@@ -146,7 +172,7 @@ _task_completions() {
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
     case "$prev" in
       -r|-d) COMPREPLY=($(compgen -W "${tasks[*]}" -- "$cur")) ;;
-      *)     COMPREPLY=($(compgen -W "-h -r -d ${tasks[*]}" -- "$cur")) ;;
+      *)     COMPREPLY=($(compgen -W "-h -r -d --complete ${tasks[*]}" -- "$cur")) ;;
     esac
   fi
 }

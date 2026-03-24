@@ -92,12 +92,28 @@ claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "
 
 # Notion - Access Notion workspace
 claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
+
+# Playwright - Browser automation (Chrome)
+claude mcp add playwright -- npx -y @playwright/mcp@latest
+
+# Playwright Firefox - Browser automation (Firefox)
+claude mcp add playwright-firefox -- npx -y @playwright/mcp@latest --browser firefox
+
+# Playwright Edge - Browser automation (Microsoft Edge)
+claude mcp add playwright-edge -- npx -y @playwright/mcp@latest --browser msedge
+
+# Playwright Safari - Browser automation (WebKit/Safari)
+claude mcp add playwright-safari -- npx -y @playwright/mcp@latest --browser webkit
 ```
 
 | Server | Description |
 |--------|-------------|
 | [Context7](https://github.com/upstash/context7) | Fetches up-to-date documentation for libraries |
 | [Notion](https://mcp.notion.com) | Access Notion workspace |
+| [Playwright](https://github.com/microsoft/playwright-mcp) | Browser automation (Chrome) |
+| Playwright Firefox | Browser automation (Firefox) |
+| Playwright Edge | Browser automation (Microsoft Edge) |
+| Playwright Safari | Browser automation (WebKit/Safari) |
 
 ## Shell Autocomplete
 

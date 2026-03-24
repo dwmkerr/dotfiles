@@ -99,6 +99,12 @@ for path in ~/.ssh/*; do
     fi
 done
 
+# Identity files (git/GitHub per-terminal identities).
+for path in ~/.shell.private.d/*.identity; do
+    [ -e "$path" ] || continue
+    queue_for_backup "${path}" "s3://${bucket}/identities/"
+done
+
 # Boxes config
 queue_for_backup ~/.boxes.json "s3://${bucket}/"
 
@@ -166,7 +172,7 @@ if [ ${#files_to_backup[@]} -gt 0 ]; then
         for i in "${!backup_commands[@]}"; do
             backup_count=$((backup_count + 1))
             echo "[$backup_count/${#backup_commands[@]}] ${files_to_backup[$i]}"
-            eval "${backup_commands[$i]}"
+            eval "${backup_commands[$i]}" || echo "  ⚠ skipped (non-regular file or error)"
         done
         
         echo ""
