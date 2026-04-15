@@ -6,32 +6,62 @@ task() {
     echo "  ${name} <task-name>    create or switch to a task"
     echo "  ${name}                list tasks"
     echo "  ${name} -r <pattern>   resume a task in a new tmux window"
-    echo "  ${name} -d <pattern>   delete a task and its folder"
-    echo "  ${name} --complete     archive the current task folder"
+    echo "  ${name} --resume <pattern>  resume a task; right pane runs 'yoloclaude -c'"
+    echo "  ${name} -d [pattern]   move a task to recycle bin (current task if no pattern)"
+    echo "  ${name} --delete [pattern]  move a task to recycle bin"
+    echo "  ${name} --discard [pattern] move a task to recycle bin"
+    echo "  ${name} --complete [pattern] move a task to completed (current task if no pattern)"
     return 0
   fi
 
-  # --- Complete (archive) current task ---
+  # --- Complete task (move to 00-completed) ---
   if [[ "$1" == "--complete" ]]; then
-    local current_dir="$PWD"
-    local current_name="$(basename "$current_dir")"
-    local parent_dir="$(dirname "$current_dir")"
+    shift
+    local target=""
+    local label=""
 
-    # Verify we're in a task folder under ~/tasks.
-    if [[ "$parent_dir" != "$HOME/tasks" ]] || [[ "$current_name" != task-* ]]; then
-      echo "error: not in a task folder (~/tasks/task-*)"
-      return 1
+    if [[ -z "$1" || "$1" == "." ]]; then
+      # Current task
+      local current_dir="$PWD"
+      local current_name="$(basename "$current_dir")"
+      local parent_dir="$(dirname "$current_dir")"
+      if [[ "$parent_dir" != "$HOME/tasks" ]] || [[ "$current_name" != task-* ]]; then
+        echo "error: not in a task folder (~/tasks/task-*)"
+        return 1
+      fi
+      target="$current_dir"
+      label="$current_name"
+    else
+      # Pattern match
+      local pattern="$*"
+      local matches=()
+      for d in ~/tasks/task-*; do
+        [[ -d "$d" ]] && [[ "$(basename "$d")" == *"${pattern}"* ]] && matches+=("$d")
+      done
+      if [[ ${#matches[@]} -eq 0 ]]; then
+        echo "no task matching '${pattern}'"
+        return 1
+      elif [[ ${#matches[@]} -gt 1 ]]; then
+        echo "multiple matches — be more specific:"
+        for d in "${matches[@]}"; do echo "  $(basename "$d")"; done
+        return 1
+      fi
+      target="${matches[0]}"
+      label="$(basename "$target")"
     fi
 
-    local archive_dir="$HOME/tasks/zz-archive"
-    mkdir -p "$archive_dir"
-    mv "$current_dir" "$archive_dir/"
-    echo -e "archived \e[1;32m${current_name}\e[0m → zz-archive/"
+    local completed_dir="$HOME/tasks/00-completed"
+    mkdir -p "$completed_dir"
+    mv "$target" "$completed_dir/"
+    echo -e "completed \e[1;32m${label}\e[0m → 00-completed/"
+    tmux kill-window -t "🟠 ${label}" 2>/dev/null
 
-    if [[ -n "${TMUX}" ]]; then
-      tmux kill-window
-    else
-      cd ~/tasks
+    if [[ "$PWD" == "$target" ]]; then
+      if [[ -n "${TMUX}" ]]; then
+        tmux kill-window
+      else
+        cd ~/tasks
+      fi
     fi
     return 0
   fi
@@ -58,11 +88,63 @@ task() {
     return 0
   fi
 
-  # --- Delete task ---
-  if [[ "$1" == "-d" ]]; then
+  # --- Delete / discard task (move to recycle bin) ---
+  if [[ "$1" == "-d" || "$1" == "--delete" || "$1" == "--discard" ]]; then
+    shift
+    local target=""
+    local label=""
+
+    if [[ -z "$1" || "$1" == "." ]]; then
+      # Current task
+      local current_dir="$PWD"
+      local current_name="$(basename "$current_dir")"
+      local parent_dir="$(dirname "$current_dir")"
+      if [[ "$parent_dir" != "$HOME/tasks" ]] || [[ "$current_name" != task-* ]]; then
+        echo "error: not in a task folder (~/tasks/task-*)"
+        return 1
+      fi
+      target="$current_dir"
+      label="$current_name"
+    else
+      # Pattern match
+      local pattern="$*"
+      local matches=()
+      for d in ~/tasks/task-*; do
+        [[ -d "$d" ]] && [[ "$(basename "$d")" == *"${pattern}"* ]] && matches+=("$d")
+      done
+      if [[ ${#matches[@]} -eq 0 ]]; then
+        echo "no task matching '${pattern}'"
+        return 1
+      elif [[ ${#matches[@]} -gt 1 ]]; then
+        echo "multiple matches — be more specific:"
+        for d in "${matches[@]}"; do echo "  $(basename "$d")"; done
+        return 1
+      fi
+      target="${matches[0]}"
+      label="$(basename "$target")"
+    fi
+
+    local recycle_dir="$HOME/tasks/00-recycle-bin"
+    mkdir -p "$recycle_dir"
+    mv "$target" "$recycle_dir/"
+    tmux kill-window -t "🟠 ${label}" 2>/dev/null
+    echo -e "discarded \e[1;31m${label}\e[0m → 00-recycle-bin/"
+
+    if [[ "$PWD" == "$target" ]]; then
+      if [[ -n "${TMUX}" ]]; then
+        tmux kill-window
+      else
+        cd ~/tasks
+      fi
+    fi
+    return 0
+  fi
+
+  # --- Resume task (with yoloclaude -c on right pane) ---
+  if [[ "$1" == "--resume" ]]; then
     shift
     if [[ -z "$1" ]]; then
-      echo "error: specify a pattern to match, e.g. task -d 02"
+      echo "error: specify a pattern to match, e.g. task --resume 01"
       return 1
     fi
     local pattern="$*"
@@ -80,9 +162,10 @@ task() {
     fi
     local target="${matches[0]}"
     local label="$(basename "$target")"
-    rm -rf "$target"
-    tmux kill-window -t "🟠 ${label}" 2>/dev/null
-    echo -e "deleted \e[1;31m${label}\e[0m"
+    tmux new-window -n "🟠 ${label}" -c "${target}"
+    tmux split-window -h -c "${target}" 'yoloclaude -c'
+    tmux select-pane -L
+    echo -e "resumed \e[1;32m${label}\e[0m"
     return 0
   fi
 
@@ -162,17 +245,17 @@ _task_completions() {
   done
 
   if [ -n "${ZSH_VERSION:-}" ]; then
-    local flags=('-h' '-r' '-d' '--complete')
+    local flags=('-h' '-r' '--resume' '-d' '--delete' '--discard' '--complete')
     case "${words[2]}" in
-      -r|-d) compadd -- "${tasks[@]}" ;;
+      -r|--resume|-d|--delete|--discard) compadd -- "${tasks[@]}" ;;
       *)     compadd -- "${flags[@]}" "${tasks[@]}" ;;
     esac
   else
     local cur="${COMP_WORDS[COMP_CWORD]}"
     local prev="${COMP_WORDS[COMP_CWORD-1]}"
     case "$prev" in
-      -r|-d) COMPREPLY=($(compgen -W "${tasks[*]}" -- "$cur")) ;;
-      *)     COMPREPLY=($(compgen -W "-h -r -d --complete ${tasks[*]}" -- "$cur")) ;;
+      -r|--resume|-d|--delete|--discard) COMPREPLY=($(compgen -W "${tasks[*]}" -- "$cur")) ;;
+      *)     COMPREPLY=($(compgen -W "-h -r --resume -d --delete --discard --complete ${tasks[*]}" -- "$cur")) ;;
     esac
   fi
 }

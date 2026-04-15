@@ -59,6 +59,8 @@ Plug 'heavenshell/vim-jsdoc', {
 "   Note: language support is via vim-polyglot.
 Plug 'mzlogin/vim-markdown-toc' " Build a TOC for markdown.
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 " Plugins for writing with focus.
 Plug 'junegunn/goyo.vim'        " Go into distraction free mode (:Gojo)
@@ -162,6 +164,12 @@ set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
     \}
     " let g:onedark_terminal_italics=1
     colorscheme onedark
+
+    " Subtle spell highlights - undercurl only, no text color change
+    hi SpellBad   cterm=undercurl gui=undercurl guisp=#e06c75 ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+    hi SpellCap   cterm=undercurl gui=undercurl guisp=#61afef ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+    hi SpellRare  cterm=undercurl gui=undercurl guisp=#c678dd ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+    hi SpellLocal cterm=undercurl gui=undercurl guisp=#e5c07b ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
 " Cursor Configuration
    set guicursor=n-c-v:block-nCursor,i-ci:ver100-iCursor-blinkon200-blinkoff150
@@ -462,6 +470,35 @@ if has('nvim')
         --    rg_opts = "--color=always --smart-case -g '!{.git,node_modules}/'",
         --  },
         --})
+EOF
+endif
+
+" render-markdown.nvim: inline markdown rendering with <Leader>md toggle.
+if has('nvim')
+    lua <<EOF
+        require('nvim-treesitter.config').setup({
+            ensure_installed = { 'markdown', 'markdown_inline' },
+            highlight = { enable = true },
+        })
+        -- Heading colors matching render-markdown.nvim wiki demo
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH1', { fg = '#f0c674', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH1Bg', { fg = '#d4d4d4', bg = '#363a44', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH2', { fg = '#e5c07b', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH2Bg', { fg = '#d4d4d4', bg = '#3a3530', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH3', { fg = '#98c379', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH3Bg', { fg = '#d4d4d4', bg = '#2e3e30', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH4', { fg = '#56b6c2', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH4Bg', { fg = '#d4d4d4', bg = '#253540', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH5', { fg = '#c678dd', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH5Bg', { fg = '#d4d4d4', bg = '#352e40', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH6', { fg = '#b070c0', bold = true })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownH6Bg', { fg = '#d4d4d4', bg = '#332e3e', bold = true })
+        require('render-markdown').setup({
+            anti_conceal = { enabled = false },
+        })
+        vim.keymap.set('n', '<Leader>md', function()
+            require('render-markdown').toggle()
+        end, { desc = 'Toggle markdown rendering' })
 EOF
 endif
 

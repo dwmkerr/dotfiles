@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# pre-push-identity-guard — rejects pushes to repos blocked for current identity.
+# Install: symlink to .git/hooks/pre-push in repos you want to protect.
+
+# No identity set — allow push.
+if [ -z "$DOTFILES_IDENTITY" ]; then
+    exit 0
+fi
+
+# No blocklist — allow push.
+if [ -z "$IDENTITY_BLOCKED_REPOS" ]; then
+    exit 0
+fi
+
+remote_url="$2"
+
+# Extract owner/repo from remote URL.
+# Handles: git@github.com:owner/repo.git, https://github.com/owner/repo.git
+repo_path=$(echo "$remote_url" | sed -E 's#(git@|https://)([^:/]+)[:/]##; s/\.git$//')
+
+IFS=',' read -ra blocked <<< "$IDENTITY_BLOCKED_REPOS"
+for entry in "${blocked[@]}"; do
+    entry=$(echo "$entry" | xargs) # trim whitespace
+    # Glob patterns supported (e.g. "jspec*", "dwmkerr/*", "*/dotfiles").
+    if [[ "$repo_path" == $entry ]]; then
+        echo "BLOCKED: identity '${DOTFILES_IDENTITY}' cannot push to '${repo_path}'" >&2
+        echo "Blocked repos for this identity: ${IDENTITY_BLOCKED_REPOS}" >&2
+        exit 1
+    fi
+done
+
+exit 0

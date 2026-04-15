@@ -1,6 +1,6 @@
 # Inspired by https://github.com/trailofbits/claude-code-config
 
-alias yoloclaude='echo "buckle up..." && claude --dangerously-skip-permissions --chrome'
+alias yoloclaude='echo "buckle up..." && claude --dangerously-skip-permissions --chrome --effort high'
 
 # Run Claude Code against local LM Studio server
 claude-local() {

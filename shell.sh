@@ -102,7 +102,7 @@ elif [ -n "$ZSH_VERSION" ]; then
 fi
 
 # Import all shell functions and shell.d files.
-for file in $HOME/.shell.functions.d/*; do
+for file in $HOME/.shell.functions.d/*.sh $HOME/.shell.functions.d/*/*.sh; do
     [ -e "$file" ] || continue
     source "$file"
 done
@@ -114,7 +114,7 @@ done
 # Import everything from the .shell.private.d folder.
 if [ -d $HOME/.shell.private.d ]; then
     for file in $HOME/.shell.private.d/*; do
-        [ -e "$file" ] || continue
+        [ -f "$file" ] || continue
         source "$file"
     done
 fi
