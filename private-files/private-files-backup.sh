@@ -18,6 +18,9 @@ source "${script_dir}/../shell.functions.d/configure-aws-profile.sh"
 profile=${DOTFILES_PRIVATE_PROFILE:-dwmkerr}
 bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
+# Optional glob filter from first argument (e.g. "*.identity", "ssh/*").
+filter_pattern="${1:-}"
+
 # Ensure the AWS profile is configured and credentials work - noop if so.
 configure_aws_profile "${profile}" || exit 1
 
@@ -35,7 +38,12 @@ queue_for_backup() {
     local file="$1"
     local destination="$2"
     local flags="$3"
-    
+
+    # If a filter pattern was provided, skip files that don't match.
+    if [[ -n "$filter_pattern" ]] && [[ "$file" != $filter_pattern ]]; then
+        return
+    fi
+
     if [ -r "$file" ]; then
         files_to_backup+=("$file -> $destination")
         backup_commands+=("aws s3 cp --profile \"${profile}\" \"$file\" \"$destination\" $flags")

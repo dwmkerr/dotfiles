@@ -35,8 +35,8 @@ iterm-profiles: # Install iTerm2 dynamic profiles.
 	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
 
 .PHONY: private-files-backup
-private-files-backup: # Backup private config files (ssh keys etc).
-	./private-files/private-files-backup.sh
+private-files-backup: # Backup private config files (ssh keys etc). Pass FILTER=<glob> to limit.
+	./private-files/private-files-backup.sh "$(FILTER)"
 
 .PHONY: private-files-restore
 private-files-restore: # Restore private config files (ssh keys etc).
