@@ -1,0 +1,3 @@
+# Login shells read this file; source .bashrc so both login and non-login
+# interactive shells get the same configuration.
+[ -f ~/.bashrc ] && source ~/.bashrc

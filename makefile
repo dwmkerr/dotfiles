@@ -11,11 +11,14 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/shell.functions.d ~/.shell.functions.d
 	ln -sfn ${PWD}/shell.private.d ~/.shell.private.d
 	ln -sfn ${PWD}/vim/vimrc ~/.vimrc
+	mkdir -p ~/.vim ~/.config/nvim
 	ln -sfn ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
 	ln -sfn ${PWD}/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 	ln -sfn ${PWD}/tmux/tmux.conf ~/.tmux.conf
 	ln -sfn ${PWD}/ack/ackrc ~/.ackrc
 	ln -sfn ${PWD}/zsh/zshrc ~/.zshrc
+	ln -sfn ${PWD}/bash/bashrc ~/.bashrc
+	ln -sfn ${PWD}/bash/bash_profile ~/.bash_profile
 	ln -sfn ${PWD}/ag/ignore ~/.ignore
 	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/VSCode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
 	mkdir -p ~/.claude
