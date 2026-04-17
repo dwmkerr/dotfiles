@@ -27,6 +27,7 @@ apps=('bitwarden'
     'spectacle'
     'spotmenu'
     'spotify'
+    'superwhisper'
     'tlrc' # tldr (via brew)
     'vagrant'
     'virtualbox'

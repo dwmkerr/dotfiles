@@ -2,21 +2,36 @@
 
 Voice-to-text transcription setup and tools.
 
-## Current Setup
+## SuperWhisper
 
-Currently experimenting with different transcription tools.
+Primary tool in use: [SuperWhisper](https://superwhisper.com/). Install via `brew install superwhisper`.
 
-### Superwhisper
+### Modes
 
-Primary tool in use: [Superwhisper](https://superwhisper.com/)
+| Mode | STT Model | LLM | Purpose |
+|------|-----------|-----|---------|
+| Voice to text | Parakeet Multilanguage | none | Pure transcription, no reformatting |
+| Super | Parakeet Multilanguage | GPT-5 mini | Context-aware reformatting with app detection |
+| Meeting | Parakeet Multilanguage | GPT-5 mini | Meeting transcript summarizer with action items |
+| Message | Parakeet Multilanguage | GPT-5 mini | Clean text reformatter, fixes grammar and speech artifacts |
+
+### Preferences
+
+- **Active mode:** Super
+- **Push to talk:** Right Command
+- **Toggle recording:** Option + Space
+- **Cancel recording:** Escape
+- **Mini recorder:** Always shown
+
+### Notes
+
+- SuperWhisper stores mode configurations internally (no portable config file). After a fresh install, recreate modes manually in the app.
+- The Parakeet Multilanguage model downloads automatically on first use.
+- Cloud LLM models (GPT-5 mini etc.) are provided by SuperWhisper's Pro subscription.
 
 ## Tools to Evaluate
 
-Additional tools to try:
-
 - [ ] Vibe Transcribe
-
-**Note:** Mistral's 4 billion parameter model looks very appealing for transcription. However, it's not integrated into a native desktop app yet. Watch for future releases.
 
 ## More Reading
 
