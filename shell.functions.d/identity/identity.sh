@@ -48,7 +48,11 @@ _identity_clear_env() {
     unset GIT_COMMITTER_SIGNING_KEY
     unset GH_TOKEN GIT_SSH_COMMAND
     unset TMUX_RESURRECT_DIR
-    unset "${!IDENTITY_@}"
+    # Enumerate IDENTITY_* explicitly. `${!IDENTITY_@}` is bash-only and
+    # breaks under zsh with "bad substitution".
+    unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
+          IDENTITY_GIT_SIGNING_KEY IDENTITY_GH_TOKEN IDENTITY_GIT_SSH_KEY \
+          IDENTITY_COLOR IDENTITY_ICON IDENTITY_BLOCKED_REPOS IDENTITY_HIDE_PS1
 }
 
 _identity_clear() {
