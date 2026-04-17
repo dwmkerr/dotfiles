@@ -138,8 +138,13 @@ set_ps1() {
 
     esac
 
-    # If we are in Z-Shell convert the PS1 to use Z-Shell format.
-    [ -n "$ZSH_VERSION" ] && PS1=$(_to_zsh "$PS1")
+    # If we are in Z-Shell convert the PS1 to use Z-Shell format. PROMPT_SUBST
+    # is required for $(...) in PS1 to be evaluated in zsh (bash does this by
+    # default).
+    if [ -n "$ZSH_VERSION" ]; then
+        setopt PROMPT_SUBST
+        PS1=$(_to_zsh "$PS1")
+    fi
 }
 
 # Build a string that shows:

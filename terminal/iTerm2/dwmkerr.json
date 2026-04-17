@@ -349,7 +349,8 @@
   "Smart Cursor Color (Dark)" : false,
   "BM Growl" : true,
   "Prompt Before Closing 2" : false,
-  "Command" : "\/opt\/homebrew\/Cellar\/bash\/5.2.37\/bin\/bash",
+  "Command" : "\/opt\/homebrew\/bin\/bash",
+  "Initial Text" : "tmux -L dwmkerr new-session -A -s dwmkerr",
   "Smart Cursor Color (Light)" : false,
   "Use Bright Bold (Light)" : true,
   "Use Selected Text Color (Light)" : true,
@@ -420,7 +421,7 @@
 
   ],
   "Minimum Contrast (Dark)" : 0,
-  "Custom Command" : "No",
+  "Custom Command" : "Yes",
   "Foreground Color (Light)" : {
     "Red Component" : 0.67058825492858887,
     "Color Space" : "sRGB",

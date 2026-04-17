@@ -77,7 +77,7 @@ export LANG=en_US.UTF-8
 # https://askubuntu.com/questions/1021553/can-i-check-if-the-terminal-was-started-by-visual-studio-code
 # Similar for Android:
 # https://youtrack.jetbrains.com/articles/IDEA-A-19/Shell-Environment-Loading
-if [ -x "$(command -v "tmux")" ]; then
+if command -v tmux >/dev/null 2>&1; then
     IS_IN_IDE=0
     if [[ "$TERM_PROGRAM" == "vscode" || -n "$INTELLIJ_ENVIRONMENT_READER" ]]; then
         IS_IN_IDE=1
@@ -111,12 +111,13 @@ for file in $HOME/.shell.d/*; do
     source "$file"
 done
 
-# Import everything from the .shell.private.d folder.
-if [ -d $HOME/.shell.private.d ]; then
-    for file in $HOME/.shell.private.d/*; do
-        [ -f "$file" ] || continue
-        source "$file"
-    done
+# Import everything from the .shell.private.d folder. Use find to avoid zsh's
+# "no matches found" error when the glob matches nothing (e.g. when the only
+# entry is a hidden file like .gitignore).
+if [ -d "$HOME/.shell.private.d" ]; then
+    while IFS= read -r file; do
+        [ -f "$file" ] && source "$file"
+    done < <(find "$HOME/.shell.private.d" -maxdepth 1 -type f ! -name '.*' 2>/dev/null)
 fi
 
 # If we have a .private folder, source everything in it. This is useful for

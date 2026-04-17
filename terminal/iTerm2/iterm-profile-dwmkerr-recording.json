@@ -372,7 +372,7 @@
     "Alpha Component" : 1,
     "Green Component" : 1
   },
-  "Command" : "\/opt\/homebrew\/Cellar\/bash\/5.2.37\/bin\/bash  --noprofile --norc -c 'export TMUX=\"ignore\"; \/opt\/homebrew\/Cellar\/bash\/5.2.37\/bin\/bash --init-file <(echo \" source ~\/.shell.sh; clear;\")'",
+  "Command" : "\/opt\/homebrew\/bin\/bash  --noprofile --norc -c 'export TMUX=\"ignore\"; \/opt\/homebrew\/bin\/bash --init-file <(echo \" source ~\/.shell.sh; clear;\")'",
   "Minimum Contrast (Light)" : 0,
   "Character Encoding" : 4,
   "Cursor Boost (Light)" : 0,

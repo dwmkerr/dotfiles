@@ -349,7 +349,7 @@
   "Smart Cursor Color (Dark)": false,
   "BM Growl": true,
   "Prompt Before Closing 2": false,
-  "Command": "/opt/homebrew/Cellar/bash/5.2.37/bin/bash",
+  "Command": "/opt/homebrew/bin/bash",
   "Initial Text": "identity agent && tmux -L agent new-session -A -s dwmkerr-agent",
   "Smart Cursor Color (Light)": false,
   "Use Bright Bold (Light)": true,
@@ -419,7 +419,7 @@
   "Default Bookmark": "No",
   "Bound Hosts": [],
   "Minimum Contrast (Dark)": 0,
-  "Custom Command": "No",
+  "Custom Command": "Yes",
   "Foreground Color (Light)": {
     "Red Component": 0.67058825492858887,
     "Color Space": "sRGB",
