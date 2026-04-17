@@ -1,32 +1,10 @@
-# Configure Git.
+# Configure Git. GPG is handled separately in 02.5-gpg.sh.
 if [[ "$os" == "osx" ]]; then
     echo "$os: Installing git..."
     brew install git
-
-    echo "$os: Installing gpg..."
-    # Install GPG and Pinentry for Mac.
-    brew install gnupg pinentry-mac
-
-    # Tell GPG to use pinentry-mac, and restart the agent. Create the gnupg
-    # folder if we have to.
-    mkdir -p ~/.gnupg
-    echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
-    gpgconf --kill gpg-agent
-
-    # Make sure we lock down the gpg config folder.
-    # Set ownership to your own user and primary group.
-    chown -R "$USER:$(id -gn)" ~/.gnupg
-    # Set permissions to read, write, execute for only yourself, no others.
-    chmod 700 ~/.gnupg
-    # Set permissions to read, write for only yourself, no others.
-    chmod 600 ~/.gnupg/*
-
 elif [[ "$os" == "ubuntu" ]]; then
     echo "$os: Installing git..."
     sudo apt install -y git
-
-    echo "$os: Installing gpg..."
-    sudo apt install -y gnupg2
 fi
 
 # Configure Git.

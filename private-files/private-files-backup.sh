@@ -9,29 +9,17 @@ source "./tools/ask.sh"
 # gpg keys, to an encrypted AWS S3 bucket. These files can then be restored to
 # another machine by running the 'restore-private-files.sh' script.
 
-# Load the helper functions.
-helper_functions_path="$(dirname "$(readlink -f "$0")")/helper-functions.sh"
-source "${helper_functions_path}"
+# Load the helper functions and the configure_aws_profile function.
+script_dir="$(dirname "$(readlink -f "$0")")"
+source "${script_dir}/helper-functions.sh"
+source "${script_dir}/../shell.functions.d/configure-aws-profile.sh"
 
 # Set the bucket name and profile. This can be overwritten if needed.
 profile=${DOTFILES_PRIVATE_PROFILE:-dwmkerr}
 bucket=${DOTFILES_PRIVATE_S3_BUCKET:-dwmkerr-dotfiles-private}
 
-# Ensure the AWS profile exists - if it doesn't, configure it.
-if aws_profile_exists "${profile}"; then
-    echo "AWS Profile "${profile}" will be used."
-else
-    echo "AWS Profile "${profile}" does not exist, setting up now:"
-    aws configure --profile "${profile}"
-fi
-
-# Ensure the AWS profile exists - if it doesn't, configure it.
-if [[ $(aws configure --profile "${DOTFILES_PRIVATE_PROFILE}" list >> /dev/null 2>&1) -eq 0 ]]; then
-    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" will be used.'
-else
-    echo 'AWS Profile "${DOTFILES_PRIVATE_PROFILE}" does not exist, setting up now:'
-    aws configure --profile "${DOTFILES_PRIVATE_PROFILE}"
-fi
+# Ensure the AWS profile is configured and credentials work - noop if so.
+configure_aws_profile "${profile}" || exit 1
 
 echo ""
 echo "Scanning for files to backup..."
