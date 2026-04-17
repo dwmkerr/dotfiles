@@ -14,8 +14,10 @@ elif [[ "$os" == "ubuntu" ]]; then
     fi
 fi
 
-# Make sure vi always goes to nvim.
+# Make sure vi always goes to nvim. /usr/local/bin is not created by default
+# on Apple Silicon macs, so ensure it exists before symlinking.
 if ask "$os: Symlink 'vi' and 'vim' to 'nvim'?" N; then
+    sudo mkdir -p /usr/local/bin
     sudo ln -sf "$(which nvim)" /usr/local/bin/vi
     sudo ln -sf "$(which nvim)" /usr/local/bin/vim
 fi
@@ -33,10 +35,13 @@ fi
 # want it installed, just uncomment the line below:
 # git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-# Install Vim Plug.
+# Install Vim Plug. Install to both vim and neovim autoload paths so that
+# plain `vim` and `nvim` both find the plugin manager.
 if ask "$os: Install Vim Plug (plugin manager)?" N; then
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 # Install plugins.
