@@ -20,7 +20,7 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/bash/bashrc ~/.bashrc
 	ln -sfn ${PWD}/bash/bash_profile ~/.bash_profile
 	ln -sfn ${PWD}/ag/ignore ~/.ignore
-	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/VSCode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
+	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/vscode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
 	mkdir -p ~/.claude
 	ln -sfn ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
 	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
