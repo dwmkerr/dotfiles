@@ -350,7 +350,10 @@
   "BM Growl" : true,
   "Prompt Before Closing 2" : false,
   "Command" : "\/opt\/homebrew\/bin\/bash",
-  "Initial Text" : "tmux -L dwmkerr new-session -A -s dwmkerr",
+  "Initial Text" : "identity dwmkerr && tmux -L dwmkerr new-session -A -s dwmkerr",
+  "Environment" : {
+    "DOTFILES_IDENTITY" : "dwmkerr"
+  },
   "Smart Cursor Color (Light)" : false,
   "Use Bright Bold (Light)" : true,
   "Use Selected Text Color (Light)" : true,
