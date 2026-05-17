@@ -94,11 +94,10 @@
     "superpowers@claude-plugins-official": true,
     "cx@ccp": true,
     "ps@pspipe": true,
-    "protocols@dwmkerr-claude-toolkit": true,
-    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
     "protocols@claude-toolkit": true,
     "gopls-lsp@claude-plugins-official": true,
-    "git-workforest@git-workforest": true
+    "git-workforest@git-workforest": true,
+    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true
   },
   "extraKnownMarketplaces": {
     "git-workforest": {
@@ -106,9 +105,51 @@
         "source": "github",
         "repo": "dwmkerr/git-workforest"
       }
+    },
+    "claude-toolkit": {
+      "source": {
+        "source": "github",
+        "repo": "dwmkerr/claude-toolkit"
+      }
+    },
+    "context-engineering-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "NeoLabHQ/context-engineering-kit"
+      }
+    },
+    "agents-at-scale-ark": {
+      "source": {
+        "source": "github",
+        "repo": "mckinsey/agents-at-scale-ark"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    },
+    "ccp": {
+      "source": {
+        "source": "github",
+        "repo": "syzygyhack/ccp"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "dwmkerr-claude-toolkit": {
+      "source": {
+        "source": "github",
+        "repo": "dwmkerr/dwmkerr-claude-toolkit"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }
