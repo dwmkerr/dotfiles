@@ -45,5 +45,8 @@
   },
   "[github-actions-workflow]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
-  }
+  },
+  "claudeCode.useTerminal": true,
+  "claudeCode.environmentVariables": [],
+  "workbench.editor.closeEmptyGroups": false
 }

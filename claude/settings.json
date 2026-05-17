@@ -97,6 +97,7 @@
     "protocols@claude-toolkit": true,
     "gopls-lsp@claude-plugins-official": true,
     "git-workforest@git-workforest": true,
+    "caveman@caveman": true,
     "dwmkerr-toolkit@dwmkerr-claude-toolkit": true
   },
   "extraKnownMarketplaces": {
@@ -104,6 +105,12 @@
       "source": {
         "source": "github",
         "repo": "dwmkerr/git-workforest"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
       }
     },
     "claude-toolkit": {
@@ -150,6 +157,5 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true
 }

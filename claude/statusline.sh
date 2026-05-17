@@ -3,9 +3,10 @@
 # Read JSON input from stdin
 input=$(cat)
 
-# Extract current directory and model name using jq
+# Extract current directory, model name, and effort level using jq.
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 MODEL_NAME=$(echo "$input" | jq -r '.model.display_name')
+EFFORT=$(echo "$input" | jq -r '.effort.level // empty')
 
 # Colors using ANSI codes directly
 reset=$'\e[0m'
@@ -14,6 +15,7 @@ fg_blue=$'\e[34m'
 fg_green=$'\e[32m'
 fg_grey=$'\e[90m'
 fg_purple=$'\e[35m'
+fg_lightblue=$'\e[94m'
 # Context colors based on usage thresholds
 ctx_green=$'\e[92m'      # 0-30% used
 ctx_yellow=$'\e[93m'     # 30-50% used
@@ -60,13 +62,17 @@ if [ "$usage" != "null" ] && [ "$context_size" != "null" ] && [ "$context_size" 
         ctx_icon="🔥"
     fi
 
-    context_display=" ${fg_grey}|${reset} ${ctx_color}${ctx_icon}${remaining}%${reset} ${fg_grey}context left${reset}"
+    context_display=" ${fg_grey}|${reset} ${ctx_color}${ctx_icon}${remaining}%${reset} ${fg_grey}context${reset}"
 fi
 
-# Build model display
+# Build model display. Faint effort level (e.g. "high", "max", "vhigh")
+# trails the model name with no separator, just colour.
 model_display=""
 if [ -n "$MODEL_NAME" ] && [ "$MODEL_NAME" != "null" ]; then
     model_display=" ${fg_grey}|${reset} ${fg_purple}${MODEL_NAME}${reset}"
+    if [ -n "$EFFORT" ]; then
+        model_display="${model_display} ${fg_lightblue}${EFFORT}${reset}"
+    fi
 fi
 
 # Identity badge
