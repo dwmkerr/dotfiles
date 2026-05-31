@@ -85,25 +85,31 @@ Common MCP (Model Context Protocol) servers:
 
 ```bash
 # Context7 - Up-to-date documentation for libraries
-claude mcp add --transport http context7 https://mcp.context7.com/mcp
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --scope user
 
 # If you have a Context7 API key:
-claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --scope user --header "CONTEXT7_API_KEY: YOUR_API_KEY"
 
 # Notion - Access Notion workspace
 claude mcp add --transport http notion https://mcp.notion.com/mcp --scope user
 
 # Playwright - Browser automation (Chrome)
-claude mcp add playwright -- npx -y @playwright/mcp@latest
+claude mcp add playwright --scope user -- npx -y @playwright/mcp@latest
 
 # Playwright Firefox - Browser automation (Firefox)
-claude mcp add playwright-firefox -- npx -y @playwright/mcp@latest --browser firefox
+claude mcp add playwright-firefox --scope user -- npx -y @playwright/mcp@latest --browser firefox
 
 # Playwright Edge - Browser automation (Microsoft Edge)
-claude mcp add playwright-edge -- npx -y @playwright/mcp@latest --browser msedge
+claude mcp add playwright-edge --scope user -- npx -y @playwright/mcp@latest --browser msedge
 
 # Playwright Safari - Browser automation (WebKit/Safari)
-claude mcp add playwright-safari -- npx -y @playwright/mcp@latest --browser webkit
+claude mcp add playwright-safari --scope user -- npx -y @playwright/mcp@latest --browser webkit
+
+# Spotify - Playlist + playback management (needs local server + dev app)
+# Setup: clone marcelmarais/spotify-mcp-server, npm install && npm run build,
+# add credentials to spotify-config.json, then npm run auth.
+# See the dwmkerr-toolkit `spotify` skill for the full walkthrough.
+claude mcp add spotify --scope user -- node ~/repos/spotify-mcp-server/build/index.js
 ```
 
 | Server | Description |
@@ -114,6 +120,7 @@ claude mcp add playwright-safari -- npx -y @playwright/mcp@latest --browser webk
 | Playwright Firefox | Browser automation (Firefox) |
 | Playwright Edge | Browser automation (Microsoft Edge) |
 | Playwright Safari | Browser automation (WebKit/Safari) |
+| [Spotify](https://github.com/marcelmarais/spotify-mcp-server) | Playlist + playback management (local server, needs Spotify dev app + OAuth) |
 
 ## Shell Autocomplete
 
