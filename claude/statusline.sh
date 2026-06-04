@@ -90,5 +90,7 @@ if [ -n "$DOTFILES_IDENTITY" ]; then
     identity_display="${bold}${fg_id_color}${DOTFILES_IDENTITY}${reset} "
 fi
 
-# Output the status line
-echo "${identity_display}${bold}${fg_blue}${pwd_display}${reset}${git_info} ${fg_grey}? for help${reset}${context_display}${model_display}"
+# Output the status line.
+# Claude Code has no single-key model switch; slash command `/model` is the
+# fastest path, shown in faint grey brackets after the effort level.
+echo "${identity_display}${bold}${fg_blue}${pwd_display}${reset}${git_info}${context_display}${model_display} ${fg_grey}(/model)${reset} ${fg_grey}? for help${reset}"
