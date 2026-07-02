@@ -399,6 +399,60 @@ endif
 " Resize splits when terminal size changes (e.g., tmux zoom)
 autocmd VimResized * wincmd =
 
+" Auto-reload buffer when file changes on disk.
+" `autoread` is passive — it only acts when something prompts a check. The
+" focus/buffer/cursor autocmds cover the common case (vim regains focus and
+" you see fresh content). On neovim we additionally register a libuv fs_event
+" watcher per buffer so external changes reload even while nvim is in the
+" background.
+set autoread
+augroup auto_reload_on_change
+    autocmd!
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * silent! checktime
+    " Use <bar> not |; bare | ends the autocmd command and the rest runs at sourcetime.
+    autocmd FileChangedShellPost * echohl WarningMsg <bar> echo "File changed on disk. Buffer reloaded." <bar> echohl None
+augroup end
+
+if has('nvim')
+lua << EOF
+local watchers = {}
+local function watch(bufnr)
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    if path == "" or watchers[bufnr] then return end
+    if vim.fn.filereadable(path) ~= 1 then return end
+    local handle = vim.uv.new_fs_event()
+    if not handle then return end
+    watchers[bufnr] = handle
+    -- fs_event fires off main loop; schedule_wrap hops back so vim API is safe.
+    -- Some editors rename-replace on save, which detaches kqueue. Re-arm watcher
+    -- after each event so subsequent changes still fire.
+    local function arm()
+        handle:start(path, {}, vim.schedule_wrap(function(err)
+            if err then return end
+            if not vim.api.nvim_buf_is_valid(bufnr) then return end
+            vim.api.nvim_buf_call(bufnr, function() vim.cmd("silent! checktime") end)
+            -- Terminal nvim needs an explicit redraw to repaint when reload
+            -- happens outside an input event (e.g. background fs_event).
+            vim.cmd("redraw")
+            handle:stop()
+            if vim.fn.filereadable(path) == 1 then arm() end
+        end))
+    end
+    arm()
+end
+local function unwatch(bufnr)
+    local h = watchers[bufnr]
+    if h then h:stop(); h:close(); watchers[bufnr] = nil end
+end
+vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile", "BufWritePost"}, {
+    callback = function(args) watch(args.buf) end,
+})
+vim.api.nvim_create_autocmd({"BufDelete", "BufWipeout"}, {
+    callback = function(args) unwatch(args.buf) end,
+})
+EOF
+endif
+
 " Splitjoin Plugin
 " Remember it like this: 's' for 'split', j splits down, k up.
 nmap sj :SplitjoinSplit<cr>
