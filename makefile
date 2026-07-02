@@ -27,6 +27,8 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
 	mkdir -p ~/.claude/hooks
 	ln -sfn ${PWD}/claude/hooks/tmux-notify.sh ~/.claude/hooks/tmux-notify.sh || echo "error: can't link tmux-notify.sh"
+	mkdir -p ~/.config/opencode/plugin
+	ln -sfn ${PWD}/opencode/plugin/tmux-notify.js ~/.config/opencode/plugin/tmux-notify.js || echo "error: can't link opencode tmux-notify.js"
 
 .PHONY: iterm-profiles
 iterm-profiles: # Install iTerm2 dynamic profiles.
