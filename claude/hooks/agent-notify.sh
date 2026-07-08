@@ -6,7 +6,7 @@
 # exec (stdin passes straight through): one less shell in the process tree,
 # so signalbox can identify the agent process for its liveness tracking.
 if command -v signalbox >/dev/null 2>&1; then
-  exec signalbox claude-hook 2>/dev/null
+  exec signalbox hook claude 2>/dev/null
 fi
 
 payload="$(cat)"
