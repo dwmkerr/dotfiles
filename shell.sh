@@ -103,7 +103,7 @@ done
 if [ -d "$HOME/.shell.private.d" ]; then
     while IFS= read -r file; do
         [ -f "$file" ] && source "$file"
-    done < <(find "$HOME/.shell.private.d" -maxdepth 1 -type f ! -name '.*' 2>/dev/null)
+    done < <(find -L "$HOME/.shell.private.d" -maxdepth 1 -type f ! -name '.*' 2>/dev/null)
 fi
 
 # If we have a .private folder, source everything in it. This is useful for
