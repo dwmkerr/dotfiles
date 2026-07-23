@@ -382,6 +382,17 @@ Here's a quick reference. My `<Leader>` is `\`, so I've written shortcuts as `\x
 | **Markdown Tables**                  |                                                                                                                                   |
 | `\tm`                                | Enter/Exit 'table mode', which will dynamically format markdown tables.                                                           |
 | `ci｜`                               | Example of the `｜` motion for cells - i.e. 'change-in-cell'.                                                                     |
+| **Claude**                           |                                                                                                                                   |
+| `:Ask <question>`                    | Ask Claude about the buffer or selection - the answer opens in a split.                                                           |
+| `:AskEdit <task>`                    | Replace the buffer or selection with Claude's transformation - undo with `u`.                                                     |
+
+**Ask Claude from Vim**
+
+`:Ask` and `:AskEdit` pipe the buffer (or a visual selection) to the headless
+Claude Code CLI. For example, select a blockquote and ask how to yank it
+without the `> ` prefix:
+
+![Demo: :Ask in vim](./docs/vim-ask-demo.gif)
 
 Note: including the vertical pipe `|` in the table above would cause rendering issues. So instead, the unicode character `｜` is used to illustrate the commands. Do not use the unicode character, use the normal ASCII 0x7C character.
 
