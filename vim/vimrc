@@ -802,3 +802,30 @@ nnoremap <leader>l :call ToggleLineNumbers()<CR>
 
 " Kubectl: Apply current buffer to kubectl
 command! KubectlApply :w !kubectl apply -f -
+
+" Claude Code: ask about or transform text via the headless CLI.
+" :Ask <question>   - ask Claude, answer opens in a split.
+" :AskEdit <task>   - replace the text with Claude's transformation.
+" Both default to the whole buffer; give a range or visual selection to limit.
+" Claude runs in vim's cwd so it can read project files for context, and the
+" buffer's path is included so it knows which file the text came from.
+" Sonnet keeps these fast and cheap - these are small text-munging tasks.
+function! s:AskClaude(question) range
+    let l:selection = join(getline(a:firstline, a:lastline), "\n")
+    let l:prompt = 'File: ' . expand('%') . "\n" . a:question . "\n\n" . l:selection
+    let l:output = system('claude -p --model sonnet ' . shellescape(l:prompt))
+    new
+    setlocal buftype=nofile bufhidden=wipe noswapfile filetype=markdown
+    call setline(1, split(l:output, "\n"))
+endfunction
+command! -range=% -nargs=+ Ask <line1>,<line2>call <SID>AskClaude(<q-args>)
+
+" Vim's native '!' filter pipes the range to stdin and replaces it with
+" stdout, so no buffer plumbing is needed - undo with 'u'.
+function! s:AskClaudeEdit(task) range
+    let l:prompt = 'Output ONLY the transformed text, no explanation or code fences.'
+        \ . ' File: ' . expand('%') . '. Task: ' . a:task
+    " shellescape(..., 1) also escapes '!'/'%'/'#' which :! would expand.
+    execute a:firstline . ',' . a:lastline . '!claude -p --model sonnet ' . shellescape(l:prompt, 1)
+endfunction
+command! -range=% -nargs=+ AskEdit <line1>,<line2>call <SID>AskClaudeEdit(<q-args>)
