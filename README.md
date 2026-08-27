@@ -73,6 +73,7 @@ The goal of this project is to provide a single command which will setup key fea
 Additional detailed guides and configuration are available:
 
 - [Claude Code](./claude/README.md) - Claude Code CLI configuration, plugins, and MCP servers
+- [Codex](./codex/README.md) - Codex configuration, status line, and MCP servers
 - [Transcription](./transcription/README.md) - Voice-to-text transcription setup and tools
 - [Terminal](./terminal/README.md) - Terminal themes and configuration
 - [Desktop](./desktop/README.md) - Desktop environment setup
@@ -261,6 +262,10 @@ This also installs common CLI applications, such as `tree`, as well as GNU tools
 **Claude Code**
 
 Configuration and setup for Claude Code CLI. See [`claude/README.md`](./claude/README.md) for full details including plugins and MCP servers.
+
+**Codex**
+
+Configuration and setup for Codex. See [`codex/README.md`](./codex/README.md) for preferred settings and MCP servers.
 
 ## Developer Guide
 
