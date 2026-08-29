@@ -63,7 +63,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/tmux-notify.sh"
+            "command": "~/.claude/hooks/agent-notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agent-notify.sh"
           }
         ]
       }
@@ -73,7 +83,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/tmux-notify.sh clear"
+            "command": "~/.claude/hooks/agent-notify.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agent-notify.sh"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/agent-notify.sh"
           }
         ]
       }
