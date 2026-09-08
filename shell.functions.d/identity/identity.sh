@@ -5,6 +5,15 @@
 
 _IDENTITIES_DIR="$HOME/.shell.private.d"
 
+# Git has no environment variable for the signing key - GIT_COMMITTER_SIGNING_KEY
+# does not exist and is silently ignored. GIT_CONFIG_COUNT/KEY/VALUE is the only
+# per-process config override, so signing settings are injected through it.
+_identity_git_config_add() {
+    export "GIT_CONFIG_KEY_${_identity_git_config_count}=$1"
+    export "GIT_CONFIG_VALUE_${_identity_git_config_count}=$2"
+    _identity_git_config_count=$((_identity_git_config_count + 1))
+}
+
 _identity_load() {
     local name="$1"
     local file="${_IDENTITIES_DIR}/${name}.identity"
@@ -29,7 +38,33 @@ _identity_load() {
     export GIT_COMMITTER_NAME="$IDENTITY_GIT_NAME"
     export GIT_COMMITTER_EMAIL="$IDENTITY_GIT_EMAIL"
 
-    [ -n "$IDENTITY_GIT_SIGNING_KEY" ] && export GIT_COMMITTER_SIGNING_KEY="$IDENTITY_GIT_SIGNING_KEY"
+    # An identity with no key of its own must have signing explicitly disabled:
+    # the global commit.gpgsign would otherwise sign its commits with whatever
+    # key ~/.gitconfig names, attributing them to a different person.
+    _identity_git_config_count=0
+    if [ -n "$IDENTITY_GIT_SIGNING_KEY" ]; then
+        case "${IDENTITY_GIT_SIGNING_FORMAT:-openpgp}" in
+            ssh|openpgp) ;;
+            *)  echo "Unknown IDENTITY_GIT_SIGNING_FORMAT: ${IDENTITY_GIT_SIGNING_FORMAT}" >&2
+                _identity_clear_env
+                return 1 ;;
+        esac
+        _identity_git_config_add gpg.format "${IDENTITY_GIT_SIGNING_FORMAT:-openpgp}"
+        _identity_git_config_add user.signingkey "${IDENTITY_GIT_SIGNING_KEY/#\~/$HOME}"
+        _identity_git_config_add commit.gpgsign true
+        _identity_git_config_add tag.gpgsign true
+        # Without this, git can create ssh signatures but not verify them, and
+        # every --show-signature errors instead of reporting a result.
+        [ "${IDENTITY_GIT_SIGNING_FORMAT}" = "ssh" ] && \
+            _identity_git_config_add gpg.ssh.allowedSignersFile "$HOME/.ssh/allowed_signers"
+    else
+        _identity_git_config_add commit.gpgsign false
+        _identity_git_config_add tag.gpgsign false
+        # Blank the inherited key too, so an explicit `git commit -S` fails
+        # loudly rather than quietly signing as whoever ~/.gitconfig names.
+        _identity_git_config_add user.signingkey ""
+    fi
+    export GIT_CONFIG_COUNT="$_identity_git_config_count"
     [ -n "$IDENTITY_GH_TOKEN" ] && export GH_TOKEN="$IDENTITY_GH_TOKEN"
     [ -n "$IDENTITY_GIT_SSH_KEY" ] && export GIT_SSH_COMMAND="ssh -i ${IDENTITY_GIT_SSH_KEY/#\~/$HOME} -o IdentitiesOnly=yes -o IdentityAgent=none"
 
@@ -45,13 +80,23 @@ _identity_clear_env() {
     unset DOTFILES_IDENTITY
     unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL
     unset GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
-    unset GIT_COMMITTER_SIGNING_KEY
+    # Remove injected git config precisely: git fails with "missing config key"
+    # if GIT_CONFIG_COUNT outlives the pairs it counts.
+    if [ -n "$GIT_CONFIG_COUNT" ]; then
+        local _i=0
+        while [ "$_i" -lt "$GIT_CONFIG_COUNT" ]; do
+            unset "GIT_CONFIG_KEY_${_i}" "GIT_CONFIG_VALUE_${_i}"
+            _i=$((_i + 1))
+        done
+        unset GIT_CONFIG_COUNT
+    fi
     unset GH_TOKEN GIT_SSH_COMMAND
     unset TMUX_RESURRECT_DIR
     # Enumerate IDENTITY_* explicitly. `${!IDENTITY_@}` is bash-only and
     # breaks under zsh with "bad substitution".
     unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
-          IDENTITY_GIT_SIGNING_KEY IDENTITY_GH_TOKEN IDENTITY_GIT_SSH_KEY \
+          IDENTITY_GIT_SIGNING_KEY IDENTITY_GIT_SIGNING_FORMAT \
+          IDENTITY_GH_TOKEN IDENTITY_GIT_SSH_KEY \
           IDENTITY_COLOR IDENTITY_ICON IDENTITY_BLOCKED_REPOS IDENTITY_HIDE_PS1
 }
 

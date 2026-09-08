@@ -36,12 +36,26 @@ Fields:
 | `IDENTITY_NAME` | Short name used in commands and prompt |
 | `IDENTITY_GIT_NAME` | Git author/committer name |
 | `IDENTITY_GIT_EMAIL` | Git author/committer email |
-| `IDENTITY_GIT_SIGNING_KEY` | GPG key fingerprint (optional) |
+| `IDENTITY_GIT_SIGNING_KEY` | GPG fingerprint, or path to an SSH public key (optional) |
+| `IDENTITY_GIT_SIGNING_FORMAT` | `openpgp` (default) or `ssh` |
 | `IDENTITY_GH_TOKEN` | GitHub personal access token for `gh` CLI |
 | `IDENTITY_COLOR` | Prompt badge color: red, green, yellow, blue, magenta, cyan |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
 | `IDENTITY_BLOCKED_REPOS` | Comma-separated repos/globs to block pushes to |
 | `IDENTITY_HIDE_PS1` | Set to `1` to hide the PS1 badge for this identity |
+
+## Signing
+
+Git has no environment variable for the signing key, so the loader injects
+`user.signingkey`, `gpg.format` and `commit.gpgsign` through `GIT_CONFIG_COUNT`.
+
+An identity with no `IDENTITY_GIT_SIGNING_KEY` gets signing switched **off** and
+its inherited signing key blanked. Without that, the global `commit.gpgsign`
+signs every identity's commits with whatever key `~/.gitconfig` names.
+
+SSH signing needs the public key listed in `~/.ssh/allowed_signers` for git to
+verify its own signatures, and registered on GitHub as a Signing key (separate
+from an Authentication key) for GitHub to show them as Verified.
 
 ## Usage
 
