@@ -5,6 +5,11 @@
 
 _IDENTITIES_DIR="$HOME/.shell.private.d"
 
+# Sourced explicitly rather than relied on from shell startup, because asid
+# and other non-interactive callers source this file directly.
+[ -r "$HOME/.shell.functions.d/identity/identity-colors.sh" ] && \
+    source "$HOME/.shell.functions.d/identity/identity-colors.sh"
+
 # Git has no environment variable for the signing key - GIT_COMMITTER_SIGNING_KEY
 # does not exist and is silently ignored. GIT_CONFIG_COUNT/KEY/VALUE is the only
 # per-process config override, so signing settings are injected through it.
@@ -144,16 +149,7 @@ _identity_info() {
     [ "${IDENTITY_HIDE_PS1:-0}" = "1" ] && return
     local reset=$(tput sgr0)
     local bold=$(tput bold)
-    local color
-    case "${IDENTITY_COLOR:-white}" in
-        red)     color=$(tput setaf 1) ;;
-        green)   color=$(tput setaf 2) ;;
-        yellow)  color=$(tput setaf 3) ;;
-        blue)    color=$(tput setaf 4) ;;
-        magenta) color=$(tput setaf 5) ;;
-        cyan)    color=$(tput setaf 6) ;;
-        *)       color=$(tput setaf 7) ;;
-    esac
+    local color=$(tput setaf "$(identity_color_index "$IDENTITY_COLOR")")
     echo "${bold}${color}${DOTFILES_IDENTITY}${reset} "
 }
 

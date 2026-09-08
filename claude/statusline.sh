@@ -78,15 +78,11 @@ fi
 # Identity badge
 identity_display=""
 if [ -n "$DOTFILES_IDENTITY" ]; then
-    fg_id_color=$'\e[32m'
-    case "${IDENTITY_COLOR:-}" in
-        red)     fg_id_color=$'\e[31m' ;;
-        green)   fg_id_color=$'\e[32m' ;;
-        yellow)  fg_id_color=$'\e[33m' ;;
-        blue)    fg_id_color=$'\e[34m' ;;
-        magenta) fg_id_color=$'\e[35m' ;;
-        cyan)    fg_id_color=$'\e[36m' ;;
-    esac
+    fg_id_color=$'\e[37m'
+    if [ -r "$HOME/.shell.functions.d/identity/identity-colors.sh" ]; then
+        source "$HOME/.shell.functions.d/identity/identity-colors.sh"
+        fg_id_color=$'\e['"$((30 + $(identity_color_index "$IDENTITY_COLOR")))"'m'
+    fi
     identity_display="${bold}${fg_id_color}${DOTFILES_IDENTITY}${reset} "
 fi
 

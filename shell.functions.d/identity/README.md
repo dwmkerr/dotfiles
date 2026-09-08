@@ -11,6 +11,8 @@ Each identity is a small shell file that sets env vars (`GIT_AUTHOR_NAME`, `GIT_
 ```
 shell.functions.d/identity/
   identity.sh                # shell function (sourced via shell.sh)
+  identity-colors.sh         # badge colour map, shared with the statusline
+  asid                       # run one command as an identity
   README.md
 
 ~/.shell.private.d/
@@ -39,7 +41,7 @@ Fields:
 | `IDENTITY_GIT_SIGNING_FORMAT` | `openpgp` (default) or `ssh` |
 | `IDENTITY_GH_TOKEN` | GitHub personal access token for `gh` CLI |
 | `IDENTITY_GH_LOGIN` | Expected GitHub login, asserted by `identity check` |
-| `IDENTITY_COLOR` | Prompt badge color: red, green, yellow, blue, magenta, cyan |
+| `IDENTITY_COLOR` | Badge colour: black, red, green, yellow, blue, magenta (or pink), cyan, white (or grey). Anything else falls back to white |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
 | `IDENTITY_HIDE_PS1` | Set to `1` to hide the PS1 badge for this identity |
 
