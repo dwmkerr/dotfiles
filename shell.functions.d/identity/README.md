@@ -71,6 +71,24 @@ identity check      # verify the token is live and owned by the expected account
 identity clear      # unset identity, revert to global gitconfig
 ```
 
+## Running one command as an identity
+
+`identity` is a shell function, so it exists only in interactive shells. Agents,
+hooks, scripts and anything running `zsh -c` have no identity at all, and git and
+gh quietly fall back to the global gitconfig and the gh keyring. `asid` closes
+that gap - it is a standalone script, so it works from any context:
+
+```bash
+asid gaspode git push          # run one command as that identity
+asid gaspode                   # show what the identity resolves to
+asid -c gaspode                # verify its token with GitHub
+asid -l                        # list identities
+```
+
+It loads the identity in its own process, so nothing leaks into the calling
+shell, and it refuses to run at all if the identity has no token - rather than
+silently running as whoever the keyring holds.
+
 ## Prompt badge
 
 The PS1 theme shows a colored identity badge on the prompt line. If `identity.sh` isn't sourced, the badge is silently skipped.

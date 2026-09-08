@@ -10,6 +10,8 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/shell.d ~/.shell.d
 	ln -sfn ${PWD}/shell.functions.d ~/.shell.functions.d
 	ln -sfn ${PWD}/shell.private.d ~/.shell.private.d
+	mkdir -p ~/.local/bin
+	ln -sfn ${PWD}/shell.functions.d/identity/asid ~/.local/bin/asid
 	ln -sfn ${PWD}/vim/vimrc ~/.vimrc
 	mkdir -p ~/.vim ~/.config/nvim
 	ln -sfn ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
