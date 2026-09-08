@@ -166,6 +166,7 @@ Profiles are in `terminal/iTerm2/` and loaded as [dynamic profiles](https://iter
 | `dwmkerr` | Default terminal |
 | `dwmkerr-recording` | No transparency, for screen recordings |
 | `dwmkerr-agent` | Agent identity, dark purple background, isolated tmux |
+| `gaspode` | Assistant identity, dark teal background, isolated tmux |
 
 Install profiles:
 
@@ -173,7 +174,7 @@ Install profiles:
 make iterm-profiles
 ```
 
-See `identities/README.md` for identity setup details.
+See `shell.functions.d/identity/README.md` for identity setup details.
 
 Global preferences:
 

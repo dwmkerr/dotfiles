@@ -350,7 +350,7 @@
   "BM Growl": true,
   "Prompt Before Closing 2": false,
   "Command": "/opt/homebrew/bin/bash",
-  "Initial Text": "identity gdog && tmux -L gdog new-session -A -s gdog",
+  "Initial Text": "identity gaspode && tmux -L gaspode new-session -A -s gaspode",
   "Smart Cursor Color (Light)": false,
   "Use Bright Bold (Light)": true,
   "Use Selected Text Color (Light)": true,
@@ -500,7 +500,7 @@
     "Alpha Component": 1,
     "Green Component": 0.68627452850341797
   },
-  "Description": "gdog identity - dark teal background",
+  "Description": "gaspode identity - dark teal background",
   "Match Background Color": {
     "Red Component": 1,
     "Color Space": "P3",
@@ -523,7 +523,7 @@
     "Alpha Component": 1,
     "Green Component": 0.42352941632270813
   },
-  "Name": "gdog",
+  "Name": "gaspode",
   "Use Tab Color (Dark)": false,
   "Load Shell Integration Automatically": true,
   "Transparency": 0.43588169642857144,
@@ -808,6 +808,6 @@
     "Green Component": 0.14
   },
   "Environment": {
-    "DOTFILES_IDENTITY": "gdog"
+    "DOTFILES_IDENTITY": "gaspode"
   }
 }
