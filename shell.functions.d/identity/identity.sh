@@ -68,6 +68,13 @@ _identity_load() {
     [ -n "$IDENTITY_GH_TOKEN" ] && export GH_TOKEN="$IDENTITY_GH_TOKEN"
     [ -n "$IDENTITY_GIT_SSH_KEY" ] && export GIT_SSH_COMMAND="ssh -i ${IDENTITY_GIT_SSH_KEY/#\~/$HOME} -o IdentitiesOnly=yes -o IdentityAgent=none"
 
+    # gh falls back to the keyring login when GH_TOKEN is unset, running as
+    # whoever that is with no error at all, so an identity with no token of its
+    # own is worth saying out loud.
+    if [ -z "$IDENTITY_GH_TOKEN" ]; then
+        echo "Warning: identity '${IDENTITY_NAME}' has no GitHub token - gh will use the default login." >&2
+    fi
+
     export TMUX_RESURRECT_DIR="$HOME/.local/share/tmux/resurrect/$IDENTITY_NAME"
 
     # Store color/icon/blocklist for prompt and hooks.
@@ -96,7 +103,7 @@ _identity_clear_env() {
     # breaks under zsh with "bad substitution".
     unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
           IDENTITY_GIT_SIGNING_KEY IDENTITY_GIT_SIGNING_FORMAT \
-          IDENTITY_GH_TOKEN IDENTITY_GIT_SSH_KEY \
+          IDENTITY_GH_TOKEN IDENTITY_GH_LOGIN IDENTITY_GIT_SSH_KEY \
           IDENTITY_COLOR IDENTITY_ICON IDENTITY_BLOCKED_REPOS IDENTITY_HIDE_PS1
 }
 
@@ -151,6 +158,55 @@ _identity_info() {
     echo "${bold}${color}${DOTFILES_IDENTITY}${reset} "
 }
 
+# Days until the token expires, or empty if the date cannot be parsed. BSD and
+# GNU date take different flags, so try both.
+_identity_token_days_left() {
+    # BSD date cannot parse a trailing "UTC" via %Z, so drop the zone and read
+    # the timestamp as UTC explicitly.
+    local expiry="$1" expiry_epoch=""
+    expiry_epoch=$(date -j -u -f "%Y-%m-%d %H:%M:%S" "${expiry% *}" +%s 2>/dev/null) \
+        || expiry_epoch=$(date -u -d "$expiry" +%s 2>/dev/null) \
+        || return 0
+    [ -n "$expiry_epoch" ] || return 0
+    echo $(( (expiry_epoch - $(date +%s)) / 86400 ))
+}
+
+# Ask GitHub who the current token actually belongs to. The whole point of an
+# identity is that commands run as someone specific, and only GitHub can confirm
+# that - a token can be dead, or belong to an account you did not expect.
+_identity_check() {
+    if [ -z "$DOTFILES_IDENTITY" ]; then
+        echo "No identity set." >&2
+        return 1
+    fi
+
+    if [ -z "$GH_TOKEN" ]; then
+        echo "✗ ${DOTFILES_IDENTITY}: no token set, gh would run as the default login" >&2
+        return 1
+    fi
+
+    local response login expiry days
+    response=$(gh api -i user 2>&1) || {
+        echo "✗ ${DOTFILES_IDENTITY}: $(echo "$response" | grep -i "message" | head -1)" >&2
+        return 1
+    }
+
+    login=$(echo "$response" | grep -o '"login": *"[^"]*"' | head -1 | cut -d'"' -f4)
+    expiry=$(echo "$response" | grep -i "^github-authentication-token-expiration:" | cut -d" " -f2- | tr -d "\r")
+
+    if [ -n "$IDENTITY_GH_LOGIN" ] && [ "$login" != "$IDENTITY_GH_LOGIN" ]; then
+        echo "✗ ${DOTFILES_IDENTITY}: token belongs to '${login}', expected '${IDENTITY_GH_LOGIN}'" >&2
+        return 1
+    fi
+
+    if [ -n "$expiry" ]; then
+        days=$(_identity_token_days_left "$expiry")
+        echo "✓ ${DOTFILES_IDENTITY}: authenticated as ${login}, token expires ${expiry}${days:+ (${days} days)}"
+    else
+        echo "✓ ${DOTFILES_IDENTITY}: authenticated as ${login}, token does not expire"
+    fi
+}
+
 _identity_status() {
     echo "=== Identity ==="
     if [ -n "$DOTFILES_IDENTITY" ]; then
@@ -178,6 +234,8 @@ _identity_status() {
     else
         echo "  (not set)"
     fi
+    echo "  \$ identity check"
+    _identity_check 2>&1 | sed 's/^/  /'
     echo "  \$ gh auth status"
     gh auth status 2>&1 | sed 's/^/  /'
 
@@ -195,6 +253,7 @@ identity() {
         "")      _identity_show ;;
         list)    _identity_list ;;
         clear)   _identity_clear ;;
+        check)   _identity_check ;;
         status)  _identity_status ;;
         *)       _identity_load "$cmd" && _identity_show ;;
     esac

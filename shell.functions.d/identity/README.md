@@ -39,6 +39,7 @@ Fields:
 | `IDENTITY_GIT_SIGNING_KEY` | GPG fingerprint, or path to an SSH public key (optional) |
 | `IDENTITY_GIT_SIGNING_FORMAT` | `openpgp` (default) or `ssh` |
 | `IDENTITY_GH_TOKEN` | GitHub personal access token for `gh` CLI |
+| `IDENTITY_GH_LOGIN` | Expected GitHub login, asserted by `identity check` |
 | `IDENTITY_COLOR` | Prompt badge color: red, green, yellow, blue, magenta, cyan |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
 | `IDENTITY_BLOCKED_REPOS` | Comma-separated repos/globs to block pushes to |
@@ -66,6 +67,7 @@ identity list       # show available identities
 identity myname     # load the 'myname' identity
 identity            # show current identity
 identity status     # show identity, git, and GitHub auth details
+identity check      # verify the token is live and owned by the expected account
 identity clear      # unset identity, revert to global gitconfig
 ```
 
