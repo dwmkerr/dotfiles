@@ -80,7 +80,6 @@ _identity_load() {
     # Store color/icon/blocklist for prompt and hooks.
     export IDENTITY_COLOR="$IDENTITY_COLOR"
     export IDENTITY_ICON="$IDENTITY_ICON"
-    export IDENTITY_BLOCKED_REPOS="$IDENTITY_BLOCKED_REPOS"
 }
 
 _identity_clear_env() {
@@ -104,7 +103,7 @@ _identity_clear_env() {
     unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
           IDENTITY_GIT_SIGNING_KEY IDENTITY_GIT_SIGNING_FORMAT \
           IDENTITY_GH_TOKEN IDENTITY_GH_LOGIN IDENTITY_GIT_SSH_KEY \
-          IDENTITY_COLOR IDENTITY_ICON IDENTITY_BLOCKED_REPOS IDENTITY_HIDE_PS1
+          IDENTITY_COLOR IDENTITY_ICON IDENTITY_HIDE_PS1
 }
 
 _identity_clear() {
@@ -238,12 +237,6 @@ _identity_status() {
     _identity_check 2>&1 | sed 's/^/  /'
     echo "  \$ gh auth status"
     gh auth status 2>&1 | sed 's/^/  /'
-
-    if [ -n "$IDENTITY_BLOCKED_REPOS" ]; then
-        echo ""
-        echo "=== Blocked repos ==="
-        echo "  ${IDENTITY_BLOCKED_REPOS}"
-    fi
 }
 
 identity() {

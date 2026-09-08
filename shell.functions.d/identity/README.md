@@ -11,7 +11,6 @@ Each identity is a small shell file that sets env vars (`GIT_AUTHOR_NAME`, `GIT_
 ```
 shell.functions.d/identity/
   identity.sh                # shell function (sourced via shell.sh)
-  pre-push-identity-guard    # git hook script
   README.md
 
 ~/.shell.private.d/
@@ -42,7 +41,6 @@ Fields:
 | `IDENTITY_GH_LOGIN` | Expected GitHub login, asserted by `identity check` |
 | `IDENTITY_COLOR` | Prompt badge color: red, green, yellow, blue, magenta, cyan |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
-| `IDENTITY_BLOCKED_REPOS` | Comma-separated repos/globs to block pushes to |
 | `IDENTITY_HIDE_PS1` | Set to `1` to hide the PS1 badge for this identity |
 
 ## Signing
@@ -93,16 +91,17 @@ silently running as whoever the keyring holds.
 
 The PS1 theme shows a colored identity badge on the prompt line. If `identity.sh` isn't sourced, the badge is silently skipped.
 
-## Push guardrails
 
-The `pre-push-identity-guard` script blocks pushes to repos listed in `IDENTITY_BLOCKED_REPOS`. Supports glob patterns like `org-name/*` or `*/repo-name`.
+## Access control
 
-Install per-repo by symlinking to `.git/hooks/pre-push`:
+Which repos an identity may push to is GitHub's job, not this tool's - an
+identity can push where its account has write access and nowhere else, enforced
+server side. There was a `pre-push` hook here that blocked pushes by repo name;
+it was removed because it duplicated that check badly, and local hooks are
+skippable with `--no-verify` in any case.
 
-```bash
-ln -sf ~/path/to/dotfiles/shell.functions.d/identity/pre-push-identity-guard \
-    .git/hooks/pre-push
-```
+GitHub does not check *who authored* a commit, only who pushed it. Signed
+commits are what makes a mismatch visible.
 
 ## iTerm2 profiles
 
@@ -110,6 +109,4 @@ Each identity can have an iTerm2 profile in `terminal/iTerm2/`. Profiles run `id
 
 ## Future ideas
 
-- `.identity.yaml` in repo roots to force/guard identity per-project
-- Global `core.hooksPath` so the push guard works everywhere
 - `identity init` command to scaffold new identities interactively
