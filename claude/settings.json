@@ -158,5 +158,5 @@
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "xhigh"
+  "effortLevel": "high"
 }
