@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# asid - run a command under a git/GitHub identity.
+#
+# The identity loader is a shell function, sourced only by interactive shells,
+# so agents, hooks, scripts and anything running `zsh -c` have no identity at
+# all - and git and gh then fall back to the global gitconfig and the gh keyring
+# without any error. This makes an identity usable from any context.
+
+# No `set -u`: identity files legitimately omit optional fields, and the loader
+# tests them directly.
+set -eo pipefail
+
+IDENTITY_LOADER="${HOME}/.shell.functions.d/identity/identity.sh"
+
+usage() {
+    cat <<'EOF'
+Usage:
+  asid <identity> <command> [args...]   run a command as that identity
+  asid <identity>                       show what the identity resolves to
+  asid -c <identity>                    verify the identity's token with GitHub
+  asid -l                               list available identities
+
+Examples:
+  asid gaspode git push
+  asid gaspode gh pr create --fill
+EOF
+}
+
+check=0
+case "${1:-}" in
+    ""|-h|--help) usage; [ -z "${1:-}" ] && exit 2 || exit 0 ;;
+    -c|--check)   check=1; shift ;;
+    -l|--list)    source "$IDENTITY_LOADER" && _identity_list; exit 0 ;;
+esac
+
+name="${1:-}"
+if [ -z "$name" ]; then
+    usage
+    exit 2
+fi
+shift
+
+if [ ! -f "$IDENTITY_LOADER" ]; then
+    echo "asid: identity loader not found: $IDENTITY_LOADER" >&2
+    exit 1
+fi
+
+# shellcheck source=/dev/null
+source "$IDENTITY_LOADER"
+_identity_load "$name" || exit 1
+
+# Refuse, rather than warn: nothing reads warnings in a non-interactive context,
+# and a missing token means gh runs as whoever the keyring holds.
+if [ -z "${GH_TOKEN:-}" ]; then
+    echo "asid: identity '${name}' has no GitHub token - refusing to run as the default login" >&2
+    exit 1
+fi
+
+# No command: report what the identity resolves to, so it can be checked without
+# running anything.
+if [ "$check" -eq 1 ]; then
+    _identity_check
+    exit $?
+elif [ $# -eq 0 ]; then
+    _identity_show
+    exit 0
+fi
+
+exec "$@"

@@ -52,11 +52,11 @@
   },
   "Use Bright Bold (Dark)": true,
   "Background Color": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Ansi 8 Color": {
     "Red Component": 0.46274510025978088,
@@ -276,11 +276,11 @@
     "Green Component": 0.21960784494876862
   },
   "Ansi 0 Color": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Match Background Color (Dark)": {
     "Red Component": 1,
@@ -312,7 +312,7 @@
   },
   "Silence Bell": false,
   "Rows": 25,
-  "Guid": "6BD6E0C1-7E2C-40AE-97F5-DFDE1014E0C3",
+  "Guid": "F281C7FD-54E4-4B61-84C1-AF5E2069602B",
   "Ansi 14 Color (Dark)": {
     "Red Component": 0.33725491166114807,
     "Color Space": "sRGB",
@@ -329,11 +329,11 @@
     "Green Component": 0.69803923368453979
   },
   "Ansi 0 Color (Dark)": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Ambiguous Double Width": false,
   "Option Key Sends": 2,
@@ -350,7 +350,7 @@
   "BM Growl": true,
   "Prompt Before Closing 2": false,
   "Command": "/opt/homebrew/bin/bash",
-  "Initial Text": "identity agent && tmux -L agent new-session -A -s dwmkerr-agent",
+  "Initial Text": "identity gaspode && tmux -L gaspode new-session -A -s gaspode",
   "Smart Cursor Color (Light)": false,
   "Use Bright Bold (Light)": true,
   "Use Selected Text Color (Light)": true,
@@ -435,11 +435,11 @@
     "Green Component": 0.42352941632270813
   },
   "Background Color (Dark)": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Ansi 14 Color": {
     "Red Component": 0.33725491166114807,
@@ -500,7 +500,7 @@
     "Alpha Component": 1,
     "Green Component": 0.68627452850341797
   },
-  "Description": "Agent identity - medium grey background",
+  "Description": "gaspode identity - dark teal background",
   "Match Background Color": {
     "Red Component": 1,
     "Color Space": "P3",
@@ -523,7 +523,7 @@
     "Alpha Component": 1,
     "Green Component": 0.42352941632270813
   },
-  "Name": "dwmkerr-agent",
+  "Name": "gaspode",
   "Use Tab Color (Dark)": false,
   "Load Shell Integration Automatically": true,
   "Transparency": 0.43588169642857144,
@@ -744,11 +744,11 @@
   "Faint Text Alpha (Light)": 0.5,
   "Use Separate Colors for Light and Dark Mode": false,
   "Background Color (Light)": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Terminal Type": "xterm-256color",
   "Ansi 13 Color": {
@@ -801,13 +801,13 @@
     "Green Component": 0.47058823704719543
   },
   "Ansi 0 Color (Light)": {
-    "Red Component": 0.15,
+    "Red Component": 0.12,
     "Color Space": "sRGB",
-    "Blue Component": 0.19,
+    "Blue Component": 0.21,
     "Alpha Component": 1,
-    "Green Component": 0.13
+    "Green Component": 0.14
   },
   "Environment": {
-    "DOTFILES_IDENTITY": "agent"
+    "DOTFILES_IDENTITY": "gaspode"
   }
 }

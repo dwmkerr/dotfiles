@@ -40,3 +40,15 @@ resource "aws_s3_bucket" "dwmkerr_private_files" {
     prevent_destroy = true
   }
 }
+
+# The bucket holds SSH private keys, GPG secret keys and API tokens. Block Public
+# Access is the guardrail that stops any future ACL or policy change from
+# exposing them, regardless of what the object ACLs say.
+resource "aws_s3_bucket_public_access_block" "dwmkerr_private_files" {
+  bucket = aws_s3_bucket.dwmkerr_private_files.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}

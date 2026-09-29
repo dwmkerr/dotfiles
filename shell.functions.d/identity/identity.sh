@@ -5,6 +5,20 @@
 
 _IDENTITIES_DIR="$HOME/.shell.private.d"
 
+# Sourced explicitly rather than relied on from shell startup, because asid
+# and other non-interactive callers source this file directly.
+[ -r "$HOME/.shell.functions.d/identity/identity-colors.sh" ] && \
+    source "$HOME/.shell.functions.d/identity/identity-colors.sh"
+
+# Git has no environment variable for the signing key - GIT_COMMITTER_SIGNING_KEY
+# does not exist and is silently ignored. GIT_CONFIG_COUNT/KEY/VALUE is the only
+# per-process config override, so signing settings are injected through it.
+_identity_git_config_add() {
+    export "GIT_CONFIG_KEY_${_identity_git_config_count}=$1"
+    export "GIT_CONFIG_VALUE_${_identity_git_config_count}=$2"
+    _identity_git_config_count=$((_identity_git_config_count + 1))
+}
+
 _identity_load() {
     local name="$1"
     local file="${_IDENTITIES_DIR}/${name}.identity"
@@ -29,30 +43,72 @@ _identity_load() {
     export GIT_COMMITTER_NAME="$IDENTITY_GIT_NAME"
     export GIT_COMMITTER_EMAIL="$IDENTITY_GIT_EMAIL"
 
-    [ -n "$IDENTITY_GIT_SIGNING_KEY" ] && export GIT_COMMITTER_SIGNING_KEY="$IDENTITY_GIT_SIGNING_KEY"
+    # An identity with no key of its own must have signing explicitly disabled:
+    # the global commit.gpgsign would otherwise sign its commits with whatever
+    # key ~/.gitconfig names, attributing them to a different person.
+    _identity_git_config_count=0
+    if [ -n "$IDENTITY_GIT_SIGNING_KEY" ]; then
+        case "${IDENTITY_GIT_SIGNING_FORMAT:-openpgp}" in
+            ssh|openpgp) ;;
+            *)  echo "Unknown IDENTITY_GIT_SIGNING_FORMAT: ${IDENTITY_GIT_SIGNING_FORMAT}" >&2
+                _identity_clear_env
+                return 1 ;;
+        esac
+        _identity_git_config_add gpg.format "${IDENTITY_GIT_SIGNING_FORMAT:-openpgp}"
+        _identity_git_config_add user.signingkey "${IDENTITY_GIT_SIGNING_KEY/#\~/$HOME}"
+        _identity_git_config_add commit.gpgsign true
+        _identity_git_config_add tag.gpgsign true
+        # Without this, git can create ssh signatures but not verify them, and
+        # every --show-signature errors instead of reporting a result.
+        [ "${IDENTITY_GIT_SIGNING_FORMAT}" = "ssh" ] && \
+            _identity_git_config_add gpg.ssh.allowedSignersFile "$HOME/.ssh/allowed_signers"
+    else
+        _identity_git_config_add commit.gpgsign false
+        _identity_git_config_add tag.gpgsign false
+        # Blank the inherited key too, so an explicit `git commit -S` fails
+        # loudly rather than quietly signing as whoever ~/.gitconfig names.
+        _identity_git_config_add user.signingkey ""
+    fi
+    export GIT_CONFIG_COUNT="$_identity_git_config_count"
     [ -n "$IDENTITY_GH_TOKEN" ] && export GH_TOKEN="$IDENTITY_GH_TOKEN"
     [ -n "$IDENTITY_GIT_SSH_KEY" ] && export GIT_SSH_COMMAND="ssh -i ${IDENTITY_GIT_SSH_KEY/#\~/$HOME} -o IdentitiesOnly=yes -o IdentityAgent=none"
+
+    # gh falls back to the keyring login when GH_TOKEN is unset, running as
+    # whoever that is with no error at all, so an identity with no token of its
+    # own is worth saying out loud.
+    if [ -z "$IDENTITY_GH_TOKEN" ]; then
+        echo "Warning: identity '${IDENTITY_NAME}' has no GitHub token - gh will use the default login." >&2
+    fi
 
     export TMUX_RESURRECT_DIR="$HOME/.local/share/tmux/resurrect/$IDENTITY_NAME"
 
     # Store color/icon/blocklist for prompt and hooks.
     export IDENTITY_COLOR="$IDENTITY_COLOR"
     export IDENTITY_ICON="$IDENTITY_ICON"
-    export IDENTITY_BLOCKED_REPOS="$IDENTITY_BLOCKED_REPOS"
 }
 
 _identity_clear_env() {
     unset DOTFILES_IDENTITY
     unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL
     unset GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
-    unset GIT_COMMITTER_SIGNING_KEY
+    # Remove injected git config precisely: git fails with "missing config key"
+    # if GIT_CONFIG_COUNT outlives the pairs it counts.
+    if [ -n "$GIT_CONFIG_COUNT" ]; then
+        local _i=0
+        while [ "$_i" -lt "$GIT_CONFIG_COUNT" ]; do
+            unset "GIT_CONFIG_KEY_${_i}" "GIT_CONFIG_VALUE_${_i}"
+            _i=$((_i + 1))
+        done
+        unset GIT_CONFIG_COUNT
+    fi
     unset GH_TOKEN GIT_SSH_COMMAND
     unset TMUX_RESURRECT_DIR
     # Enumerate IDENTITY_* explicitly. `${!IDENTITY_@}` is bash-only and
     # breaks under zsh with "bad substitution".
     unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
-          IDENTITY_GIT_SIGNING_KEY IDENTITY_GH_TOKEN IDENTITY_GIT_SSH_KEY \
-          IDENTITY_COLOR IDENTITY_ICON IDENTITY_BLOCKED_REPOS IDENTITY_HIDE_PS1
+          IDENTITY_GIT_SIGNING_KEY IDENTITY_GIT_SIGNING_FORMAT \
+          IDENTITY_GH_TOKEN IDENTITY_GH_LOGIN IDENTITY_GIT_SSH_KEY \
+          IDENTITY_COLOR IDENTITY_ICON IDENTITY_HIDE_PS1
 }
 
 _identity_clear() {
@@ -93,17 +149,57 @@ _identity_info() {
     [ "${IDENTITY_HIDE_PS1:-0}" = "1" ] && return
     local reset=$(tput sgr0)
     local bold=$(tput bold)
-    local color
-    case "${IDENTITY_COLOR:-white}" in
-        red)     color=$(tput setaf 1) ;;
-        green)   color=$(tput setaf 2) ;;
-        yellow)  color=$(tput setaf 3) ;;
-        blue)    color=$(tput setaf 4) ;;
-        magenta) color=$(tput setaf 5) ;;
-        cyan)    color=$(tput setaf 6) ;;
-        *)       color=$(tput setaf 7) ;;
-    esac
+    local color=$(tput setaf "$(identity_color_index "$IDENTITY_COLOR")")
     echo "${bold}${color}${DOTFILES_IDENTITY}${reset} "
+}
+
+# Days until the token expires, or empty if the date cannot be parsed. BSD and
+# GNU date take different flags, so try both.
+_identity_token_days_left() {
+    # BSD date cannot parse a trailing "UTC" via %Z, so drop the zone and read
+    # the timestamp as UTC explicitly.
+    local expiry="$1" expiry_epoch=""
+    expiry_epoch=$(date -j -u -f "%Y-%m-%d %H:%M:%S" "${expiry% *}" +%s 2>/dev/null) \
+        || expiry_epoch=$(date -u -d "$expiry" +%s 2>/dev/null) \
+        || return 0
+    [ -n "$expiry_epoch" ] || return 0
+    echo $(( (expiry_epoch - $(date +%s)) / 86400 ))
+}
+
+# Ask GitHub who the current token actually belongs to. The whole point of an
+# identity is that commands run as someone specific, and only GitHub can confirm
+# that - a token can be dead, or belong to an account you did not expect.
+_identity_check() {
+    if [ -z "$DOTFILES_IDENTITY" ]; then
+        echo "No identity set." >&2
+        return 1
+    fi
+
+    if [ -z "$GH_TOKEN" ]; then
+        echo "✗ ${DOTFILES_IDENTITY}: no token set, gh would run as the default login" >&2
+        return 1
+    fi
+
+    local response login expiry days
+    response=$(gh api -i user 2>&1) || {
+        echo "✗ ${DOTFILES_IDENTITY}: $(echo "$response" | grep -i "message" | head -1)" >&2
+        return 1
+    }
+
+    login=$(echo "$response" | grep -o '"login": *"[^"]*"' | head -1 | cut -d'"' -f4)
+    expiry=$(echo "$response" | grep -i "^github-authentication-token-expiration:" | cut -d" " -f2- | tr -d "\r")
+
+    if [ -n "$IDENTITY_GH_LOGIN" ] && [ "$login" != "$IDENTITY_GH_LOGIN" ]; then
+        echo "✗ ${DOTFILES_IDENTITY}: token belongs to '${login}', expected '${IDENTITY_GH_LOGIN}'" >&2
+        return 1
+    fi
+
+    if [ -n "$expiry" ]; then
+        days=$(_identity_token_days_left "$expiry")
+        echo "✓ ${DOTFILES_IDENTITY}: authenticated as ${login}, token expires ${expiry}${days:+ (${days} days)}"
+    else
+        echo "✓ ${DOTFILES_IDENTITY}: authenticated as ${login}, token does not expire"
+    fi
 }
 
 _identity_status() {
@@ -133,14 +229,10 @@ _identity_status() {
     else
         echo "  (not set)"
     fi
+    echo "  \$ identity check"
+    _identity_check 2>&1 | sed 's/^/  /'
     echo "  \$ gh auth status"
     gh auth status 2>&1 | sed 's/^/  /'
-
-    if [ -n "$IDENTITY_BLOCKED_REPOS" ]; then
-        echo ""
-        echo "=== Blocked repos ==="
-        echo "  ${IDENTITY_BLOCKED_REPOS}"
-    fi
 }
 
 identity() {
@@ -150,6 +242,7 @@ identity() {
         "")      _identity_show ;;
         list)    _identity_list ;;
         clear)   _identity_clear ;;
+        check)   _identity_check ;;
         status)  _identity_status ;;
         *)       _identity_load "$cmd" && _identity_show ;;
     esac

@@ -11,7 +11,8 @@ Each identity is a small shell file that sets env vars (`GIT_AUTHOR_NAME`, `GIT_
 ```
 shell.functions.d/identity/
   identity.sh                # shell function (sourced via shell.sh)
-  pre-push-identity-guard    # git hook script
+  identity-colors.sh         # badge colour map, shared with the statusline
+  asid                       # run one command as an identity
   README.md
 
 ~/.shell.private.d/
@@ -36,12 +37,26 @@ Fields:
 | `IDENTITY_NAME` | Short name used in commands and prompt |
 | `IDENTITY_GIT_NAME` | Git author/committer name |
 | `IDENTITY_GIT_EMAIL` | Git author/committer email |
-| `IDENTITY_GIT_SIGNING_KEY` | GPG key fingerprint (optional) |
+| `IDENTITY_GIT_SIGNING_KEY` | GPG fingerprint, or path to an SSH public key (optional) |
+| `IDENTITY_GIT_SIGNING_FORMAT` | `openpgp` (default) or `ssh` |
 | `IDENTITY_GH_TOKEN` | GitHub personal access token for `gh` CLI |
-| `IDENTITY_COLOR` | Prompt badge color: red, green, yellow, blue, magenta, cyan |
+| `IDENTITY_GH_LOGIN` | Expected GitHub login, asserted by `identity check` |
+| `IDENTITY_COLOR` | Badge colour: black, red, green, yellow, blue, magenta (or pink), cyan, white (or grey). Anything else falls back to white |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
-| `IDENTITY_BLOCKED_REPOS` | Comma-separated repos/globs to block pushes to |
 | `IDENTITY_HIDE_PS1` | Set to `1` to hide the PS1 badge for this identity |
+
+## Signing
+
+Git has no environment variable for the signing key, so the loader injects
+`user.signingkey`, `gpg.format` and `commit.gpgsign` through `GIT_CONFIG_COUNT`.
+
+An identity with no `IDENTITY_GIT_SIGNING_KEY` gets signing switched **off** and
+its inherited signing key blanked. Without that, the global `commit.gpgsign`
+signs every identity's commits with whatever key `~/.gitconfig` names.
+
+SSH signing needs the public key listed in `~/.ssh/allowed_signers` for git to
+verify its own signatures, and registered on GitHub as a Signing key (separate
+from an Authentication key) for GitHub to show them as Verified.
 
 ## Usage
 
@@ -52,23 +67,43 @@ identity list       # show available identities
 identity myname     # load the 'myname' identity
 identity            # show current identity
 identity status     # show identity, git, and GitHub auth details
+identity check      # verify the token is live and owned by the expected account
 identity clear      # unset identity, revert to global gitconfig
 ```
+
+## Running one command as an identity
+
+`identity` is a shell function, so it exists only in interactive shells. Agents,
+hooks, scripts and anything running `zsh -c` have no identity at all, and git and
+gh quietly fall back to the global gitconfig and the gh keyring. `asid` closes
+that gap - it is a standalone script, so it works from any context:
+
+```bash
+asid gaspode git push          # run one command as that identity
+asid gaspode                   # show what the identity resolves to
+asid -c gaspode                # verify its token with GitHub
+asid -l                        # list identities
+```
+
+It loads the identity in its own process, so nothing leaks into the calling
+shell, and it refuses to run at all if the identity has no token - rather than
+silently running as whoever the keyring holds.
 
 ## Prompt badge
 
 The PS1 theme shows a colored identity badge on the prompt line. If `identity.sh` isn't sourced, the badge is silently skipped.
 
-## Push guardrails
 
-The `pre-push-identity-guard` script blocks pushes to repos listed in `IDENTITY_BLOCKED_REPOS`. Supports glob patterns like `org-name/*` or `*/repo-name`.
+## Access control
 
-Install per-repo by symlinking to `.git/hooks/pre-push`:
+Which repos an identity may push to is GitHub's job, not this tool's - an
+identity can push where its account has write access and nowhere else, enforced
+server side. There was a `pre-push` hook here that blocked pushes by repo name;
+it was removed because it duplicated that check badly, and local hooks are
+skippable with `--no-verify` in any case.
 
-```bash
-ln -sf ~/path/to/dotfiles/shell.functions.d/identity/pre-push-identity-guard \
-    .git/hooks/pre-push
-```
+GitHub does not check *who authored* a commit, only who pushed it. Signed
+commits are what makes a mismatch visible.
 
 ## iTerm2 profiles
 
@@ -76,6 +111,4 @@ Each identity can have an iTerm2 profile in `terminal/iTerm2/`. Profiles run `id
 
 ## Future ideas
 
-- `.identity.yaml` in repo roots to force/guard identity per-project
-- Global `core.hooksPath` so the push guard works everywhere
 - `identity init` command to scaffold new identities interactively
