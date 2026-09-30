@@ -10,6 +10,10 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/shell.d ~/.shell.d
 	ln -sfn ${PWD}/shell.functions.d ~/.shell.functions.d
 	ln -sfn ${PWD}/shell.private.d ~/.shell.private.d
+	# Identity files hold live GitHub tokens. They were world-readable, which on
+	# a Mac with a second account means another user could read them.
+	chmod 700 shell.private.d
+	chmod 600 shell.private.d/*.identity 2>/dev/null || true
 	mkdir -p ~/.local/bin
 	ln -sfn ${PWD}/shell.functions.d/identity/asid ~/.local/bin/asid
 	ln -sfn ${PWD}/vim/vimrc ~/.vimrc
