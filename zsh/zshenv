@@ -1,0 +1,11 @@
+# Sourced by every zsh: interactive or not, login or not.
+#
+# This is the only startup file a non-interactive shell reads, which is what
+# `ssh host 'cmd'` and launchd both use. .zshrc is skipped for those, so
+# shell.sh never runs and PATH is whatever sshd hands over - on macOS that is
+# /bin:/usr/bin:/usr/ucb:/usr/local/bin, with no Homebrew and no ~/.local/bin.
+# Without this, `ssh air tmux ...` cannot find tmux.
+#
+# Kept to PATH alone deliberately: this runs for every zsh, including scripts,
+# so anything slow or with side effects belongs in shell.sh instead.
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
