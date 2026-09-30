@@ -105,6 +105,12 @@ claude mcp add playwright-edge --scope user -- npx -y @playwright/mcp@latest --b
 # Playwright Safari - Browser automation (WebKit/Safari)
 claude mcp add playwright-safari --scope user -- npx -y @playwright/mcp@latest --browser webkit
 
+# Browserdeck - Playwright against a supervised, session-isolated browser
+# Starts the hub if it is not already running; reuses it if it is. One session per
+# BROWSERDECK_SESSION value, each with its own cookies, so agents never share logins.
+claude mcp add browserdeck --scope user --env BROWSERDECK_SESSION=dave \
+  -- node ~/repos/github/dwmkerr/browserdeck/mcp/bin/playwright-browserdeck.mjs
+
 # Spotify - Playlist + playback management (needs local server + dev app)
 # Setup: clone marcelmarais/spotify-mcp-server, npm install && npm run build,
 # add credentials to spotify-config.json, then npm run auth.
@@ -120,7 +126,29 @@ claude mcp add spotify --scope user -- node ~/repos/spotify-mcp-server/build/ind
 | Playwright Firefox | Browser automation (Firefox) |
 | Playwright Edge | Browser automation (Microsoft Edge) |
 | Playwright Safari | Browser automation (WebKit/Safari) |
+| Browserdeck | Playwright MCP pointed at a supervised browser: one isolated session per agent, every action logged and attributed |
 | [Spotify](https://github.com/marcelmarais/spotify-mcp-server) | Playlist + playback management (local server, needs Spotify dev app + OAuth) |
+
+### Browserdeck
+
+Unmodified `@playwright/mcp`, pointed at a local browser that supervises it rather
+than at a raw Chromium. Agents keep the tools they already use; the difference is
+underneath.
+
+- **One session per agent.** `BROWSERDECK_SESSION` names it. Each gets its own cookie
+  jar, so a mail agent and a social agent never share a login, and an agent keeps its
+  logins between runs.
+- **An agent sees only its own tabs.** Not the other sessions, not the app's own UI.
+- **Every action is logged and attributed** to the agent that issued it, rather than
+  guessed at from timing.
+- **The window never steals focus.** Agent activity does not interrupt what you are
+  doing. There is a "Keep window on top" toggle for when you do want to watch.
+
+The launcher starts the hub if nothing is running and reuses it otherwise, so there
+is no separate thing to start first. Add a second entry with a different
+`BROWSERDECK_SESSION` to give another agent its own isolated session.
+
+Source: `~/repos/github/dwmkerr/browserdeck`.
 
 ## Shell Autocomplete
 
