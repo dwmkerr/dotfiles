@@ -13,8 +13,8 @@ case "$action" in
     # Bell — highlights window tab when viewing a different window
     printf '\a' > "$pane_tty"
 
-    # Pane highlight — visible when in the same window but different pane
-    tmux select-pane -t "${TMUX_PANE}" -P 'bg=#1a0500'
+    # Pane highlight — style it directly so Claude never takes focus.
+    tmux set-option -p -t "${TMUX_PANE}" window-style 'bg=#1a0500'
     tmux set-option -p -t "${TMUX_PANE}" @claude_notify 1
 
     # Session marker — visible in session list (Ctrl-b s)
@@ -27,8 +27,8 @@ case "$action" in
     [ -z "${TMUX:-}" ] && exit 0
     [ -z "${TMUX_PANE:-}" ] && exit 0
 
-    # Reset pane background
-    tmux select-pane -t "${TMUX_PANE}" -P 'default' 2>/dev/null || true
+    # Reset pane background without selecting it.
+    tmux set-option -pu -t "${TMUX_PANE}" window-style 2>/dev/null || true
     tmux set-option -pu -t "${TMUX_PANE}" @claude_notify 2>/dev/null || true
 
     # Remove session marker
