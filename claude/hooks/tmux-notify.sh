@@ -3,6 +3,10 @@ set -eo pipefail
 
 action="${1:-set}"
 
+# Opt-in, since signalbox owns agent notifications when installed and the two
+# would fight over the same pane.
+[ "${DOTFILES_AGENT_SESSION_BELL:-}" = 1 ] || exit 0
+
 case "$action" in
   set)
     [ -z "${TMUX:-}" ] && exit 0

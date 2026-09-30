@@ -54,9 +54,7 @@ When creating pull requests, use this simple format:
 
 # Tmux Notifications
 
-Claude Code hooks send a terminal bell on `Stop` and `Notification` events via `~/.claude/hooks/tmux-notify.sh`. This highlights the window tab (red), pane background, and appends 🔔 to the session name. Notifications auto-clear on pane focus, session switch, or next prompt submit.
-
-To disable: remove the `hooks` block from `claude/settings.json` and the tmux hooks from `tmux/tmux.conf` (the `set-hook` lines and `monitor-bell`).
+Claude Code hooks call `~/.claude/hooks/tmux-notify.sh`, which highlights the window tab, pane background, and appends 🔔 to the session name. It is off unless `DOTFILES_AGENT_SESSION_BELL=1`, since signalbox owns notifications when installed. See `claude/README.md`.
 
 # Writing Style
 

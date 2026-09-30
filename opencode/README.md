@@ -4,7 +4,7 @@ Config for the [opencode](https://opencode.ai) CLI. `make link` symlinks `plugin
 
 ## Notifications
 
-`plugin/tmux-notify.js` fires on `session.idle` and calls `~/.claude/hooks/tmux-notify.sh`, so opencode highlights the tmux window/pane/session like Claude does.
+`plugin/tmux-notify.js` fires on `session.idle` and calls `~/.claude/hooks/tmux-notify.sh`, so opencode highlights the tmux window/pane/session like Claude does. It is a no-op unless `DOTFILES_AGENT_SESSION_BELL=1`.
 
 ## Skills
 
