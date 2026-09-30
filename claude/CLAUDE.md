@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+# Memory
+
+NEVER use the persistent memory system. Do not write memory files or update MEMORY.md, even when given feedback worth remembering. Preferences belong in CLAUDE.md files, nowhere else.
+
 # Temporary Files
 
 When working in a git repo, use `./scratch/` for temporary files (cloned repos, test outputs, scratch work). This keeps them discoverable and easy to clean up. No special permissions are needed — just ensure it's gitignored:
@@ -81,3 +85,19 @@ When creating pull requests, use this simple format:
 - **Use simple language** - Avoid complex explanations when simple ones work
 - **Keep descriptions brief** - 1-2 sentences maximum for each item
 - **Use active voice** - "Creates agent" not "Agent is created"
+
+# Browser Automation
+
+**`claude-in-chrome` is disabled by company policy — do not use it.** Use the
+**playwright-edge** MCP server (`mcp__playwright-edge__*`) by default for all browser
+automation.
+
+It runs its own persistent profile, separate from the real Edge browser, so logins
+survive between sessions but must be done manually the first time (Google/2FA logins
+cannot be automated).
+
+Google account: `dwmkerr@gmail.com`.
+
+Only reach for `playwright` (chromium), `playwright-firefox`, or `playwright-safari`
+when a task genuinely needs a second, concurrent browser — one agent per MCP server,
+since each server shares a single browser context and active-tab pointer.
