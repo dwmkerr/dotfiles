@@ -30,10 +30,9 @@ link: # Creates symbolic links.
 	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/vscode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
 	mkdir -p ~/.claude
 	ln -sfn ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
-	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
+	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.dotfiles.json || echo "error: can't link claude settings.dotfiles.json"
 	ln -sfn ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
-	mkdir -p ~/.claude/hooks
-	ln -sfn ${PWD}/claude/hooks/tmux-notify.sh ~/.claude/hooks/tmux-notify.sh || echo "error: can't link tmux-notify.sh"
+	@if [ -d ~/.claude/hooks ] && [ ! -L ~/.claude/hooks ]; then echo "error: ~/.claude/hooks is a real directory, move it aside then re-run"; else ln -sfn ${PWD}/claude/hooks ~/.claude/hooks; fi
 	mkdir -p ~/.config/opencode/plugin
 	ln -sfn ${PWD}/opencode/plugin/tmux-notify.js ~/.config/opencode/plugin/tmux-notify.js || echo "error: can't link opencode tmux-notify.js"
 

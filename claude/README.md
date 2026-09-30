@@ -11,10 +11,11 @@ Claude Code can run on GitHub issues and PRs via the official `claude-code-actio
 Configuration files are managed via symlinks from this directory:
 
 - `claude/CLAUDE.md` → `~/.claude/CLAUDE.md`
-- `claude/settings.json` → `~/.claude/settings.json`
+- `claude/settings.json` → `~/.claude/settings.dotfiles.json`
 - `claude/statusline.sh` → `~/.claude/statusline.sh`
+- `claude/hooks/` → `~/.claude/hooks`
 
-Run `make link` to create or refresh symlinks. Claude Code writes through symlinks safely.
+Run `make link` to create or refresh symlinks.
 
 To view or edit settings, use the `/config` command within Claude Code.
 
@@ -22,15 +23,21 @@ For detailed setup guidance, see: [trailofbits/claude-code-config](https://githu
 
 ### Settings layers
 
-Claude Code merges settings from three layers:
+Claude Code writes to `~/.claude/settings.json` itself (`/config`, plugin toggles), so that file is not symlinked. Each machine owns it. The shared file loads on top of it through `--settings`, which the `yoloclaude` alias passes:
 
 | Layer | File | Version-controlled | Contents |
 |-------|------|--------------------|----------|
-| Global | `~/.claude/settings.json` (symlink → repo) | Yes | Plugins, universal permissions, statusline, env vars, feature flags |
-| Global local | `~/.claude/settings.local.json` | No | Machine-specific permissions (e.g. notion, python), sensitive config |
+| Shared | `~/.claude/settings.dotfiles.json` (symlink → repo), loaded with `--settings` | Yes | Plugins, universal permissions, statusline, shared hooks |
+| User | `~/.claude/settings.json` | No | Machine-specific hooks (signalbox, push guard), model, anything `/config` writes |
 | Project local | `.claude/settings.local.json` | No | Project-specific permissions |
 
-**Rule of thumb:** if a permission is safe everywhere, put it in `settings.json`. If it's machine/account-specific, use `settings.local.json`. If it's destructive or project-specific, use the project-level file.
+`--settings` sits above the user file. A scalar key set in the shared file (such as `effortLevel`) beats the user file, while lists such as `permissions.allow` and hooks merge. Keep machine-specific scalars out of the shared file.
+
+`~/.claude/settings.local.json` is not a user-level layer. Claude Code only reads it when a session starts in `~` itself, as that folder's project-local file.
+
+### Agent session bell
+
+`claude/hooks/tmux-notify.sh` is a naive tmux notifier: bell, pane highlight, and a 🔔 on the session name, cleared on focus or the next prompt. It is off unless `DOTFILES_AGENT_SESSION_BELL=1`, because signalbox owns agent notifications when installed. To enable it, export the variable (see `shell.d/claude.sh`) before the tmux server starts.
 
 ## Plugins
 
