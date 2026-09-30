@@ -10,8 +10,8 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/shell.d ~/.shell.d
 	ln -sfn ${PWD}/shell.functions.d ~/.shell.functions.d
 	ln -sfn ${PWD}/shell.private.d ~/.shell.private.d
-	# Identity files hold live GitHub tokens. They were world-readable, which on
-	# a Mac with a second account means another user could read them.
+	# Identity files hold live GitHub tokens, so no other account on the machine
+	# may read them.
 	chmod 700 shell.private.d
 	chmod 600 shell.private.d/*.identity 2>/dev/null || true
 	mkdir -p ~/.local/bin
@@ -38,9 +38,14 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/opencode/plugin/tmux-notify.js ~/.config/opencode/plugin/tmux-notify.js || echo "error: can't link opencode tmux-notify.js"
 
 .PHONY: iterm-profiles
+# Profiles share nearly all their keys, so the common ones live in base.json and
+# each overlay holds only what differs. A change to the keyboard map, colours or
+# font is then made in one place.
 iterm-profiles: # Install iTerm2 dynamic profiles.
 	@mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
-	@jq -s '{"Profiles": .}' terminal/iTerm2/*.json > ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
+	@jq -s '.[0] as $$base | {Profiles: [.[1:][] | $$base * .]}' \
+		terminal/iTerm2/base.json terminal/iTerm2/profiles/*.json \
+		> ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
 	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
 
 .PHONY: private-files-backup
