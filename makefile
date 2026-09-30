@@ -23,6 +23,7 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/tmux/tmux.conf ~/.tmux.conf
 	ln -sfn ${PWD}/ack/ackrc ~/.ackrc
 	ln -sfn ${PWD}/zsh/zshrc ~/.zshrc
+	ln -sfn ${PWD}/zsh/zshenv ~/.zshenv
 	ln -sfn ${PWD}/bash/bashrc ~/.bashrc
 	ln -sfn ${PWD}/bash/bash_profile ~/.bash_profile
 	ln -sfn ${PWD}/ag/ignore ~/.ignore
