@@ -1,0 +1,56 @@
+{
+  "Ansi 0 Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Ansi 0 Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Ansi 0 Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Command": "/opt/homebrew/bin/bash",
+  "Description": "Default",
+  "Environment": {
+    "DOTFILES_IDENTITY": "dwmkerr"
+  },
+  "Guid": "8BCE256D-9AA6-49D6-AE42-266FCC31582B",
+  "Initial Text": "identity dwmkerr && tmux -L dwmkerr new-session -A -s dwmkerr",
+  "Name": "dwmkerr",
+  "Normal Font": "MonacoNF 12",
+  "Rows": 25,
+  "Transparency": 0.43588169642857144,
+  "Window Type": 1
+}

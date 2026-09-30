@@ -1,0 +1,57 @@
+{
+  "Ansi 0 Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Ansi 0 Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Ansi 0 Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Background Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.16862745583057404,
+    "Color Space": "sRGB",
+    "Green Component": 0.14509804546833038,
+    "Red Component": 0.12941177189350128
+  },
+  "Command": "/opt/homebrew/bin/bash  --noprofile --norc -c 'export TMUX=\"ignore\"; /opt/homebrew/bin/bash --init-file <(echo \" source ~/.shell.sh; clear;\")'",
+  "Custom Tab Title": "Terminal AI",
+  "Description": "Default",
+  "Guid": "5BB5BD9C-C1D1-4A3E-A1BD-FEF5B86AD0AC",
+  "Has Hotkey": false,
+  "Initial Text": "",
+  "Name": "dwmkerr-recording",
+  "Normal Font": "Monaco 12",
+  "Prevent Opening in a Tab": true,
+  "Rows": 15,
+  "Transparency": 0,
+  "Use Custom Tab Title": true,
+  "Window Type": 0
+}

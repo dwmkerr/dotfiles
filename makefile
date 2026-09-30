@@ -38,9 +38,14 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/opencode/plugin/tmux-notify.js ~/.config/opencode/plugin/tmux-notify.js || echo "error: can't link opencode tmux-notify.js"
 
 .PHONY: iterm-profiles
+# Each profile is base.json merged with a small overlay. The 141 shared keys -
+# keyboard map, colours, font - previously sat in full in every profile, so a
+# change to any of them had to be repeated once per file.
 iterm-profiles: # Install iTerm2 dynamic profiles.
 	@mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
-	@jq -s '{"Profiles": .}' terminal/iTerm2/*.json > ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
+	@jq -s '.[0] as $$base | {Profiles: [.[1:][] | $$base * .]}' \
+		terminal/iTerm2/base.json terminal/iTerm2/profiles/*.json \
+		> ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
 	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
 
 .PHONY: private-files-backup

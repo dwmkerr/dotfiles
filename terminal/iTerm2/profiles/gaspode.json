@@ -1,0 +1,56 @@
+{
+  "Ansi 0 Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Ansi 0 Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Ansi 0 Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Background Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Background Color (Dark)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Background Color (Light)": {
+    "Alpha Component": 1,
+    "Blue Component": 0.21,
+    "Color Space": "sRGB",
+    "Green Component": 0.14,
+    "Red Component": 0.12
+  },
+  "Command": "/opt/homebrew/bin/bash",
+  "Description": "gaspode identity - dark teal background",
+  "Environment": {
+    "DOTFILES_IDENTITY": "gaspode"
+  },
+  "Guid": "F281C7FD-54E4-4B61-84C1-AF5E2069602B",
+  "Initial Text": "identity gaspode && tmux -L gaspode new-session -A -s gaspode",
+  "Name": "gaspode",
+  "Normal Font": "MonacoNF 12",
+  "Rows": 25,
+  "Transparency": 0.43588169642857144,
+  "Window Type": 1
+}
