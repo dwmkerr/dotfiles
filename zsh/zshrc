@@ -19,8 +19,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # zsh picks its keymap by inspecting VISUAL/EDITOR, and shell.sh sets both to
-# "vi", which silently selects viins. There, ^N through ^P are self-insert, so
-# they type themselves instead of moving through history, and ^W becomes
-# vi-backward-kill-word. Declaring the keymap keeps it from depending on an
-# editor preference, which is also why the two machines disagreed.
+# "vi", which selects viins. There, ^N through ^P are self-insert, so they type
+# themselves rather than moving through history, and ^W is vi-backward-kill-word.
+# Declaring the keymap keeps it independent of the editor preference.
 bindkey -e
