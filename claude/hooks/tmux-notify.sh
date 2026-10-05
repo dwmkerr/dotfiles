@@ -7,6 +7,9 @@ action="${1:-set}"
 # would fight over the same pane.
 [ "${DOTFILES_AGENT_SESSION_BELL:-}" = 1 ] || exit 0
 
+# The session marker is a session option, so the session keeps its name and
+# `new-session -A -s <name>` (iTerm profiles, ssh RemoteCommand) attaches to it.
+
 case "$action" in
   set)
     [ -z "${TMUX:-}" ] && exit 0
@@ -14,17 +17,17 @@ case "$action" in
 
     pane_tty=$(tmux display-message -p -t "${TMUX_PANE}" '#{pane_tty}')
 
-    # Bell — highlights window tab when viewing a different window
+    # Bell - highlights window tab when viewing a different window
     printf '\a' > "$pane_tty"
 
-    # Pane highlight — style it directly so Claude never takes focus.
+    # Pane highlight - style it directly so Claude never takes focus.
     tmux set-option -p -t "${TMUX_PANE}" window-style 'bg=#1a0500'
     tmux set-option -p -t "${TMUX_PANE}" @claude_notify 1
 
-    # Session marker — visible in session list (Ctrl-b s)
-    session=$(tmux display-message -p '#{session_name}')
-    session="${session% 🔔}"
-    tmux rename-session "${session} 🔔" 2>/dev/null || true
+    # Session marker - shown in the status line and session list (Ctrl-b s).
+    # Targets the pane's session because Claude may run in a session no client
+    # is viewing.
+    tmux set-option -t "${TMUX_PANE}" @claude_notify_session 1
     ;;
 
   clear)
@@ -35,16 +38,13 @@ case "$action" in
     tmux set-option -pu -t "${TMUX_PANE}" window-style 2>/dev/null || true
     tmux set-option -pu -t "${TMUX_PANE}" @claude_notify 2>/dev/null || true
 
-    # Remove session marker
-    session=$(tmux display-message -p '#{session_name}')
-    session="${session% 🔔}"
-    tmux rename-session "${session}" 2>/dev/null || true
+    tmux set-option -u -t "${TMUX_PANE}" @claude_notify_session 2>/dev/null || true
     ;;
 
   clear-session)
-    # Called by tmux hook (no $TMUX_PANE available)
-    session=$(tmux display-message -p '#{session_name}')
-    cleaned="${session% 🔔}"
-    [ "$cleaned" != "$session" ] && tmux rename-session "$cleaned" 2>/dev/null || true
+    # Takes the session as an argument because tmux hooks run without $TMUX_PANE.
+    session="${2:-}"
+    [ -z "$session" ] && session=$(tmux display-message -p '#{session_id}')
+    tmux set-option -u -t "$session" @claude_notify_session 2>/dev/null || true
     ;;
 esac
