@@ -3,10 +3,8 @@ set -eo pipefail
 
 action="${1:-set}"
 
-# The session marker is a session option rather than a suffix on the session
-# name. Renaming broke every `new-session -A -s <name>` attach (iTerm profiles,
-# ssh RemoteCommand): the exact name no longer matched, so tmux created a
-# duplicate session instead of attaching.
+# The session marker is a session option, so the session keeps its name and
+# `new-session -A -s <name>` (iTerm profiles, ssh RemoteCommand) attaches to it.
 
 case "$action" in
   set)
@@ -23,8 +21,8 @@ case "$action" in
     tmux set-option -p -t "${TMUX_PANE}" @claude_notify 1
 
     # Session marker — shown in the status line and session list (Ctrl-b s).
-    # Target the pane's session, not the client's: Claude may be running in a
-    # session nobody is looking at.
+    # Targets the pane's session because Claude may run in a session no client
+    # is viewing.
     tmux set-option -t "${TMUX_PANE}" @claude_notify_session 1
     ;;
 
