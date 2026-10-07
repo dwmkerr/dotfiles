@@ -66,6 +66,14 @@
             "command": "~/.claude/hooks/tmux-notify.sh"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -74,6 +82,65 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/tmux-notify.sh clear"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "signalbox hook claude"
           }
         ]
       }
@@ -98,7 +165,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "git-workforest@git-workforest": true,
     "caveman@caveman": true,
-    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true
+    "dwmkerr-toolkit@dwmkerr-claude-toolkit": true,
+    "cc-plugin-you-should-know@builtin": true
   },
   "extraKnownMarketplaces": {
     "git-workforest": {
@@ -157,6 +225,6 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }
