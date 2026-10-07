@@ -81,3 +81,7 @@ When creating pull requests, use this simple format:
 - **Use simple language** - Avoid complex explanations when simple ones work
 - **Keep descriptions brief** - 1-2 sentences maximum for each item
 - **Use active voice** - "Creates agent" not "Agent is created"
+
+# Memory
+
+Never write to Claude Code's auto memory (the `memory/` directory and `MEMORY.md`); it is unstructured. When something seems worth remembering, ask me what it is for, and we will decide together where that knowledge should live.
