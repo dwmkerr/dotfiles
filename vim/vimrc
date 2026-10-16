@@ -84,6 +84,10 @@ Plug 'godlygeek/tabular'
 " NERD Commenter plugin.
 Plug 'scrooloose/nerdcommenter'
 
+" WhatsApp in Vim.
+Plug '~/repos/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make -C dist' }
+
+
 " Initialize plugin system.
 call plug#end()
 
@@ -512,9 +516,6 @@ if has('nvim')
         vim.api.nvim_set_keymap("n", "<C-m>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
         vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
         vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
-
-        require("fzf-lua").utils.info(
-        "|<C-space> buffers|<C-p> files|<C-g> grep|<C-m> live grep|<C-k> builtin|<F1> help|")
 
         --  Set fzf-lua options.
         local fzf = require('fzf-lua')
