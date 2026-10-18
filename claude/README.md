@@ -71,10 +71,6 @@ Enabled plugins are stored in `settings.json`. To set up from scratch:
 /plugin marketplace add anthropic-agent-skills
 /plugin install document-skills@anthropic-agent-skills
 
-# TDD, debugging, brainstorming, git worktrees
-/plugin marketplace add claude-plugins-official
-/plugin install superpowers@claude-plugins-official
-
 # CX tools (git, issues, testing)
 /plugin marketplace add ccp
 /plugin install cx@ccp
