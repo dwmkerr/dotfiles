@@ -349,6 +349,15 @@ endif
     let g:vim_markdown_auto_insert_bullets = 0
     let g:vim_markdown_new_list_item_indent = 0
 
+    " render-markdown can't wrap table cells, so wrapped rows break borders.
+    " Set nowrap here rather than via render-markdown's win_options: it drops
+    " to raw view when scrolled sideways, and toggling wrap there resets the
+    " scroll, causing a render/raw flicker loop.
+    autocmd FileType markdown setlocal nowrap
+
+    " Scroll sideways one column at a time, not half a screen.
+    autocmd FileType markdown setlocal sidescroll=1 sidescrolloff=5
+
     " vim-table-mode - use Markdown table.
     let g:table_mode_corner='|'
 
