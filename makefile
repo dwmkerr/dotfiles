@@ -39,11 +39,13 @@ link: # Creates symbolic links.
 .PHONY: iterm-profiles
 # Profiles share nearly all their keys, so the common ones live in base.json and
 # each overlay holds only what differs. A change to the keyboard map, colours or
-# font is then made in one place.
+# font is then made in one place. Overlays in ~/.shell.private.d/iterm2 are
+# merged too, for identities that should not be named in this public repo.
 iterm-profiles: # Install iTerm2 dynamic profiles.
 	@mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
 	@jq -s '.[0] as $$base | {Profiles: [.[1:][] | $$base * .]}' \
 		terminal/iTerm2/base.json terminal/iTerm2/profiles/*.json \
+		$$(ls ~/.shell.private.d/iterm2/*.json 2>/dev/null) \
 		> ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
 	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
 

@@ -41,6 +41,9 @@ Fields:
 | `IDENTITY_GIT_SIGNING_FORMAT` | `openpgp` (default) or `ssh` |
 | `IDENTITY_GH_TOKEN` | GitHub personal access token for `gh` CLI |
 | `IDENTITY_GH_LOGIN` | Expected GitHub login, asserted by `identity check` |
+| `IDENTITY_GIT_SSH_KEY` | Private key used for git over SSH (`GIT_SSH_COMMAND`, agent bypassed) |
+| `IDENTITY_AWS_PROFILE` | AWS CLI profile exported as `AWS_PROFILE` while the identity is loaded (optional) |
+| `IDENTITY_CLAUDE_CONFIG_DIR` | Claude Code config directory exported as `CLAUDE_CONFIG_DIR`, giving the identity its own Claude login, settings, MCP servers and plugins (optional) |
 | `IDENTITY_COLOR` | Badge colour: black, red, green, yellow, blue, magenta (or pink), cyan, white (or grey). Anything else falls back to white |
 | `IDENTITY_ICON` | Emoji shown in `identity list` output |
 | `IDENTITY_HIDE_PS1` | Set to `1` to hide the PS1 badge for this identity |
@@ -88,6 +91,10 @@ asid -l                        # list identities
 It loads the identity in its own process, so nothing leaks into the calling
 shell, and it refuses to run at all if the identity has no token - rather than
 silently running as whoever the keyring holds.
+
+## Claude Code accounts
+
+Claude Code reads its login and configuration from `CLAUDE_CONFIG_DIR` (default `~/.claude`) when it starts. An identity with `IDENTITY_CLAUDE_CONFIG_DIR` set runs `claude` against that directory, so it can use a different Claude account, in parallel with sessions in other terminals. Log in once with `claude` after loading the identity. The directory needs its own `CLAUDE.md`, `settings.json`, MCP servers and plugins; nothing is inherited from `~/.claude`.
 
 ## Prompt badge
 
