@@ -82,6 +82,22 @@ When creating pull requests, use this simple format:
 - **Keep descriptions brief** - 1-2 sentences maximum for each item
 - **Use active voice** - "Creates agent" not "Agent is created"
 
+# Browser Automation
+
+**`claude-in-chrome` is disabled by company policy — do not use it.** Use the
+**playwright-edge** MCP server (`mcp__playwright-edge__*`) by default for all browser
+automation.
+
+It runs its own persistent profile, separate from the real Edge browser, so logins
+survive between sessions but must be done manually the first time (Google/2FA logins
+cannot be automated).
+
+Google account: `dwmkerr@gmail.com`.
+
+Only reach for `playwright` (chromium), `playwright-firefox`, or `playwright-safari`
+when a task genuinely needs a second, concurrent browser — one agent per MCP server,
+since each server shares a single browser context and active-tab pointer.
+
 # Memory
 
 Never write to Claude Code's auto memory (the `memory/` directory and `MEMORY.md`); it is unstructured. When something seems worth remembering, ask me what it is for, and we will decide together where that knowledge should live.

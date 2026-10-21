@@ -71,6 +71,14 @@ _identity_load() {
     fi
     export GIT_CONFIG_COUNT="$_identity_git_config_count"
     [ -n "$IDENTITY_GH_TOKEN" ] && export GH_TOKEN="$IDENTITY_GH_TOKEN"
+    # An identity that owns cloud resources pins the AWS profile too, so a
+    # terminal in that identity cannot touch another account's infrastructure
+    # by forgetting --profile.
+    [ -n "$IDENTITY_AWS_PROFILE" ] && export AWS_PROFILE="$IDENTITY_AWS_PROFILE"
+    # Claude Code keeps its login, settings, MCP servers and plugins in one
+    # directory, so pointing it elsewhere gives this identity its own Claude
+    # account that can run alongside the default one.
+    [ -n "$IDENTITY_CLAUDE_CONFIG_DIR" ] && export CLAUDE_CONFIG_DIR="${IDENTITY_CLAUDE_CONFIG_DIR/#\~/$HOME}"
     [ -n "$IDENTITY_GIT_SSH_KEY" ] && export GIT_SSH_COMMAND="ssh -i ${IDENTITY_GIT_SSH_KEY/#\~/$HOME} -o IdentitiesOnly=yes -o IdentityAgent=none"
 
     # gh falls back to the keyring login when GH_TOKEN is unset, running as
@@ -101,13 +109,14 @@ _identity_clear_env() {
         done
         unset GIT_CONFIG_COUNT
     fi
-    unset GH_TOKEN GIT_SSH_COMMAND
+    unset GH_TOKEN GIT_SSH_COMMAND AWS_PROFILE CLAUDE_CONFIG_DIR
     unset TMUX_RESURRECT_DIR
     # Enumerate IDENTITY_* explicitly. `${!IDENTITY_@}` is bash-only and
     # breaks under zsh with "bad substitution".
     unset IDENTITY_NAME IDENTITY_GIT_NAME IDENTITY_GIT_EMAIL \
           IDENTITY_GIT_SIGNING_KEY IDENTITY_GIT_SIGNING_FORMAT \
           IDENTITY_GH_TOKEN IDENTITY_GH_LOGIN IDENTITY_GIT_SSH_KEY \
+          IDENTITY_AWS_PROFILE IDENTITY_CLAUDE_CONFIG_DIR \
           IDENTITY_COLOR IDENTITY_ICON IDENTITY_HIDE_PS1
 }
 
@@ -233,6 +242,16 @@ _identity_status() {
     _identity_check 2>&1 | sed 's/^/  /'
     echo "  \$ gh auth status"
     gh auth status 2>&1 | sed 's/^/  /'
+
+    echo ""
+    echo "=== AWS ==="
+    echo "  \$ echo \$AWS_PROFILE"
+    echo "  ${AWS_PROFILE:-(not set)}"
+
+    echo ""
+    echo "=== Claude Code ==="
+    echo "  \$ echo \$CLAUDE_CONFIG_DIR"
+    echo "  ${CLAUDE_CONFIG_DIR:-(not set, using ~/.claude)}"
 }
 
 identity() {

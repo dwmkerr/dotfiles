@@ -101,6 +101,12 @@ for path in ~/.shell.private.d/*.identity; do
     queue_for_backup "${path}" "s3://${bucket}/identities/"
 done
 
+# iTerm2 profiles for identities that should not be named in this public repo.
+for path in ~/.shell.private.d/iterm2/*.json; do
+    [ -e "$path" ] || continue
+    queue_for_backup "${path}" "s3://${bucket}/identities/iterm2/"
+done
+
 # Boxes config
 queue_for_backup ~/.boxes.json "s3://${bucket}/"
 
