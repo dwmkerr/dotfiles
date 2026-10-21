@@ -1,9 +1,5 @@
 # CLAUDE.md
 
-# Memory
-
-NEVER use the persistent memory system. Do not write memory files or update MEMORY.md, even when given feedback worth remembering. Preferences belong in CLAUDE.md files, nowhere else.
-
 # Temporary Files
 
 When working in a git repo, use `./scratch/` for temporary files (cloned repos, test outputs, scratch work). This keeps them discoverable and easy to clean up. No special permissions are needed — just ensure it's gitignored:
@@ -101,3 +97,7 @@ Google account: `dwmkerr@gmail.com`.
 Only reach for `playwright` (chromium), `playwright-firefox`, or `playwright-safari`
 when a task genuinely needs a second, concurrent browser — one agent per MCP server,
 since each server shares a single browser context and active-tab pointer.
+
+# Memory
+
+Never write to Claude Code's auto memory (the `memory/` directory and `MEMORY.md`); it is unstructured. When something seems worth remembering, ask me what it is for, and we will decide together where that knowledge should live.
