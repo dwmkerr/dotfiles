@@ -85,11 +85,20 @@ Plug 'godlygeek/tabular'
 Plug 'scrooloose/nerdcommenter'
 
 " WhatsApp in Vim.
-Plug '~/repos/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make -C dist' }
+Plug '~/repos/github/dwmkerr/gaspode/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make build' }
 
 
 " Initialize plugin system.
 call plug#end()
+
+if has('nvim')
+lua << EOF
+-- pcall keeps Vim starting on a machine where :PlugInstall has not run yet.
+pcall(function()
+  require("whatsapp").setup({ unread_count = true })
+end)
+EOF
+endif
 
 " Disable vim-polygot for go as we use vim-go.
 if exists('g:loaded_polyglot')
