@@ -11,10 +11,11 @@ Claude Code can run on GitHub issues and PRs via the official `claude-code-actio
 Configuration files are managed via symlinks from this directory:
 
 - `claude/CLAUDE.md` → `~/.claude/CLAUDE.md`
-- `claude/settings.json` → `~/.claude/settings.json`
+- `claude/settings.json` → `~/.claude/settings.dotfiles.json`
 - `claude/statusline.sh` → `~/.claude/statusline.sh`
+- `claude/hooks/` → `~/.claude/hooks`
 
-Run `make link` to create or refresh symlinks. Claude Code writes through symlinks safely.
+Run `make link` to create or refresh symlinks.
 
 To view or edit settings, use the `/config` command within Claude Code.
 
@@ -22,15 +23,21 @@ For detailed setup guidance, see: [trailofbits/claude-code-config](https://githu
 
 ### Settings layers
 
-Claude Code merges settings from three layers:
+Claude Code writes to `~/.claude/settings.json` itself (`/config`, plugin toggles), so that file is not symlinked. Each machine owns it. The shared file loads on top of it through `--settings`, which the `yoloclaude` alias passes:
 
 | Layer | File | Version-controlled | Contents |
 |-------|------|--------------------|----------|
-| Global | `~/.claude/settings.json` (symlink → repo) | Yes | Plugins, universal permissions, statusline, env vars, feature flags |
-| Global local | `~/.claude/settings.local.json` | No | Machine-specific permissions (e.g. notion, python), sensitive config |
+| Shared | `~/.claude/settings.dotfiles.json` (symlink → repo), loaded with `--settings` | Yes | Plugins, universal permissions, statusline, shared hooks |
+| User | `~/.claude/settings.json` | No | Machine-specific hooks (signalbox, push guard), model, anything `/config` writes |
 | Project local | `.claude/settings.local.json` | No | Project-specific permissions |
 
-**Rule of thumb:** if a permission is safe everywhere, put it in `settings.json`. If it's machine/account-specific, use `settings.local.json`. If it's destructive or project-specific, use the project-level file.
+`--settings` sits above the user file. A scalar key set in the shared file (such as `effortLevel`) beats the user file, while lists such as `permissions.allow` and hooks merge. Keep machine-specific scalars out of the shared file.
+
+`~/.claude/settings.local.json` is not a user-level layer. Claude Code only reads it when a session starts in `~` itself, as that folder's project-local file.
+
+### Agent session bell
+
+`claude/hooks/tmux-notify.sh` is a naive tmux notifier: bell, pane highlight, and a 🔔 on the session name, cleared on focus or the next prompt. It is off unless `DOTFILES_AGENT_SESSION_BELL=1`, because signalbox owns agent notifications when installed. To enable it, export the variable (see `shell.d/claude.sh`) before the tmux server starts.
 
 ## Plugins
 
@@ -63,10 +70,6 @@ Enabled plugins are stored in `settings.json`. To set up from scratch:
 # Document skills (docx, pptx, xlsx, pdf)
 /plugin marketplace add anthropic-agent-skills
 /plugin install document-skills@anthropic-agent-skills
-
-# TDD, debugging, brainstorming, git worktrees
-/plugin marketplace add claude-plugins-official
-/plugin install superpowers@claude-plugins-official
 
 # CX tools (git, issues, testing)
 /plugin marketplace add ccp
@@ -105,6 +108,12 @@ claude mcp add playwright-edge --scope user -- npx -y @playwright/mcp@latest --b
 # Playwright Safari - Browser automation (WebKit/Safari)
 claude mcp add playwright-safari --scope user -- npx -y @playwright/mcp@latest --browser webkit
 
+# Browserdeck - Playwright against a supervised, session-isolated browser
+# Starts the hub if it is not already running; reuses it if it is. One session per
+# BROWSERDECK_SESSION value, each with its own cookies, so agents never share logins.
+claude mcp add browserdeck --scope user --env BROWSERDECK_SESSION=dave \
+  -- node ~/repos/github/dwmkerr/browserdeck/mcp/bin/playwright-browserdeck.mjs
+
 # Spotify - Playlist + playback management (needs local server + dev app)
 # Setup: clone marcelmarais/spotify-mcp-server, npm install && npm run build,
 # add credentials to spotify-config.json, then npm run auth.
@@ -120,7 +129,29 @@ claude mcp add spotify --scope user -- node ~/repos/spotify-mcp-server/build/ind
 | Playwright Firefox | Browser automation (Firefox) |
 | Playwright Edge | Browser automation (Microsoft Edge) |
 | Playwright Safari | Browser automation (WebKit/Safari) |
+| Browserdeck | Playwright MCP pointed at a supervised browser: one isolated session per agent, every action logged and attributed |
 | [Spotify](https://github.com/marcelmarais/spotify-mcp-server) | Playlist + playback management (local server, needs Spotify dev app + OAuth) |
+
+### Browserdeck
+
+Unmodified `@playwright/mcp`, pointed at a local browser that supervises it rather
+than at a raw Chromium. Agents keep the tools they already use; the difference is
+underneath.
+
+- **One session per agent.** `BROWSERDECK_SESSION` names it. Each gets its own cookie
+  jar, so a mail agent and a social agent never share a login, and an agent keeps its
+  logins between runs.
+- **An agent sees only its own tabs.** Not the other sessions, not the app's own UI.
+- **Every action is logged and attributed** to the agent that issued it, rather than
+  guessed at from timing.
+- **The window never steals focus.** Agent activity does not interrupt what you are
+  doing. There is a "Keep window on top" toggle for when you do want to watch.
+
+The launcher starts the hub if nothing is running and reuses it otherwise, so there
+is no separate thing to start first. Add a second entry with a different
+`BROWSERDECK_SESSION` to give another agent its own isolated session.
+
+Source: `~/repos/github/dwmkerr/browserdeck`.
 
 ## Shell Autocomplete
 

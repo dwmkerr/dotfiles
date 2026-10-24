@@ -30,21 +30,22 @@ link: # Creates symbolic links.
 	mkdir -p ~/Library/Application\ Support/Code/User/ && ln -sfn ${PWD}/vscode/settings.json  ~/Library/Application\ Support/Code/User/settings.json || echo "error: can't link VSCode settings.json"
 	mkdir -p ~/.claude
 	ln -sfn ${PWD}/claude/CLAUDE.md ~/.claude/CLAUDE.md || echo "error: can't link CLAUDE.md"
-	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.json || echo "error: can't link claude settings.json"
+	ln -sfn ${PWD}/claude/settings.json ~/.claude/settings.dotfiles.json || echo "error: can't link claude settings.dotfiles.json"
 	ln -sfn ${PWD}/claude/statusline.sh ~/.claude/statusline.sh || echo "error: can't link claude statusline.sh"
-	mkdir -p ~/.claude/hooks
-	ln -sfn ${PWD}/claude/hooks/tmux-notify.sh ~/.claude/hooks/tmux-notify.sh || echo "error: can't link tmux-notify.sh"
+	@if [ -d ~/.claude/hooks ] && [ ! -L ~/.claude/hooks ]; then echo "error: ~/.claude/hooks is a real directory, move it aside then re-run"; else ln -sfn ${PWD}/claude/hooks ~/.claude/hooks; fi
 	mkdir -p ~/.config/opencode/plugin
 	ln -sfn ${PWD}/opencode/plugin/tmux-notify.js ~/.config/opencode/plugin/tmux-notify.js || echo "error: can't link opencode tmux-notify.js"
 
 .PHONY: iterm-profiles
 # Profiles share nearly all their keys, so the common ones live in base.json and
 # each overlay holds only what differs. A change to the keyboard map, colours or
-# font is then made in one place.
+# font is then made in one place. Overlays in ~/.shell.private.d/iterm2 are
+# merged too, for identities that should not be named in this public repo.
 iterm-profiles: # Install iTerm2 dynamic profiles.
 	@mkdir -p ~/Library/Application\ Support/iTerm2/DynamicProfiles
 	@jq -s '.[0] as $$base | {Profiles: [.[1:][] | $$base * .]}' \
 		terminal/iTerm2/base.json terminal/iTerm2/profiles/*.json \
+		$$(ls ~/.shell.private.d/iterm2/*.json 2>/dev/null) \
 		> ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json
 	@echo "Installed $$(jq '.Profiles | length' ~/Library/Application\ Support/iTerm2/DynamicProfiles/dotfiles.json) profiles"
 

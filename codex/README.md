@@ -23,8 +23,9 @@ codex mcp add context7 --url https://mcp.context7.com/mcp
 # Notion workspace
 codex mcp add notion --url https://mcp.notion.com/mcp
 
-# Browser automation using the preferred Edge profile
-codex mcp add playwright-edge -- npx -y @playwright/mcp@latest --browser msedge
+# Browserdeck browser automation with named sessions
+codex mcp add browserdeck -- node \
+  ~/repos/github/dwmkerr/browserdeck/mcp/bin/playwright-browserdeck.mjs
 
 # Spotify (after completing the setup in the spotify skill)
 codex mcp add spotify -- node ~/repos/spotify-mcp-server/build/index.js
@@ -32,11 +33,24 @@ codex mcp add spotify -- node ~/repos/spotify-mcp-server/build/index.js
 
 Remote servers may open an OAuth page while being added. If authentication is still required, run `codex mcp login <server-name>`. Restart Codex after changing the server list, then verify it with `codex mcp list` or `/mcp` inside Codex.
 
+### Browserdeck sessions
+
+Install [Browserdeck](https://github.com/dwmkerr/browserdeck) and its local MCP dependencies before adding the server. The launcher starts `/Applications/Browserdeck.app` when needed; adjust the checkout path above if yours differs.
+
+Ask the agent to select a named session before browsing:
+
+```js
+browser_session({ name: "research" })
+```
+
+Sessions retain their tabs and logins. Reusing a name shares that session; use distinct names for independent tasks. Switching sessions does not require restarting Codex.
+
 ### Optional browsers
 
-Edge is the default. Add another browser only for cross-browser testing or when a second agent needs a separate concurrent browser:
+Browserdeck is the default. Add a direct Playwright server when a task needs a specific browser or cross-browser testing:
 
 ```bash
+codex mcp add playwright-edge    -- npx -y @playwright/mcp@latest --browser msedge
 codex mcp add playwright         -- npx -y @playwright/mcp@latest
 codex mcp add playwright-firefox -- npx -y @playwright/mcp@latest --browser firefox
 codex mcp add playwright-safari  -- npx -y @playwright/mcp@latest --browser webkit
@@ -46,7 +60,8 @@ codex mcp add playwright-safari  -- npx -y @playwright/mcp@latest --browser webk
 |--------|---------|
 | [Context7](https://github.com/upstash/context7) | Current library and framework documentation |
 | [Notion](https://mcp.notion.com) | Notion workspace access |
-| [Playwright](https://github.com/microsoft/playwright-mcp) | Persistent Edge browser automation |
+| [Browserdeck](https://github.com/dwmkerr/browserdeck) | Browser automation with persistent named sessions |
+| [Playwright](https://github.com/microsoft/playwright-mcp) | Optional browser-specific automation |
 | [Spotify](https://github.com/marcelmarais/spotify-mcp-server) | Playlist and playback management |
 
 See the [official Codex MCP documentation](https://learn.chatgpt.com/docs/extend/mcp) for supported transports, authentication, and configuration options.

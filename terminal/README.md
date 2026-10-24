@@ -36,6 +36,8 @@ colours and font live only in the base, so a change to them is made once.
 | `gaspodeair` | `ssh air`, landing in the same gaspode session on another machine |
 | `dwmkerr-recording` | Clean shell for screen recordings, no tmux |
 
+Private overlays in `~/.shell.private.d/iterm2/*.json` are merged in as well, so an identity whose name should stay out of this public repo can still have a profile. They are backed up and restored with the identity files by `make private-files-backup` and `make private-files-restore`.
+
 `gaspodeair` needs a `Host air` stanza in `~/.ssh/config`, which is private and
 deliberately not in this repo - the hostname is not published here:
 

@@ -85,6 +85,8 @@ if [[ $yesno =~ ^[Yy] ]]; then
     dest="$HOME/.shell.private.d/"
     mkdir -p "${dest}"
     aws s3 sync --profile "${profile}" "s3://${bucket}/identities" "${dest}" --exclude "*" --include "*.identity"
+    mkdir -p "${dest}iterm2"
+    aws s3 sync --profile "${profile}" "s3://${bucket}/identities/iterm2" "${dest}iterm2" --exclude "*" --include "*.json"
 fi
 
 # Restore Boxes config.

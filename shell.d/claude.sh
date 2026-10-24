@@ -1,6 +1,12 @@
 # Inspired by https://github.com/trailofbits/claude-code-config
 
-alias yoloclaude='echo "buckle up..." && claude --dangerously-skip-permissions --chrome --effort high'
+# Shared settings load via --settings so ~/.claude/settings.json stays a real,
+# per-machine file that Claude Code can write to without dirtying this repo.
+alias yoloclaude='echo "buckle up..." && claude --dangerously-skip-permissions --chrome --effort high --settings ~/.claude/settings.dotfiles.json'
+
+# Naive tmux bell for agent sessions (claude/hooks/tmux-notify.sh). Off while
+# signalbox handles notifications. Set before the tmux server starts.
+# export DOTFILES_AGENT_SESSION_BELL=1
 
 # Run Claude Code against local LM Studio server
 claude-local() {
