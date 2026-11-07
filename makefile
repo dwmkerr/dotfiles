@@ -21,6 +21,7 @@ link: # Creates symbolic links.
 	ln -sfn ${PWD}/vim/coc-settings.json ~/.vim/coc-settings.json
 	ln -sfn ${PWD}/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 	ln -sfn ${PWD}/tmux/tmux.conf ~/.tmux.conf
+	mkdir -p ~/.config/kitty && ln -sfn ${PWD}/terminal/kitty/kitty.conf ~/.config/kitty/kitty.conf
 	ln -sfn ${PWD}/ack/ackrc ~/.ackrc
 	ln -sfn ${PWD}/zsh/zshrc ~/.zshrc
 	ln -sfn ${PWD}/zsh/zshenv ~/.zshenv
