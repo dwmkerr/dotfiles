@@ -99,6 +99,14 @@
         "hooks": [
           {
             "type": "command",
+            "command": "~/.claude/hooks/tmux-notify.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
             "command": "signalbox hook claude"
           }
         ]

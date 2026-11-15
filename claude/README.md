@@ -37,7 +37,7 @@ Claude Code writes to `~/.claude/settings.json` itself (`/config`, plugin toggle
 
 ### Agent session bell
 
-`claude/hooks/tmux-notify.sh` is a naive tmux notifier: bell, pane highlight, and a 🔔 on the session name, cleared on focus or the next prompt. It is off unless `DOTFILES_AGENT_SESSION_BELL=1`, because signalbox owns agent notifications when installed. To enable it, export the variable (see `shell.d/claude.sh`) before the tmux server starts.
+`claude/hooks/tmux-notify.sh` is a naive tmux notifier: bell, pane highlight, and a 🔔 on the session name, cleared on focus or the next prompt. It fires on `Notification` and `Stop`. Signalbox only reads tmux, so the two run side by side.
 
 ## Plugins
 
