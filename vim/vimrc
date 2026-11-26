@@ -84,8 +84,20 @@ Plug 'godlygeek/tabular'
 " NERD Commenter plugin.
 Plug 'scrooloose/nerdcommenter'
 
+" WhatsApp in Vim.
+Plug '~/repos/github/gaspode/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make build' }
+
 " Initialize plugin system.
 call plug#end()
+
+if has('nvim')
+lua << EOF
+-- pcall keeps Vim starting on a machine where :PlugInstall has not run yet.
+pcall(function()
+  require("whatsapp").setup({ unread_count = true })
+end)
+EOF
+endif
 
 " Disable vim-polygot for go as we use vim-go.
 if exists('g:loaded_polyglot')
@@ -521,9 +533,6 @@ if has('nvim')
         vim.api.nvim_set_keymap("n", "<C-m>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
         vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
         vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
-
-        require("fzf-lua").utils.info(
-        "|<C-space> buffers|<C-p> files|<C-g> grep|<C-m> live grep|<C-k> builtin|<F1> help|")
 
         --  Set fzf-lua options.
         local fzf = require('fzf-lua')
