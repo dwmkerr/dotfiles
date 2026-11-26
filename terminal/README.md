@@ -8,6 +8,29 @@ The repo has been cloned here for quick access, but should be updated from time 
 
 Profiles in `iTerm2/` are managed as dynamic profiles. Each JSON file defines a single profile. See the main README for install instructions and `identities/README.md` for identity-specific profiles.
 
+## kitty
+
+`kitty/kitty.conf` mirrors the iTerm2 look (One Dark palette, Monaco 12,
+opaque background, left option as Esc+). It is here for the Kitty graphics
+protocol, which lets terminal programs such as whatsapp.nvim show pictures,
+also over SSH. `make` links the files into `~/.config/kitty`.
+
+kitty opens fullscreen in the current Space, with no slide animation.
+`kitty.conf` cannot set the startup state, so `macos-launch-services-cmdline`
+passes `--start-as=fullscreen` when kitty starts from the Dock or Spotlight.
+`cmd+enter` toggles fullscreen, as in iTerm2.
+
+kitty sets `TERM=xterm-kitty`, and SSH passes that to the remote machine. tmux
+there refuses to start without the matching terminfo entry, so copy it across
+once per remote host:
+
+```bash
+infocmp -x xterm-kitty | ssh -T -o RemoteCommand=none <host> tic -x -o '~/.terminfo' /dev/stdin
+```
+
+After that, `ssh <host>` from kitty works as from iTerm2, `Host air` from the
+iTerm2 profiles section included.
+
 ## OBS Terminal Recording Setup
 
 1. **OBS**: Create scene → Add "Window Capture" source → Select Terminal window
