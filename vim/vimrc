@@ -85,8 +85,7 @@ Plug 'godlygeek/tabular'
 Plug 'scrooloose/nerdcommenter'
 
 " WhatsApp in Vim.
-Plug '~/repos/github/dwmkerr/gaspode/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make build' }
-
+Plug '~/repos/github/gaspode/whatsapp.nvim', { 'rtp': 'dist', 'do': 'make build' }
 
 " Initialize plugin system.
 call plug#end()
